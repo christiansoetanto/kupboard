@@ -60,13 +60,11 @@ const Clothings = () => {
 	console.log(filteredClothingList.length);
 	console.log("re-loaded");
 	return (
-		<div>
 			<Card className=''>
 				<AddClothing onAddClothing={addClothingHandler} />
 				<ClothingFilter clothingTags={clothingTags} onChangedFilter={changedFilterHandler} />
 				<ClothingList clothingList={filteredClothingList} />
 			</Card>
-		</div>
 	);
 };
 

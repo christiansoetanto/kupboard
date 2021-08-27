@@ -4,7 +4,7 @@ function Layout(props) {
 	return (
 		<div>
 			<MainNavigation />
-			<main className='m-1 w-11/12 max-w-2xl'>{props.children}</main>
+			<main className='p-2'>{props.children}</main>
 		</div>
 	);
 }

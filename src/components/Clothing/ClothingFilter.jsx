@@ -11,11 +11,11 @@ const ClothingFilter = (props) => {
   if (props.clothingTags.length === 0) return <div>div kosong? nantidipikirn lagi</div>;
   else
     return (
-      <ul className=''>
+      <div className='flex flex-start'>
         {props.clothingTags.map((item) => (
           <Tag key={item.id} id={item.id} label={item.label} isSelected={item.isSelected} onClickTag={clickTagHandler} />
         ))}
-      </ul>
+      </div>
     );
 };
 

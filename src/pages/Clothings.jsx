@@ -25,18 +25,26 @@ const Clothings = () => {
 		};
 
 		fetchClothings({ url: "clothing/1" }, transformClothings);
+		console.log("use effect FETCH clothing jalan");
 	}, [fetchClothings]);
 
-	const filteredClothingList = clothings.filter((item) => {
-		let selectedTags = tags
-			.filter((i) => {
-				return i.isSelected === true;
-			})
-			.map((i) => i.tagId);
+	useEffect(() => {
+		const filterClothings = () => {
+			const filteredClothingList = clothings.filter((item) => {
+				let selectedTags = tags
+					.filter((i) => {
+						return i.isSelected === true;
+					})
+					.map((i) => i.tagId);
 
-		if (selectedTags.length === 0) return true;
-		else return selectedTags.some((t) => item.tags.map((e) => e.tagId).indexOf(t) >= 0);
-	});
+				if (selectedTags.length === 0) return true;
+				else return selectedTags.some((t) => item.tags.map((e) => e.tagId).indexOf(t) >= 0);
+			});
+			setFilteredClothings(filteredClothingList);
+		};
+		filterClothings();
+		console.log("use effect FILTER clothing jalan");
+	}, [clothings, tags]);
 
 	//nanti ganti aja jadi apa kek
 	// .sort(function (a, b) {
@@ -49,7 +57,7 @@ const Clothings = () => {
 	return (
 		<Card className=''>
 			<TagFilter tags={tags} onChangedFilter={changedFilterHandler} />
-			<ClothingList clothingList={filteredClothingList} />
+			<ClothingList clothingList={filteretedClothings} />
 		</Card>
 	);
 };

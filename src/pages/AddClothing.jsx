@@ -1,6 +1,10 @@
 import React, { useRef } from "react";
-import Card from "../UI/Card";
+import Card from "../components/UI/Card";
+import useHttp from "../hooks/use-http";
+
 const AddClothing = (props) => {
+	const { isLoading, error, sendRequest: sendTaskRequest } = useHttp();
+
 	const nameInputRef = useRef();
 	const descriptionInputRef = useRef();
 	const categorySelectRef = useRef();
@@ -19,7 +23,9 @@ const AddClothing = (props) => {
 		};
 
 		console.log(newClothingData);
-		props.onAddClothing();
+
+		//redirect ke clothings di sini
+		window.location.href = "http://localhost:3000/clothings";
 	};
 
 	return (

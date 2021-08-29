@@ -1,9 +1,10 @@
-import "./App.css";
-import Clothings from "./components/Clothing/Clothings";
+import './App.css';
+import Clothings from './components/Clothing/Clothings';
 
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch } from 'react-router-dom';
 
-import Layout from "./components/Layouts/Layout";
+import Layout from './components/Layouts/Layout';
+import Login from './components/Login/Login';
 
 function App() {
 	return (
@@ -14,6 +15,9 @@ function App() {
 				</Route>
 				<Route path='/' exact>
 					<div>ini halaman home hehe</div>
+				</Route>
+				<Route path='/login' exact>
+					<Login />
 				</Route>
 			</Switch>
 		</Layout>

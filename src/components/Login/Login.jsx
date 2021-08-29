@@ -1,19 +1,19 @@
 import React from 'react';
-import { facebookProvider, googleProvider } from '../../configs/AuthMethod';
-import socialMediaAuth from './auth';
+import LoginForm from './LoginForm';
 
 const Login = () => {
-	const loginOnClick = async (provider) => {
-		const res = await socialMediaAuth(provider);
-		console.log(res);
-	};
-
 	return (
-		<div>
-			<button onClick={() => loginOnClick(facebookProvider)}>
-				Facebook
-			</button>
-			<button onClick={() => loginOnClick(googleProvider)}>Google</button>
+		<div className='flex flex-col md:flex-row md:space-x-4 space-y-6 md:space-y-0 justify-center items-center w-full md:w-5/6 px-6 py-12 mx-auto'>
+			<div className='flex items-center justify-center flex-1'>
+				<img
+					src={
+						require('../../assets/illustrations/undraw_authentication_fsn5.svg')
+							.default
+					}
+					alt=''
+				/>
+			</div>
+			<LoginForm />
 		</div>
 	);
 };

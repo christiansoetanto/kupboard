@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import Card from "./Card";
 const Tag = (props) => {
+	const { tagId, name, isSelected, onClickTag } = props;
 	const clickTagHandler = (e) => {
-		props.onClickTag({ tagId: props.tagId, name: props.name, isSelected: !props.isSelected });
+		onClickTag({ tagId: tagId, name: name, isSelected: !isSelected });
 	};
 	return (
 		<Card>
-			<div className=''>{props.name}</div>
-			<button onClick={clickTagHandler}>pencet ini untuk pilih, status isSelected = {props.isSelected.toString()}</button>
+			<div className=''>{name}</div>
+			<button onClick={clickTagHandler}>pencet ini untuk pilih, status isSelected = {isSelected.toString()}</button>
 		</Card>
 	);
 };

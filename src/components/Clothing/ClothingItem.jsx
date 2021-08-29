@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "../UI/Card";
 const ClothingItem = (props) => {
+	const { imageUrl, name, tags, category } = props.clothing;
 	return (
 		<div className='rounded shadow-xl bg-white border p-1'>
 			<div className='' id='picture'>
@@ -8,7 +9,7 @@ const ClothingItem = (props) => {
 			</div>
 
 			<div id='description'>
-				{props.name}, tagid = {props.tags.map((e) => e.tagId + ";")}
+				{name}, tagid = {tags.map((e) => e.tagId + ";")}, category = {category.name}
 			</div>
 		</div>
 	);

@@ -4,9 +4,9 @@ import AddClothing from "./pages/AddClothing";
 import AddOutfit from "./pages/AddOutfit";
 import Outfits from "./pages/Outfits";
 import { Route, Switch } from "react-router-dom";
-
-import Layout from './components/Layouts/Layout';
-import Login from './components/Login/Login';
+import UploadGambar from "./pages/UploadGambar";
+import Layout from "./components/Layouts/Layout";
+import Login from "./components/Login/Login";
 
 function App() {
 	return (
@@ -24,6 +24,10 @@ function App() {
 				</Route>
 				<Route path='/add-outfits' exact>
 					<AddOutfit />
+				</Route>
+
+				<Route path='/test' exact>
+					<UploadGambar />
 				</Route>
 
 				<Route path='/' exact>

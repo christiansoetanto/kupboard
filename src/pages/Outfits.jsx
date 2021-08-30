@@ -22,7 +22,6 @@ const Outfits = () => {
 			allTags.map((x) => (uniqueTags.filter((a) => a.tagId === x.tagId).length > 0 ? null : uniqueTags.push(x)));
 			setTags(uniqueTags);
 			setOutfits(returnData);
-			console.log(returnData);
 		};
 
 		fetchOutfits({ url: "outfit/1" }, transformOutfits);

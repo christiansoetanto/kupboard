@@ -8,10 +8,11 @@ const useHttp = () => {
 		setIsLoading(true);
 		setError(null);
 		try {
+			requestConfig.isJson = requestConfig.isJson ?? true;
 			const response = await fetch(process.env.REACT_APP_API_BASEURL + requestConfig.url, {
 				method: requestConfig.method ? requestConfig.method : "GET",
 				headers: requestConfig.headers ? requestConfig.headers : {},
-				body: requestConfig.body ? JSON.stringify(requestConfig.body) : null,
+				body: requestConfig.body ? (requestConfig.isJson ? JSON.stringify(requestConfig.body) : requestConfig.body) : null,
 			});
 
 			if (!response.ok) {

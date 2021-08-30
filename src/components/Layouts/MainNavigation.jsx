@@ -1,21 +1,20 @@
-import { Link, Route, a, NavLink } from 'react-router-dom';
+import { useContext } from 'react';
+import { Link, Route, a, NavLink, useHistory } from 'react-router-dom';
+import AuthContext from '../../contexts/auth-context';
 
 function MainNavigation() {
-	return (
-		// <header className='w-screen h-20 flex items-center justify-center p-1'>
-		/* <div>Kupboard</div>
-			<nav>
-				<ul>
-					<li>
-						<NavLink to='/'>Home</NavLink>
-						</li>
-						<li>
-						<NavLink to='/clothings'>Clothings</NavLink>
-						</li>
-						</ul>
-					</nav> */
 
-		// </header>
+	const ctx = useContext(AuthContext);
+
+	const history = useHistory();
+
+	const logoutHandler = () => {
+		ctx.onLogout();
+		history.push("/");
+	}
+
+
+	return (
 		<header className='md:px-16 h-16 md:h-24 px-6 bg-white flex flex-wrap items-center py-4 sticky top-0 shadow-sm z-10'>
 			<div className='flex flex-1 lg:flex-none items-center mr-6 pb-2'>
 				<NavLink to='/' className='font-bold text-2xl'>
@@ -68,19 +67,28 @@ function MainNavigation() {
 				</nav>
 				<nav className='flex'>
 					<div className='md:flex md:space-x-3 items-center justify-between text-base text-gray-700 pt-4 lg:pt-0'>
-						<NavLink
+						{ctx.user != null && <NavLink
+							className='md:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-orange-400'
+                            activeClassName='border-orange-400'
+							to='/profile'
+						>
+							{ctx.user.displayName}
+							</NavLink>}
+						{!ctx.isLoggedIn &&
+							<NavLink
 							className='md:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-orange-400'
                             activeClassName='border-orange-400'
 							to='/login'
 						>
 							Log in
-						</NavLink>
-						<NavLink
-							className='md:p-4 py-3 px-0 block border-2 border-transparent lg:border-orange-300 lg:focus:bg-orange-300 lg:focus:text-white rounded-md hover:bg-orange-300 hover:text-white'
-							to='/register'
+						</NavLink>}
+						{ctx.isLoggedIn && <NavLink
+							className='md:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-orange-400'
+							to='/'
+							onClick={logoutHandler}
 						>
-							Register
-						</NavLink>
+							Log Out
+						</NavLink>}
 					</div>
 				</nav>
 			</div>

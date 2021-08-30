@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { Redirect, Route } from "react-router-dom";
 
-import firebase from '../configs/firebase-config';
+import firebase from "../configs/firebase-config";
 
 const socialMediaAuth = (provider) => {
 	return firebase
@@ -27,18 +27,20 @@ export const AuthContextProvider = (props) => {
 	const [user, SetUser] = useState(null);
 
 	useEffect(() => {
-		const storedUserInformation = localStorage.getItem('user');
+		const storedUserInformation = localStorage.getItem("user");
+		console.log(storedUserInformation);
 		console.log(storedUserInformation == null);
 		if (storedUserInformation != null) {
-			console.log(storedUserInformation.displayName);
+			const storedUserInfo = JSON.parse(storedUserInformation);
+			console.log(storedUserInfo.displayName);
 			setIsLoggedIn(true);
-			SetUser(storedUserInformation)
+			SetUser(storedUserInfo);
 		}
 	}, []);
 
 	const logoutHandler = () => {
-		localStorage.removeItem('user');
-		console.log('logged out');
+		localStorage.removeItem("user");
+		console.log("logged out");
 		SetUser(null);
 		setIsLoggedIn(false);
 	};
@@ -47,7 +49,7 @@ export const AuthContextProvider = (props) => {
 		const tempUser = await socialMediaAuth(provider);
 		// console.log('hahahaha')
 		console.log(tempUser);
-		localStorage.setItem('user', tempUser);
+		localStorage.setItem("user", JSON.stringify(tempUser));
 		SetUser(tempUser);
 		setIsLoggedIn(true);
 	};
@@ -59,8 +61,7 @@ export const AuthContextProvider = (props) => {
 				onLogout: logoutHandler,
 				onLogin: loginHandler,
 				user: user,
-			}}
-		>
+			}}>
 			{props.children}
 		</AuthContext.Provider>
 	);

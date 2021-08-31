@@ -72,7 +72,7 @@ function MainNavigation() {
                             activeClassName='border-orange-400'
 							to='/profile'
 						>
-							{ctx.user.displayName}
+							<img src={ctx.user.photoURL} className="w-10 h-10 rounded-full" alt="" />
 							</NavLink>}
 						{!ctx.isLoggedIn &&
 							<NavLink

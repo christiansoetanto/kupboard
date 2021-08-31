@@ -18,7 +18,7 @@ const socialMediaAuth = (provider) => {
 const AuthContext = React.createContext({
 	isLoggedIn: false,
 	onLogout: () => {},
-	onLogin: (provider) => {},
+	onLogin: () => {},
 	user: null,
 });
 
@@ -28,8 +28,8 @@ export const AuthContextProvider = (props) => {
 
 	useEffect(() => {
 		const storedUserInformation = localStorage.getItem("user");
-		console.log(storedUserInformation);
-		console.log(storedUserInformation == null);
+		console.log(JSON.parse(storedUserInformation));
+		// console.log(storedUserInformation == null);
 		if (storedUserInformation != null) {
 			const storedUserInfo = JSON.parse(storedUserInformation);
 			console.log(storedUserInfo.displayName);
@@ -40,7 +40,7 @@ export const AuthContextProvider = (props) => {
 
 	const logoutHandler = () => {
 		localStorage.removeItem("user");
-		console.log("logged out");
+		// console.log("logged out");
 		SetUser(null);
 		setIsLoggedIn(false);
 	};
@@ -48,7 +48,7 @@ export const AuthContextProvider = (props) => {
 	const loginHandler = async (provider) => {
 		const tempUser = await socialMediaAuth(provider);
 		// console.log('hahahaha')
-		console.log(tempUser);
+		// console.log(tempUser);
 		localStorage.setItem("user", JSON.stringify(tempUser));
 		SetUser(tempUser);
 		setIsLoggedIn(true);

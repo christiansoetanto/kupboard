@@ -8,8 +8,8 @@ const LoginForm = () => {
 
 	const history = useHistory();
 
-	const loginHandler = async (provider) => {
-		await ctx.onLogin(provider);
+	const loginHandler = (provider) => {
+		ctx.onLogin(provider);
 		history.push("/");
 	}
 

@@ -48,14 +48,19 @@ export const AuthContextProvider = (props) => {
 		if(user == null)
 			return
 
-			
 		sendUserData({ url: 'user/' + user.uid }, (result) => {
 			// console.log(result.status)
+
+
+
+			// DISINI CEES HELP
 			if (result.status == 404){
 				console.log('asdasadas')
+				//lakukan registrasi
 			}
 			if (result.status == 200) {
 				console.log('hore berhasil')
+				//setUser(result)
 			}
 		});
 	}, [user]);

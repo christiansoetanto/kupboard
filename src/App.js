@@ -6,7 +6,7 @@ import Outfits from "./pages/Outfits";
 import { Route, Switch } from "react-router-dom";
 import UploadGambar from "./pages/UploadGambar";
 import Layout from "./components/Layouts/Layout";
-import Login from "./components/Login/Login";
+import Login from "./pages/Login";
 
 function App() {
 	return (

@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ClothingList from "../components/Clothing/ClothingList";
 import Card from "../components/UI/Card";
 import TagFilter from "../components/Filter/TagFilter";
 import useHttp from "../hooks/use-http";
 import CategoryFilter from "../components/Filter/CategoryFilter";
+import AuthContext from "../contexts/auth-context";
 const Clothings = () => {
 	const [tags, setTags] = useState([]);
 	const [clothings, setClothings] = useState([]);
@@ -12,6 +13,9 @@ const Clothings = () => {
 	const [filteretedClothings, setFilteredClothings] = useState([]);
 	const { fetchClothings_isLoading, fetchClothings_error, sendRequest: fetchClothings } = useHttp();
 	const { fetchCategories_isLoading, fetchCategories_error, sendRequest: fetchCategories } = useHttp();
+
+
+	const ctx = useContext(AuthContext);
 
 	useEffect(() => {
 		const transformClothings = (returnData) => {
@@ -28,7 +32,9 @@ const Clothings = () => {
 			setClothings(returnData);
 		};
 
-		fetchClothings({ url: "clothing/1" }, transformClothings);
+		// ini di comment untuk keperluan developing
+		// fetchClothings({ url: "clothing/" + ctx.user.uid}, transformClothings);
+		fetchClothings({ url: "clothing/" + "xu7Di7YPp4hvrN250XWwqcy7YVLY"}, transformClothings);
 		console.log("use effect FETCH clothing jalan");
 
 		fetchCategories({ url: "category" }, (returnData) => {

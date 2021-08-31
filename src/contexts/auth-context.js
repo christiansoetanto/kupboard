@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Redirect, Route } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { Redirect, Route } from 'react-router-dom';
 
-import firebase from "../configs/firebase-config";
+import firebase from '../configs/firebase-config';
+import useHttp from '../hooks/use-http';
 
 const socialMediaAuth = (provider) => {
 	return firebase
@@ -24,33 +25,51 @@ const AuthContext = React.createContext({
 
 export const AuthContextProvider = (props) => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const [user, SetUser] = useState(null);
+	const [user, setUser] = useState(null);
+	// const [storedUserInfo, setStoredUserInfo] = useState(null);
+
+	const {
+		isLoading: sendUser_isLoading,
+		error: sendUser_error,
+		sendRequest: sendUserData,
+	} = useHttp();
 
 	useEffect(() => {
-		const storedUserInformation = localStorage.getItem("user");
+		const storedUserInformation = localStorage.getItem('user');
 		console.log(JSON.parse(storedUserInformation));
-		// console.log(storedUserInformation == null);
 		if (storedUserInformation != null) {
 			const storedUserInfo = JSON.parse(storedUserInformation);
-			console.log(storedUserInfo.displayName);
 			setIsLoggedIn(true);
-			SetUser(storedUserInfo);
+			setUser(storedUserInfo);
 		}
 	}, []);
 
+	useEffect(() => {
+		if(user == null)
+			return
+
+			
+		sendUserData({ url: 'user/' + user.uid }, (result) => {
+			// console.log(result.status)
+			if (result.status == 404){
+				console.log('asdasadas')
+			}
+			if (result.status == 200) {
+				console.log('hore berhasil')
+			}
+		});
+	}, [user]);
+
 	const logoutHandler = () => {
-		localStorage.removeItem("user");
-		// console.log("logged out");
-		SetUser(null);
+		localStorage.removeItem('user');
+		setUser(null);
 		setIsLoggedIn(false);
 	};
 
 	const loginHandler = async (provider) => {
 		const tempUser = await socialMediaAuth(provider);
-		// console.log('hahahaha')
-		// console.log(tempUser);
-		localStorage.setItem("user", JSON.stringify(tempUser));
-		SetUser(tempUser);
+		localStorage.setItem('user', JSON.stringify(tempUser));
+		setUser(tempUser);
 		setIsLoggedIn(true);
 	};
 
@@ -61,7 +80,8 @@ export const AuthContextProvider = (props) => {
 				onLogout: logoutHandler,
 				onLogin: loginHandler,
 				user: user,
-			}}>
+			}}
+		>
 			{props.children}
 		</AuthContext.Provider>
 	);

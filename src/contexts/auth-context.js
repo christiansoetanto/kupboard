@@ -58,9 +58,10 @@ export const AuthContextProvider = (props) => {
 	const loginHandler = async (provider) => {
 		const tempUser = await socialMediaAuth(provider);
 
-		sendUserData({ url: "user/" + tempUser.uid }, async (result) => {
+		await sendUserData({ url: "user/" + tempUser.uid }, async (result) => {
 			console.log("hore berhasil");
 
+			console.log(result);
 			if (result.IsExists) {
 				localStorage.setItem("user", JSON.stringify(result.Data));
 				setUser(result.Data);

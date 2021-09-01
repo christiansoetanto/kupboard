@@ -37,7 +37,9 @@ const UploadGambar = (props) => {
 						onUploadError={handleUploadError}
 						onUploadSuccess={handleUploadSuccess}
 						onProgress={handleProgress}
-						style={{ backgroundColor: "steelblue", color: "white", padding: 10, borderRadius: 4 }}>
+						className='bg-gray-300'
+						// style={{ backgroundColor: "steelblue", color: "white", padding: 10, borderRadius: 4 }}
+					>
 						upload ur amazin clothin
 					</CustomUploadButton>
 				</form>

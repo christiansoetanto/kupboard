@@ -8,11 +8,16 @@ const useHttp = () => {
 		setIsLoading(true);
 		setError(null);
 		try {
-			requestConfig.isJson = requestConfig.isJson ?? true;
+			const isJson = requestConfig.isJson ?? true;
+			const body = requestConfig.body ? (isJson ? JSON.stringify(requestConfig.body) : requestConfig.body) : null;
+			let headers = requestConfig.headers ?? {};
+			if (!headers["Content-Type"]) {
+				headers["Content-Type"] = "application/json";
+			}
 			const response = await fetch(process.env.REACT_APP_API_BASEURL + requestConfig.url, {
 				method: requestConfig.method ? requestConfig.method : "GET",
-				headers: requestConfig.headers ? requestConfig.headers : {},
-				body: requestConfig.body ? (requestConfig.isJson ? JSON.stringify(requestConfig.body) : requestConfig.body) : null,
+				headers: headers,
+				body: body,
 			});
 
 			if (!response.ok) {

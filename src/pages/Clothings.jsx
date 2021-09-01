@@ -14,7 +14,6 @@ const Clothings = () => {
 	const { fetchClothings_isLoading, fetchClothings_error, sendRequest: fetchClothings } = useHttp();
 	const { fetchCategories_isLoading, fetchCategories_error, sendRequest: fetchCategories } = useHttp();
 
-
 	const ctx = useContext(AuthContext);
 
 	useEffect(() => {
@@ -34,7 +33,7 @@ const Clothings = () => {
 
 		// ini di comment untuk keperluan developing
 		// fetchClothings({ url: "clothing/" + ctx.user.uid}, transformClothings);
-		fetchClothings({ url: "clothing/" + "xu7Di7YPp4hvrN250XWwqcy7YVLY"}, transformClothings);
+		fetchClothings({ url: "clothing/" + "xu7Di7YPp4hvrN250XWwqcy7YVLY" }, transformClothings);
 		console.log("use effect FETCH clothing jalan");
 
 		fetchCategories({ url: "category" }, (returnData) => {

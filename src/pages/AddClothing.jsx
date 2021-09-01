@@ -1,8 +1,11 @@
 import React, { useRef } from "react";
 import Card from "../components/UI/Card";
 import useHttp from "../hooks/use-http";
+import { useHistory } from "react-router-dom";
 
 const AddClothing = (props) => {
+	const history = useHistory();
+
 	const { isLoading, error, sendRequest: sendTaskRequest } = useHttp();
 
 	const nameInputRef = useRef();
@@ -25,7 +28,7 @@ const AddClothing = (props) => {
 		console.log(newClothingData);
 
 		//redirect ke clothings di sini
-		window.location.href = "http://localhost:3000/clothings";
+		history.push("/clothings");
 	};
 
 	return (

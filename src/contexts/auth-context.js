@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Redirect, Route } from "react-router-dom";
 
-import firebase from '../configs/firebase-config';
-import useHttp from '../hooks/use-http';
+import firebase from "../configs/firebase-config";
+import useHttp from "../hooks/use-http";
 
 const socialMediaAuth = (provider) => {
 	return firebase
@@ -28,14 +28,10 @@ export const AuthContextProvider = (props) => {
 	const [user, setUser] = useState(null);
 	// const [storedUserInfo, setStoredUserInfo] = useState(null);
 
-	const {
-		isLoading: sendUser_isLoading,
-		error: sendUser_error,
-		sendRequest: sendUserData,
-	} = useHttp();
+	const { isLoading: sendUser_isLoading, error: sendUser_error, sendRequest: sendUserData } = useHttp();
 
 	useEffect(() => {
-		const storedUserInformation = localStorage.getItem('user');
+		const storedUserInformation = localStorage.getItem("user");
 		console.log(JSON.parse(storedUserInformation));
 		if (storedUserInformation != null) {
 			const storedUserInfo = JSON.parse(storedUserInformation);
@@ -45,30 +41,28 @@ export const AuthContextProvider = (props) => {
 	}, []);
 
 	const logoutHandler = () => {
-		localStorage.removeItem('user');
+		localStorage.removeItem("user");
 		setUser(null);
 		setIsLoggedIn(false);
 	};
 
 	const registerUser = async (data) => {
-		sendUserData(
-			{ url: 'user/', method: 'post', body: data},
-			(result) => {
-				localStorage.setItem('user', JSON.stringify(result.Data));
-				setUser(result.Data);
-				setIsLoggedIn(true);
-			}
-		);
+		console.log(data);
+		sendUserData({ url: "user/", method: "POST", body: { UserId: data.uid } }, (result) => {
+			localStorage.setItem("user", JSON.stringify(result.Data));
+			setUser(result.Data);
+			setIsLoggedIn(true);
+		});
 	};
 
 	const loginHandler = async (provider) => {
 		const tempUser = await socialMediaAuth(provider);
 
-		sendUserData({ url: 'user/' + tempUser.uid }, async (result) => {
-			console.log('hore berhasil');
+		sendUserData({ url: "user/" + tempUser.uid }, async (result) => {
+			console.log("hore berhasil");
 
 			if (result.IsExists) {
-				localStorage.setItem('user', JSON.stringify(result.Data));
+				localStorage.setItem("user", JSON.stringify(result.Data));
 				setUser(result.Data);
 				setIsLoggedIn(true);
 			} else {
@@ -84,8 +78,7 @@ export const AuthContextProvider = (props) => {
 				onLogout: logoutHandler,
 				onLogin: loginHandler,
 				user: user,
-			}}
-		>
+			}}>
 			{props.children}
 		</AuthContext.Provider>
 	);

@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import Card from "../components/UI/Card";
 import useHttp from "../hooks/use-http";
+import { useHistory } from "react-router-dom";
 
 const AddOutfit = (props) => {
 	const { isLoading, error, sendRequest: sendTaskRequest } = useHttp();

@@ -44,26 +44,6 @@ export const AuthContextProvider = (props) => {
 		}
 	}, []);
 
-	useEffect(() => {
-		if(user == null)
-			return
-
-		sendUserData({ url: 'user/' + user.uid }, (result) => {
-			// console.log(result.status)
-
-
-
-			// DISINI CEES HELP
-			if (result.status == 404){
-				console.log('asdasadas')
-				//lakukan registrasi
-			}
-			if (result.status == 200) {
-				console.log('hore berhasil')
-				//setUser(result)
-			}
-		});
-	}, [user]);
 
 	const logoutHandler = () => {
 		localStorage.removeItem('user');
@@ -73,9 +53,31 @@ export const AuthContextProvider = (props) => {
 
 	const loginHandler = async (provider) => {
 		const tempUser = await socialMediaAuth(provider);
-		localStorage.setItem('user', JSON.stringify(tempUser));
-		setUser(tempUser);
+
+		sendUserData({ url: 'user/' + tempUser.uid }, (result) => {
+			// console.log(result.status)
+
+
+
+			// DISINI CEES HELP
+			if (result.status == 404){
+				console.log('asdasadas')
+				//lakukan registrasi
+
+
+
+			}
+			if (result.status == 200) {
+				console.log('hore berhasil')
+				//set user di sini harusnya
+			}
+		});
+
+		localStorage.setItem('user', JSON.stringify(result));
+		setUser(result);
 		setIsLoggedIn(true);
+
+		
 	};
 
 	return (

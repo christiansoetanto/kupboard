@@ -44,40 +44,37 @@ export const AuthContextProvider = (props) => {
 		}
 	}, []);
 
-
 	const logoutHandler = () => {
 		localStorage.removeItem('user');
 		setUser(null);
 		setIsLoggedIn(false);
 	};
 
+	const registerUser = async (data) => {
+		sendUserData(
+			{ url: 'user/', method: 'post', body: data},
+			(result) => {
+				localStorage.setItem('user', JSON.stringify(result.Data));
+				setUser(result.Data);
+				setIsLoggedIn(true);
+			}
+		);
+	};
+
 	const loginHandler = async (provider) => {
 		const tempUser = await socialMediaAuth(provider);
 
-		sendUserData({ url: 'user/' + tempUser.uid }, (result) => {
-			// console.log(result.status)
+		sendUserData({ url: 'user/' + tempUser.uid }, async (result) => {
+			console.log('hore berhasil');
 
-
-
-			// DISINI CEES HELP
-			if (result.status == 404){
-				console.log('asdasadas')
-				//lakukan registrasi
-
-
-
-			}
-			if (result.status == 200) {
-				console.log('hore berhasil')
-				//set user di sini harusnya
+			if (result.IsExists) {
+				localStorage.setItem('user', JSON.stringify(result.Data));
+				setUser(result.Data);
+				setIsLoggedIn(true);
+			} else {
+				await registerUser(tempUser);
 			}
 		});
-
-		localStorage.setItem('user', JSON.stringify(result));
-		setUser(result);
-		setIsLoggedIn(true);
-
-		
 	};
 
 	return (

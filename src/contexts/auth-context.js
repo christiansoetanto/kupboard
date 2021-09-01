@@ -28,11 +28,10 @@ export const AuthContextProvider = (props) => {
 	const [user, setUser] = useState(null);
 	// const [storedUserInfo, setStoredUserInfo] = useState(null);
 
-	const { isLoading: sendUser_isLoading, error: sendUser_error, sendRequest: sendUserData } = useHttp();
+	const { isLoading, error, sendRequest } = useHttp();
 
 	useEffect(() => {
 		const storedUserInformation = localStorage.getItem("user");
-		console.log(JSON.parse(storedUserInformation));
 		if (storedUserInformation != null) {
 			const storedUserInfo = JSON.parse(storedUserInformation);
 			setIsLoggedIn(true);
@@ -47,27 +46,34 @@ export const AuthContextProvider = (props) => {
 	};
 
 	const registerUser = async (data) => {
-		console.log(data);
-		sendUserData({ url: "user/", method: "POST", body: { UserId: data.uid } }, (result) => {
-			localStorage.setItem("user", JSON.stringify(result.Data));
-			setUser(result.Data);
+
+		const dataToBeSent = {
+			UserId: data.uid,
+			Name: data.displayName,
+			Email: data.email,
+			PhotoURL: data.photoURL,
+			PhoneNumber: data.PhoneNumber,
+			ProviderId: data.providerData[0].providerId
+		}
+
+		await sendRequest({ url: "user/", method: "POST", body: dataToBeSent }, (result) => {
+			localStorage.setItem("user", JSON.stringify(result));
+			setUser(result);
 			setIsLoggedIn(true);
 		});
 	};
 
 	const loginHandler = async (provider) => {
 		const tempUser = await socialMediaAuth(provider);
-
-		await sendUserData({ url: "user/" + tempUser.uid }, async (result) => {
-			console.log("hore berhasil");
-
-			console.log(result);
-			if (result.IsExists) {
-				localStorage.setItem("user", JSON.stringify(result.Data));
-				setUser(result.Data);
+		await sendRequest({ url: "user/" + tempUser.uid }, async (result) => {
+			console.log(result)
+			if (result.isExists) {
+				localStorage.setItem("user", JSON.stringify(result.data));
+				setUser(result.data);
 				setIsLoggedIn(true);
 			} else {
 				await registerUser(tempUser);
+
 			}
 		});
 	};

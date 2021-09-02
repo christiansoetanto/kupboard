@@ -6,9 +6,11 @@ const Tag = (props) => {
 		onClickTag({ tagId: tagId, name: name, isSelected: !isSelected });
 	};
 	return (
-		<Card>
+		<Card className='p-5 m-5'>
 			<div className=''>{name}</div>
-			<button onClick={clickTagHandler}>pencet ini untuk pilih, status isSelected = {isSelected.toString()}</button>
+			<button type='button' onClick={clickTagHandler}>
+				pencet ini untuk pilih, status isSelected = {isSelected.toString()}
+			</button>
 		</Card>
 	);
 };

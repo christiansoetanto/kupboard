@@ -29,6 +29,7 @@ const Clothings = () => {
 			allTags.map((x) => (uniqueTags.filter((a) => a.tagId === x.tagId).length > 0 ? null : uniqueTags.push(x)));
 			setTags(uniqueTags);
 			setClothings(returnData);
+			console.log(uniqueTags);
 		};
 
 		// ini di comment untuk keperluan developing

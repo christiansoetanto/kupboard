@@ -21,7 +21,7 @@ const TagFilter = (props) => {
 				<Tag key='default' tagId='reset' name='reset' isSelected={false} onClickTag={clickTagHandler} />
 
 				{tags.map((item) => (
-					<Tag key={item.tagId} tagId={item.tagId} name={item.name} isSelected={item.isSelected} onClickTag={clickTagHandler} />
+					<Tag key={item.tagId} color={item.color} tagId={item.tagId} name={item.name} isSelected={item.isSelected} onClickTag={clickTagHandler} />
 				))}
 			</div>
 		);

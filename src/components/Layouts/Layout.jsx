@@ -8,7 +8,7 @@ function Layout(props) {
 
 	return (
 		<div>
-			{ctx.isLoggedIn && (
+			{ctx.isLoggedIn && ctx.user && (
 				<div>
 					<MainNavigation />
 					<main className='p-2'>{props.children}</main>

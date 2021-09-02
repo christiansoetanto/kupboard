@@ -28,7 +28,7 @@ export const AuthContextProvider = (props) => {
 	const [user, setUser] = useState(null);
 	// const [storedUserInfo, setStoredUserInfo] = useState(null);
 
-	const { isLoading, error, sendRequest } = useHttp();
+	const { sendRequest } = useHttp();
 
 	useEffect(() => {
 		const storedUserInformation = localStorage.getItem("user");
@@ -66,14 +66,13 @@ export const AuthContextProvider = (props) => {
 	const loginHandler = async (provider) => {
 		const tempUser = await socialMediaAuth(provider);
 		await sendRequest({ url: "user/" + tempUser.uid }, async (result) => {
-			console.log(result)
+			// console.log(result)
 			if (result.isExists) {
 				localStorage.setItem("user", JSON.stringify(result.data));
 				setUser(result.data);
 				setIsLoggedIn(true);
 			} else {
 				await registerUser(tempUser);
-
 			}
 		});
 	};

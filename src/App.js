@@ -31,7 +31,7 @@ function App() {
 				</Route>
 
 				<Route path='/' exact>
-					<div>ini halaman home hehe {process.env.REACT_APP_API_BASEURL}</div>
+					<div>ini halaman home hehe</div>
 				</Route>
 				<Route path='/login' exact>
 					<Login />

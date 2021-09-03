@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { Redirect, Route } from "react-router-dom";
 
@@ -31,16 +32,15 @@ export const AuthContextProvider = (props) => {
 	const { sendRequest } = useHttp();
 
 	useEffect(() => {
-		const storedUserInformation = localStorage.getItem("user");
-		if (storedUserInformation != null) {
-			const storedUserInfo = JSON.parse(storedUserInformation);
+		const storedUserInformation = Cookies.get('user');
+		if (storedUserInformation) {
 			setIsLoggedIn(true);
-			setUser(storedUserInfo);
+			setUser(JSON.parse(storedUserInformation));
 		}
 	}, []);
 
 	const logoutHandler = () => {
-		localStorage.removeItem("user");
+		Cookies.remove('user');
 		setUser(null);
 		setIsLoggedIn(false);
 	};
@@ -57,7 +57,8 @@ export const AuthContextProvider = (props) => {
 		}
 
 		await sendRequest({ url: "user/", method: "POST", body: dataToBeSent }, (result) => {
-			localStorage.setItem("user", JSON.stringify(result));
+			// localStorage.setItem("user", JSON.stringify(result));
+			Cookies.set('user', JSON.stringify(result.data), {expires: 7});
 			setUser(result);
 			setIsLoggedIn(true);
 		});
@@ -68,8 +69,9 @@ export const AuthContextProvider = (props) => {
 		await sendRequest({ url: "user/" + tempUser.uid }, async (result) => {
 			// console.log(result)
 			if (result.isExists) {
-				localStorage.setItem("user", JSON.stringify(result.data));
+				// localStorage.setItem("user", JSON.stringify(result.data));
 				setUser(result.data);
+				Cookies.set('user', JSON.stringify(result.data));
 				setIsLoggedIn(true);
 			} else {
 				await registerUser(tempUser);

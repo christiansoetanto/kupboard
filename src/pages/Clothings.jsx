@@ -79,11 +79,11 @@ const Clothings = () => {
 	};
 
 	return (
-		<Card className=''>
+		<div className='py-4 px-8'>
 			<CategoryFilter categories={categories} onChangedCategory={changedCategoryHandler} />
 			<TagFilter tags={tags} onChangedFilter={changedFilterHandler} />
 			<ClothingList clothingList={filteretedClothings} />
-		</Card>
+		</div>
 	);
 };
 

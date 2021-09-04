@@ -11,6 +11,7 @@ module.exports = {
 				teal: colors.teal,
 				lime: colors.lime,
 				orange: colors.orange,
+				warmGray: colors.warmGray
 			},
 			minWidth: {
 				'0': '0',

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 const CategoryFilter = (props) => {
 	const { categories, onChangedCategory } = props;
 	const changeCategoryHandler = (e) => {
@@ -7,15 +7,23 @@ const CategoryFilter = (props) => {
 
 	// const [selectedCategory, setSelectedCategory] = useState();
 
-	if (categories.length === 0) return <div>div kosong? nantidipikirn lagi</div>;
+	if (categories.length === 0)
+		return <div>div kosong? nantidipikirn lagi</div>;
 	else
 		return (
 			<div className='flex flex-start'>
-				<select onChange={changeCategoryHandler}>
+				<select
+					className='form-select py-1 rounded active:outline-none'
+					onChange={changeCategoryHandler}
+				>
 					<option key='0' value='0' label='Select category' />
 
 					{categories.map((item) => (
-						<option key={item.categoryId} value={item.categoryId} label={item.name} />
+						<option
+							key={item.categoryId}
+							value={item.categoryId}
+							label={item.name}
+						/>
 					))}
 				</select>
 			</div>

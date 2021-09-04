@@ -17,7 +17,7 @@ const TagFilter = (props) => {
 	if (tags.length === 0) return <div>div kosong? nantidipikirn lagi</div>;
 	else
 		return (
-			<div className='flex flex-start'>
+			<div className='flex flex-start overflow-scroll no-scrollbar'>
 				<Tag key='default' tagId='reset' name='reset' isSelected={false} onClickTag={clickTagHandler} />
 
 				{tags.map((item) => (

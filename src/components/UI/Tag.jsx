@@ -6,7 +6,7 @@ const Tag = (props) => {
 		onClickTag({ tagId: tagId, name: name, isSelected: !isSelected });
 	};
 	return (
-		<Card className={`flex content-start justify-between rounded-full py-1 mx-2 px-4 cursor-pointer ${isSelected && "bg-orange-400 text-white"}`} onClick={clickTagHandler}>
+		<Card className={`flex content-start justify-between whitespace-nowrap rounded-full py-1 mx-2 px-4 cursor-pointer ${isSelected && "bg-orange-400 text-white"}`} onClick={clickTagHandler}>
 			<div style={{ backgroundColor: { color } }} className={`h-full self-center flex-shrink rounded-full border-3 border-gray-900`}></div>
 			<div className=' self-center flex-grow border-3 border-red-900'>{name}</div>
 

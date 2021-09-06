@@ -32,7 +32,7 @@ const SelectTagList = (props) => {
 	return (
 		<div className='flex flex-start'>
 			{tags.map((item) => (
-				<Fragment>
+				<Fragment key={item.tagId}>
 					<Tag key={item.tagId} tagId={item.tagId} name={item.name} isSelected={item.isSelected} onClickTag={clickTagHandler} />
 					<button
 						type='button'

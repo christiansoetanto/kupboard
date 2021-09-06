@@ -151,21 +151,27 @@ const AddClothing = (props) => {
 							}}
 						/>
 					)}
-					<CustomUploadButton
-						accept='image/*'
-						name='avatar'
-						randomizeFilename
-						storageRef={firebase.storage().ref('images')}
-						onUploadStart={handleUploadStart}
-						onUploadError={handleUploadError}
-						onUploadSuccess={handleUploadSuccess}
-						onProgress={handleProgress}
-						className='bg-gray-300 p-5 m-5'
-					>
-						upload your image
-					</CustomUploadButton>
-					or{' '}
-					<button onClick={handleUseCamera}>use your camera</button>
+					<div className='text-center'>
+						<CustomUploadButton
+							accept='image/*'
+							name='avatar'
+							randomizeFilename
+							storageRef={firebase.storage().ref('images')}
+							onUploadStart={handleUploadStart}
+							onUploadError={handleUploadError}
+							onUploadSuccess={handleUploadSuccess}
+							onProgress={handleProgress}
+							className='cursor-pointer'
+						>
+							upload your image
+						</CustomUploadButton>
+						<br />
+						or
+						<br />
+						<button onClick={handleUseCamera}>
+							use your camera
+						</button>
+					</div>
 				</div>
 
 				<label className='block'>

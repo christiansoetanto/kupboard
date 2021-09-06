@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 const CategoryFilter = (props) => {
-	const { categories, onChangedCategory } = props;
+	const { categories, onChangedCategory, isLoading } = props;
 	const changeCategoryHandler = (e) => {
 		onChangedCategory(e.target.value);
 	};
 
 	// const [selectedCategory, setSelectedCategory] = useState();
-
+	if (isLoading)
+		return <div className='w-32 bg-gray-300 rounded'>&nbsp;</div>;
 	if (categories.length === 0)
-		return <div>div kosong? nantidipikirn lagi</div>;
+		return <div className=''>No data</div>;
 	else
 		return (
 			<div className='flex flex-start'>

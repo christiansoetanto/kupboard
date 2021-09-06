@@ -11,8 +11,8 @@ const Clothings = () => {
 	const [categories, setCategories] = useState([]);
 	const [selectedCategory, setSelectedCategory] = useState(0);
 	const [filteretedClothings, setFilteredClothings] = useState([]);
-	const { fetchClothings_isLoading, fetchClothings_error, sendRequest: fetchClothings } = useHttp();
-	const { fetchCategories_isLoading, fetchCategories_error, sendRequest: fetchCategories } = useHttp();
+	const { isLoading: fetchClothings_isLoading, fetchClothings_error, sendRequest: fetchClothings } = useHttp();
+	const { isLoading: fetchCategories_isLoading, fetchCategories_error, sendRequest: fetchCategories } = useHttp();
 
 	const ctx = useContext(AuthContext);
 
@@ -80,9 +80,9 @@ const Clothings = () => {
 
 	return (
 		<div className='py-4 px-8'>
-			<CategoryFilter categories={categories} onChangedCategory={changedCategoryHandler} />
-			<TagFilter tags={tags} onChangedFilter={changedFilterHandler} />
-			<ClothingList clothingList={filteretedClothings} />
+			<CategoryFilter categories={categories} onChangedCategory={changedCategoryHandler} isLoading={fetchCategories_isLoading}/>
+			<TagFilter tags={tags} onChangedFilter={changedFilterHandler} isLoading={fetchClothings_isLoading}/>
+			<ClothingList clothingList={filteretedClothings} isLoading={fetchClothings_isLoading}/>
 		</div>
 	);
 };

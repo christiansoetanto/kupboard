@@ -6,7 +6,6 @@ import firebase from 'firebase';
 import CustomUploadButton from 'react-firebase-file-uploader/lib/CustomUploadButton';
 import SelectTagList from '../components/SelectTag/SelectTagList';
 import CategoryFilter from '../components/Filter/CategoryFilter';
-
 import Camera from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css';
 
@@ -33,7 +32,6 @@ const AddClothing = (props) => {
 	const [imageUrl, setImageUrl] = useState('');
 	const [tags, setTags] = useState([]);
 	const [useCamera, setUseCamera] = useState(false);
-	const [capturedImage, setCapturedImage] = useState('');
 
 	const inputNameRef = useRef();
 
@@ -126,9 +124,7 @@ const AddClothing = (props) => {
 	};
 
 	function handleTakePhoto(dataUri) {
-		// Do stuff with the photo...
 		console.log('takePhoto');
-		// console.log(dataUri)
 		setImageUrl(dataUri);
 		setUseCamera(false);
 	}
@@ -138,20 +134,12 @@ const AddClothing = (props) => {
 		setUseCamera(!useCamera);
 	}
 
+
 	return (
-		<Card>
-			<form onSubmit={submitHandler}>
-				<div className='p-5 m-5 bg-gray-300 flex flex-col items-center justify-center'>
-					{isUploading && <p>Progress: {progress}</p>}
-					{imageUrl && <img src={imageUrl} />}
-					{useCamera && (
-						<Camera
-							onTakePhoto={(dataUri) => {
-								handleTakePhoto(dataUri);
-							}}
-						/>
-					)}
-					<div className='text-center'>
+		// <Card>
+			<form onSubmit={submitHandler} className='flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-2 justify-center items-center'>
+				<div className='pt-5 pb-2 px-2 flex flex-col items-center justify-center border-dashed border-2 rounded-lg border-orange-300 space-y-4 md:w-1/2'>
+					<div className='text-center flex justify-between items-center w-full space-x-2'>
 						<CustomUploadButton
 							accept='image/*'
 							name='avatar'
@@ -161,40 +149,53 @@ const AddClothing = (props) => {
 							onUploadError={handleUploadError}
 							onUploadSuccess={handleUploadSuccess}
 							onProgress={handleProgress}
-							className='cursor-pointer'
+							className='cursor-pointer flex-1 bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-semibold rounded-md py-4 px-2'
 						>
 							upload your image
 						</CustomUploadButton>
-						<br />
-						or
-						<br />
-						<button onClick={handleUseCamera}>
+						<span>or</span>
+						<button onClick={handleUseCamera} className='flex-1 bg-red-200 rounded-md py-4 px-2 bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-semibold'>
 							use your camera
 						</button>
 					</div>
+					<div className=' flex flex-col items-center justify-center' style={{maxHeight:'24rem'}}>
+						{isUploading && <p>Progress: {progress}</p>}
+						{imageUrl && <img src={imageUrl} className='h-full'/>}
+						{/* {imageUrl && <ImageCropper src={imageUrl} setImageUrl={setImageUrl} imageUrl={imageUrl} className='bg-red-200' style={{maxHeight:'50px'}}/>} */}
+						{useCamera && (
+							<Camera
+								onTakePhoto={(dataUri) => {
+									handleTakePhoto(dataUri);
+								}}
+							/>
+						)}
+					</div>
 				</div>
+								
+				<div className='w-full flex flex-col space-y-5'>
+					<label className='block'>
+						<span className='text-gray-700'>Clothing Name</span>
+						<input
+							className='form-input mt-1 block w-full rounded active:border-none border-none'
+							placeholder='Clothing Number 1'
+							ref={inputNameRef}
+						/>
+					</label>
 
-				<label className='block'>
-					<span className='text-gray-700'>Name</span>
-					<input
-						className='form-input mt-1 block w-full'
-						placeholder=''
-						ref={inputNameRef}
+					<SelectTagList tags={tags} onSelectedTag={selectTagHandler} />
+
+					<CategoryFilter
+						categories={categories}
+						onChangedCategory={changedCategoryHandler}
+						className='w-full'
 					/>
-				</label>
 
-				<SelectTagList tags={tags} onSelectedTag={selectTagHandler} />
-
-				<CategoryFilter
-					categories={categories}
-					onChangedCategory={changedCategoryHandler}
-				/>
-
-				<div>
-					<button>Add Clothings</button>
+					<div>
+						<button className='py-2 px-1 rounded border-2 border-purple-400'>Add Clothings</button>
+					</div>
 				</div>
 			</form>
-		</Card>
+		// </Card>
 	);
 };
 

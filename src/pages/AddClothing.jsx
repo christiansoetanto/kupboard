@@ -137,7 +137,7 @@ const AddClothing = (props) => {
 
 	return (
 		// <Card>
-			<form onSubmit={submitHandler} className='flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-2 justify-center items-center'>
+			<form onSubmit={submitHandler} className='flex flex-col md:flex-row md:items-stretch space-y-8 md:space-y-0 md:space-x-2 justify-center items-center'>
 				<div className='pt-5 pb-2 px-2 flex flex-col items-center justify-center border-dashed border-2 rounded-lg border-orange-300 space-y-4 md:w-1/2'>
 					<div className='text-center flex justify-between items-center w-full space-x-2'>
 						<CustomUploadButton
@@ -182,7 +182,11 @@ const AddClothing = (props) => {
 						/>
 					</label>
 
+					<hr />
+
 					<SelectTagList tags={tags} onSelectedTag={selectTagHandler} />
+								
+					<hr />
 
 					<CategoryFilter
 						categories={categories}
@@ -190,8 +194,8 @@ const AddClothing = (props) => {
 						className='w-full'
 					/>
 
-					<div>
-						<button className='py-2 px-1 rounded border-2 border-purple-400'>Add Clothings</button>
+					<div className='flex justify-end'>
+						<button className='py-2 px-1 w-1/3 hover:bg-purple-400 hover:text-white rounded border-2 border-purple-400'>Add Clothings</button>
 					</div>
 				</div>
 			</form>

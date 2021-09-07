@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 const CategoryFilter = (props) => {
-	const { categories, onChangedCategory, isLoading, className } = props;
+	const { categories, onChangedCategory, isLoading, className, selectedCategoryId } = props;
 	const changeCategoryHandler = (e) => {
 		onChangedCategory(e.target.value);
 	};
@@ -16,6 +16,7 @@ const CategoryFilter = (props) => {
 				<select
 					className={'form-select py-1 rounded active:outline-none ' + className}
 					onChange={changeCategoryHandler}
+					value={selectedCategoryId}
 				>
 					<option key='0' value='0' label='Select category' />
 
@@ -24,6 +25,7 @@ const CategoryFilter = (props) => {
 							key={item.categoryId}
 							value={item.categoryId}
 							label={item.name}
+							
 						/>
 					))}
 				</select>

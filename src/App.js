@@ -7,6 +7,7 @@ import { Route, Switch } from "react-router-dom";
 import UploadGambar from "./pages/UploadGambar";
 import Layout from "./components/Layouts/Layout";
 import Login from "./pages/Login";
+import ClothingDetail from "./pages/ClothingDetail";
 
 function App() {
 	return (
@@ -33,6 +34,11 @@ function App() {
 				<Route path='/' exact>
 					<div>ini halaman home hehe</div>
 				</Route>
+
+				<Route path='/clothings/:id'>
+					<ClothingDetail />
+				</Route>
+
 				<Route path='/login' exact>
 					<Login />
 				</Route>

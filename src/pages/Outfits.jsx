@@ -51,10 +51,10 @@ const Outfits = () => {
 	};
 
 	return (
-		<Card className=''>
+		<div className=''>
 			<TagFilter tags={tags} onChangedFilter={changedFilterHandler} />
 			<OutfitList outfitList={filteretedOutfits} />
-		</Card>
+		</div>
 	);
 };
 

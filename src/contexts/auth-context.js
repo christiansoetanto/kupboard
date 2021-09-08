@@ -58,7 +58,7 @@ export const AuthContextProvider = (props) => {
 
 		await sendRequest({ url: "user/", method: "POST", body: dataToBeSent }, (result) => {
 			// localStorage.setItem("user", JSON.stringify(result));
-			Cookies.set('user', JSON.stringify(result.data), {expires: 7});
+			Cookies.set('user', JSON.stringify(result.data), {expires: 365});
 			setUser(result);
 			setIsLoggedIn(true);
 		});
@@ -71,7 +71,7 @@ export const AuthContextProvider = (props) => {
 			if (result.isExists) {
 				// localStorage.setItem("user", JSON.stringify(result.data));
 				setUser(result.data);
-				Cookies.set('user', JSON.stringify(result.data));
+				Cookies.set('user', JSON.stringify(result.data), {expires: 365});
 				setIsLoggedIn(true);
 			} else {
 				await registerUser(tempUser);

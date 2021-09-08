@@ -79,7 +79,7 @@ const Clothings = () => {
 	};
 
 	return (
-		<div className='py-4 px-8'>
+		<div className='py-4'>
 			<CategoryFilter categories={categories} onChangedCategory={changedCategoryHandler} isLoading={fetchCategories_isLoading}/>
 			<TagFilter tags={tags} onChangedFilter={changedFilterHandler} isLoading={fetchClothings_isLoading}/>
 			<ClothingList clothingList={filteretedClothings} isLoading={fetchClothings_isLoading}/>

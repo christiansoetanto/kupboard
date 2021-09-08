@@ -11,7 +11,7 @@ function Layout(props) {
 			{ctx.isLoggedIn && ctx.user && (
 				<div>
 					<MainNavigation />
-					<main className='p-2 md:mx-32'>{props.children}</main>
+					<main className='p-2 md:mx-36'>{props.children}</main>
 				</div>
 			)}
 

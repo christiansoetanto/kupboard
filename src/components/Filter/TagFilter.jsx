@@ -20,7 +20,7 @@ const TagFilter = (props) => {
 
 	if (isLoading)
 		return (
-			<div className='flex flex-start overflow-scroll no-scrollbar mt-4 space-x-2'>
+			<div className='flex flex-start overflow-scroll no-scrollbar mt-4 mb-4 space-x-2'>
 				<div className='rounded-full w-24 bg-gray-200'>&nbsp;</div>
 				<div className='rounded-full w-20 bg-gray-200'>&nbsp;</div>
 				<div className='rounded-full w-32 bg-gray-200'>&nbsp;</div>

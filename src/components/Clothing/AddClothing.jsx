@@ -9,6 +9,8 @@ import "react-html5-camera-photo/build/css/index.css";
 import { v4 as uuidv4 } from "uuid";
 import { set } from "js-cookie";
 import FileUploader from "react-firebase-file-uploader";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 const AddClothing = (props) => {
 	const history = useHistory();
 
@@ -146,18 +148,51 @@ const AddClothing = (props) => {
 
 	const deleteHandler = (e) => {
 		e.preventDefault();
-		const confirmed = confirm("y g?!");
-		if (confirmed) {
-			sendRequest(
-				{
-					url: "clothing/" + "xu7Di7YPp4hvrN250XWwqcy7YVLY/" + props.clothingId,
-					method: "DELETE",
-				},
-				() => {
-					history.push("/clothings");
-				}
-			);
-		}
+		// const confirmed = confirm("y g?!");
+
+		confirmAlert({
+			customUI: ({ onClose }) => {
+			  return (
+				<div className="alert flex flex-col items-center space-y-4">
+				  <h1 className="alert__title">Are you sure?</h1>
+				  <p className="alert__body">You want to delete this clothing?</p>
+				  <div className='flex justify-between space-x-4'>
+					<button onClick={onClose} className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-300">No</button>
+					<button
+						onClick={() => {
+							sendRequest(
+								{
+									url: "clothing/" + "xu7Di7YPp4hvrN250XWwqcy7YVLY/" + props.clothingId,
+									method: "DELETE",
+								},
+								() => {
+									onClose();
+									history.push("/clothings");
+								}
+							);
+						}}
+						className="bg-red-700 text-white py-2 px-4 rounded hover:bg-red-500"
+					>
+						Yes, Delete it!
+					</button>
+				  </div>
+				</div>
+			  );
+			}
+		  });
+
+
+		// if (confirmed) {
+		// 	sendRequest(
+		// 		{
+		// 			url: "clothing/" + "xu7Di7YPp4hvrN250XWwqcy7YVLY/" + props.clothingId,
+		// 			method: "DELETE",
+		// 		},
+		// 		() => {
+		// 			history.push("/clothings");
+		// 		}
+		// 	);
+		// }
 	};
 
 	const handleTakePhoto = async (dataUri) => {
@@ -187,7 +222,7 @@ const AddClothing = (props) => {
 	return (
 		// <Card>
 		<div className='flex flex-col md:flex-row md:items-stretch space-y-8 md:space-y-0 md:space-x-2 justify-center items-center'>
-			<div className='pt-5 pb-2 px-2 flex flex-col items-center justify-center border-dashed border-2 rounded-lg border-orange-300 space-y-4 md:w-1/2'>
+			<div className='pt-5 pb-2 px-2 flex flex-col items-center justify-center border-dashed border-2 rounded-lg border-orange-300 space-y-4 md:w-1/3'>
 				<div className='text-center flex justify-between items-center w-full space-x-2'>
 					<label className='cursor-pointer flex-1 bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-semibold rounded-md py-4 px-2'>
 						Upload pic
@@ -226,7 +261,7 @@ const AddClothing = (props) => {
 				</div>
 			</div>
 
-			<div className='w-full flex flex-col space-y-5'>
+			<div className='flex flex-col space-y-5 w-2/3'>
 				<label className='block'>
 					<span className='text-gray-700'>Clothing Name</span>
 					<input className='form-input mt-1 block w-full rounded active:border-none border-none' placeholder='Clothing Number 1' ref={inputNameRef} />
@@ -240,15 +275,17 @@ const AddClothing = (props) => {
 
 				<CategoryFilter categories={categories} onChangedCategory={changedCategoryHandler} className='w-full' selectedCategoryId={selectedCategory} />
 
-				<div className='flex justify-end'>
-					<button onClick={submitHandler} className='py-2 px-1 w-1/3 hover:bg-purple-400 hover:text-white rounded border-2 border-purple-400'>
-						Add Clothings
-					</button>
+				<div className='flex justify-end px-0 md:px-11 space-x-4'>
 					{props.clothingId != null && props.clothingId != "" && (
-						<button onClick={deleteHandler} className='py-2 px-1 w-1/3 hover:bg-red-400 hover:text-white rounded border-2 border-red-400'>
-							Delete Clothings
-						</button>
+						<div onClick={deleteHandler} className='py-2 px-1 w-1/'>
+							<span onClick={deleteHandler} className='hover:text-red-700 hover:underline rounded cursor-pointer'>
+								Delete Clothings
+							</span>
+						</div>
 					)}
+					<button onClick={submitHandler} className='py-2 px-1 w-2/3 hover:bg-purple-400  font-semibold hover:text-white rounded border-2 border-purple-400'>
+						{ props.clothingId != null ? 'Update Clothing' : 'Add Clothing' }
+					</button>
 				</div>
 			</div>
 		</div>

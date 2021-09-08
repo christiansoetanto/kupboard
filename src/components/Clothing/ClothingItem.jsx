@@ -17,8 +17,8 @@ const ClothingItem = (props) => {
 
 			<div id='description flex flex-col justify-center'>
 				<div className='text-2xl font-semibold mb-4 text-center'>{name}</div>
-				<div>tagid = {tags.map((e) => e.tagId + "")}</div>
-				<div>category = {category.name}</div>
+				{/* <div>tagid = {tags.map((e) => e.tagId + "")}</div>
+				<div>category = {category.name}</div> */}
 			</div>
 		</div>
 	);

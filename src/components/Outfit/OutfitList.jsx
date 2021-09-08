@@ -7,9 +7,11 @@ const OutfitList = (props) => {
 	else
 		return (
 			<div className='grid grid-cols-2 md:grid-cols-4 gap-x-1 gap-y-3'>
-				<div className='rounded shadow-xl bg-white border p-1'>
-					<Link to='/add-outfit'>Add more Outfit?</Link>
-				</div>
+				<Link className='rounded shadow-xl bg-white border p-1 flex items-center justify-center w-full' to='/add-outfit'>
+				<div className='text-center font-semibold'>
+						Add More Outfit?
+					</div>
+				</Link>
 
 				{outfitList.map((item) => (
 					<OutfitItem key={item.outfitId} outfit={item} />

@@ -5,10 +5,10 @@ const OutfitItem = (props) => {
 	const { clothings, tags, outfitId } = props.outfit;
 	return (
 		<div className='rounded shadow-xl bg-white border p-1'>
-			<div className='flex flex-col space-y-1'>
-				<div style={{ maxWidth: '13rem' }}>
+			<div className='flex items-center justify-center'>
+				<div style={{ maxWidth: '13rem' }} className='flex flex-col space-y-1 items-center justify-start'>
 					{clothings.map((e) => (
-						<img src={e.imageUrl}></img>
+						<img src={e.imageUrl} style={{maxHeight:'15rem'}} />
 					))}
 				</div>
 			</div>

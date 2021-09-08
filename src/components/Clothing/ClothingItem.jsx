@@ -6,15 +6,13 @@ const ClothingItem = (props) => {
 	const history = useHistory();
 
 	const handleCardClick = () => {
-		history.push(`clothings/${clothingId}`)
-	}
-	
-	
+		history.push(`/clothings/${clothingId}`);
+	};
 
 	return (
 		<div className='rounded shadow-xl bg-white border p-1 flex flex-col items-center justify-center cursor-pointer' onClick={handleCardClick}>
 			<div className='' id='picture'>
-				<img src={imageUrl} style={{maxHeight:'15rem'}} alt='logo' />
+				<img src={imageUrl} style={{ maxHeight: "15rem" }} alt='logo' />
 			</div>
 
 			<div id='description flex flex-col justify-center'>

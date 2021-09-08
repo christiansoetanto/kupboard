@@ -14,14 +14,14 @@ const AddClothingTag = (props) => {
 		onClickEdit(tagId);
 	};
 
-	const deleteTagHandler = (tagId) => {
+	const deleteTagHandler = () => {
 		onClickDelete(tagId);
 	};
 
 	const saveTagHandler = () => {
 		console.log("save");
 
-		onSave({ tagId: tagId, name: nameRef.current.value });
+		onSave({ tagId: tagId, name: nameRef.current.value, color: colorRef.current.value });
 	};
 
 	const cancelEditTagHandler = () => {
@@ -29,10 +29,13 @@ const AddClothingTag = (props) => {
 	};
 
 	const nameRef = useRef();
+	const colorRef = useRef();
 	useEffect(() => {
 		if (isEdit) {
 			nameRef.current.value = name;
 			nameRef.current.focus();
+
+			colorRef.current.value = color;
 		}
 	}, [isEdit]);
 
@@ -41,7 +44,8 @@ const AddClothingTag = (props) => {
 			<div style={{ backgroundColor: { color } }} className={`h-full self-center flex-shrink rounded-full border-3 border-gray-900`}>
 				{isEdit && (
 					<div>
-						<input className=' self-center flex-grow border-3 border-red-900' type='text' ref={nameRef}></input>
+						<input type='color' ref={colorRef} className='rounded-full'></input>
+						<input className=' self-center flex-grow border-3 border-red-900 text-red-800' type='text' ref={nameRef}></input>
 						<div className='flex space-x-1.5 justify-start items-center'>
 							<SaveSvg onClick={saveTagHandler} />
 							<CancelSvg onClick={cancelEditTagHandler} />
@@ -56,6 +60,7 @@ const AddClothingTag = (props) => {
 						</div>
 
 						<div className='self-center flex-grow border-3 border-red-900' type='text' onClick={clickTagHandler}>
+							<input type='color' value={color} disabled={true} className='rounded-full'></input>
 							{name}
 						</div>
 					</div>

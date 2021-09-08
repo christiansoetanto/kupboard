@@ -30,15 +30,31 @@ const SelectTagList = (props) => {
 		newTags = tags.map((obj) => (tagId === obj.tagId ? { ...obj, isEdit: !obj.isEdit } : obj));
 		onSetTags(newTags);
 	};
-	const clickDeleteHandler = (id) => {
-		console.log("delete id: " + id);
+	const clickDeleteHandler = (tagId) => {
+		console.log("delete id: " + tagId);
+
+		sendRequest(
+			{
+				url: `tag/${"xu7Di7YPp4hvrN250XWwqcy7YVLY"}/${tagId}`,
+				method: "DELETE",
+			},
+			() => {
+				let newTags = [];
+				console.log(tagId);
+				newTags = tags.filter((obj) => tagId !== obj.tagId);
+
+				console.log(newTags);
+				onSetTags(newTags);
+			}
+		);
 	};
 
 	const saveHandler = (newTag) => {
+		console.log(newTag);
 		sendRequest(
 			{
-				url: "tag/update",
-				method: "POST",
+				url: `tag/${"xu7Di7YPp4hvrN250XWwqcy7YVLY"}/${newTag.tagId}`,
+				method: "PUT",
 				body: newTag,
 			},
 			(result) => {
@@ -55,19 +71,27 @@ const SelectTagList = (props) => {
 	const addNewTagHandler = (newTag) => {
 		sendRequest(
 			{
-				url: "tag/update",
+				url: `tag/${"xu7Di7YPp4hvrN250XWwqcy7YVLY"}`,
 				method: "POST",
 				body: newTag,
 			},
 			(result) => {
 				console.log(result);
-				let newTags = [];
-				newTags = tags.map((obj) => (result.tagId === obj.tagId ? { ...result, isEdit: false, isSelected: false } : obj));
+				let newTags = tags;
+				newTags.push({ ...result, isEdit: false, isSelected: false });
 				console.log(newTags);
-
+				setIsAddTag((prev) => {
+					return !prev;
+				});
 				onSetTags(newTags);
 			}
 		);
+	};
+
+	const cancelAddNewTagHandler = () => {
+		setIsAddTag((prev) => {
+			return !prev;
+		});
 	};
 
 	const cancelEditHandler = (tagId) => {
@@ -83,7 +107,7 @@ const SelectTagList = (props) => {
 					Add tag
 				</button>
 			</Card>
-			{isAddTag && <NewTag onAdd={addNewTagHandler} />}
+			{isAddTag && <NewTag onAdd={addNewTagHandler} onCancelAdd={cancelAddNewTagHandler} />}
 
 			{tags.map((item) => (
 				<Fragment key={item.tagId}>
@@ -91,6 +115,7 @@ const SelectTagList = (props) => {
 						key={item.tagId}
 						tagId={item.tagId}
 						name={item.name}
+						color={item.color}
 						isSelected={item.isSelected}
 						isEdit={item.isEdit}
 						onClickTag={clickTagHandler}

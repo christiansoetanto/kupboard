@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
-import ClothingList from "../components/Clothing/ClothingList";
-import Card from "../components/UI/Card";
-import TagFilter from "../components/Filter/TagFilter";
-import useHttp from "../hooks/use-http";
-import CategoryFilter from "../components/Filter/CategoryFilter";
-import AuthContext from "../contexts/auth-context";
+import ClothingList from "./ClothingList";
+import TagFilter from "../Filter/TagFilter";
+import useHttp from "../../hooks/use-http";
+import CategoryFilter from "../Filter/CategoryFilter";
+import AuthContext from "../../contexts/auth-context";
 const Clothings = () => {
 	const [tags, setTags] = useState([]);
 	const [clothings, setClothings] = useState([]);
@@ -29,18 +28,15 @@ const Clothings = () => {
 			allTags.map((x) => (uniqueTags.filter((a) => a.tagId === x.tagId).length > 0 ? null : uniqueTags.push(x)));
 			setTags(uniqueTags);
 			setClothings(returnData);
-			console.log(uniqueTags);
 		};
 
 		// ini di comment untuk keperluan developing
 		// fetchClothings({ url: "clothing/" + ctx.user.uid}, transformClothings);
 		fetchClothings({ url: "clothing/" + "xu7Di7YPp4hvrN250XWwqcy7YVLY" }, transformClothings);
-		console.log("use effect FETCH clothing jalan");
 
 		fetchCategories({ url: "category" }, (returnData) => {
 			setCategories(returnData);
 		});
-		console.log("use effect FETCH CATEGORIES jalan");
 	}, [fetchClothings, fetchCategories]);
 
 	useEffect(() => {
@@ -63,7 +59,6 @@ const Clothings = () => {
 			setFilteredClothings(filteredClothingList);
 		};
 		filterClothings();
-		console.log("use effect FILTER clothing jalan");
 	}, [clothings, tags, selectedCategory]);
 
 	//nanti ganti aja jadi apa kek
@@ -80,9 +75,9 @@ const Clothings = () => {
 
 	return (
 		<div className='py-4'>
-			<CategoryFilter categories={categories} onChangedCategory={changedCategoryHandler} isLoading={fetchCategories_isLoading}/>
-			<TagFilter tags={tags} onChangedFilter={changedFilterHandler} isLoading={fetchClothings_isLoading}/>
-			<ClothingList clothingList={filteretedClothings} isLoading={fetchClothings_isLoading}/>
+			<CategoryFilter categories={categories} onChangedCategory={changedCategoryHandler} isLoading={fetchCategories_isLoading} />
+			<TagFilter tags={tags} onChangedFilter={changedFilterHandler} isLoading={fetchClothings_isLoading} />
+			<ClothingList clothingList={filteretedClothings} isLoading={fetchClothings_isLoading} />
 		</div>
 	);
 };

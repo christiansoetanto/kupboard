@@ -14,7 +14,7 @@ const CategoryFilter = (props) => {
 		return (
 			<div className='flex flex-start'>
 				<select
-					className={'form-select py-1 rounded focus:outline-none ' + className}
+					className={' form-select bg-transparent py-2 rounded focus:outline-none ' + className}
 					onChange={changeCategoryHandler}
 					value={selectedCategoryId}
 				>

@@ -22,7 +22,6 @@ const AddClothingTag = (props) => {
 		onClickTag({ tagId: tagId, name: name, isSelected: !isSelected });
 	};
 	const editTagHandler = () => {
-		console.log('ya edit');
 		onClickEdit(tagId);
 	};
 
@@ -31,7 +30,6 @@ const AddClothingTag = (props) => {
 	};
 
 	const saveTagHandler = () => {
-		console.log('save');
 
 		onSave({
 			tagId: tagId,

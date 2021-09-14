@@ -5,10 +5,8 @@ const OutfitItem = (props) => {
 	const { clothings, tags, outfitId } = props.outfit;
 	const [hat, setHat] = useState('https://img.icons8.com/dotty/80/000000/trilby.png');
 	const [shirt, setShirt] = useState('https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/000000/external-shirt-hygiene-kiranshastry-lineal-kiranshastry-2.png');
-	const [pants, setPants] = useState('https://img.icons8.com/external-vitaliy-gorbachev-lineal-vitaly-gorbachev/60/000000/external-pants-clothes-vitaliy-gorbachev-lineal-vitaly-gorbachev.png');
+	const [pants, setPants] = useState('https://img.icons8.com/external-vitaliy-gorbachev-lineal-vitaly-gorbachev/60/000000/external-pants-clothes-vitaliy-gorbachev-lineal-vitaly-gorbachev-1.png');
 	const [footwear, setFootwear] = useState('https://img.icons8.com/ios/50/000000/mens-shoe.png');
-
-	console.log(clothings);
 
 	useEffect(() => {
 		const hat = clothings.filter((e) => e.category.categoryId == 3);

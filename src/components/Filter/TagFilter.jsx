@@ -4,7 +4,6 @@ const TagFilter = (props) => {
 	const { tags, onChangedFilter, isLoading } = props;
 	const clickTagHandler = (tag) => {
 		let updatedTags = [];
-		console.log(tag.tagId);
 		if (tag.tagId === 'reset') {
 			updatedTags = tags.map((obj) => ({ ...obj, isSelected: false }));
 		} else {

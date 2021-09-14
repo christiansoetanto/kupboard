@@ -12,7 +12,7 @@ module.exports = {
 				lime: colors.lime,
 				orange: colors.orange,
 				warmGray: colors.warmGray,
-				amber: colors.amber
+				amber: colors.amber,
 			},
 			minWidth: {
 				0: '0',

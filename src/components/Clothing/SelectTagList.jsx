@@ -1,12 +1,16 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import useHttp from "../../hooks/use-http";
 import AddClothingTag from "./AddClothingTag";
 import NewTag from "./NewTag";
 import Card from "../UI/Card";
+import AuthContext from "../../contexts/auth-context";
 const SelectTagList = (props) => {
 	const { tags, onSetTags } = props;
 	const [isAddTag, setIsAddTag] = useState(false);
 	const { isLoading, error, sendRequest } = useHttp();
+	const ctx = useContext(AuthContext);
+
+
 	const clickTagHandler = (tag) => {
 		console.log(tag.tagId);
 		let selectedTags = [];
@@ -35,7 +39,7 @@ const SelectTagList = (props) => {
 
 		sendRequest(
 			{
-				url: `tag/${"xu7Di7YPp4hvrN250XWwqcy7YVLY"}/${tagId}`,
+				url: `tag/${ctx.user.userId}/${tagId}`,
 				method: "DELETE",
 			},
 			() => {
@@ -53,12 +57,11 @@ const SelectTagList = (props) => {
 		console.log(newTag);
 		sendRequest(
 			{
-				url: `tag/${"xu7Di7YPp4hvrN250XWwqcy7YVLY"}/${newTag.tagId}`,
+				url: `tag/${ctx.user.userId}/${newTag.tagId}`,
 				method: "PUT",
 				body: newTag,
 			},
 			(result) => {
-				console.log(result);
 				let newTags = [];
 				newTags = tags.map((obj) => (result.tagId === obj.tagId ? { ...result, isEdit: false, isSelected: false } : obj));
 				console.log(newTags);
@@ -71,12 +74,11 @@ const SelectTagList = (props) => {
 	const addNewTagHandler = (newTag) => {
 		sendRequest(
 			{
-				url: `tag/${"xu7Di7YPp4hvrN250XWwqcy7YVLY"}`,
+				url: `tag/${ctx.user.userId}`,
 				method: "POST",
 				body: newTag,
 			},
 			(result) => {
-				console.log(result);
 				let newTags = tags;
 				newTags.push({ ...result, isEdit: false, isSelected: false });
 				console.log(newTags);

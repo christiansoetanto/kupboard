@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useContext } from 'react';
 import useHttp from '../../hooks/use-http';
 import { useHistory } from 'react-router-dom';
 import firebase from 'firebase';
@@ -11,6 +11,7 @@ import { set } from 'js-cookie';
 import FileUploader from 'react-firebase-file-uploader';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import AuthContext from '../../contexts/auth-context';
 const AddClothing = (props) => {
 	const history = useHistory();
 
@@ -34,6 +35,8 @@ const AddClothing = (props) => {
 	const [tags, setTags] = useState([]);
 	const [useCamera, setUseCamera] = useState(false);
 	const [clothingTags, setClothingTags] = useState([]);
+
+	const ctx = useContext(AuthContext);
 
 	const inputNameRef = useRef();
 
@@ -60,7 +63,7 @@ const AddClothing = (props) => {
 
 	useEffect(async () => {
 		await fetchTags(
-			{ url: 'tag/xu7Di7YPp4hvrN250XWwqcy7YVLY' },
+			{ url: `tag/${ctx.user.userId}` },
 			(returnData) => {
 				const allTags = [];
 				for (const e of returnData) {
@@ -84,10 +87,7 @@ const AddClothing = (props) => {
 		if (props.clothingId != null && props.clothingId != '')
 			await sendRequest(
 				{
-					url:
-						'clothing/' +
-						'xu7Di7YPp4hvrN250XWwqcy7YVLY/' +
-						props.clothingId,
+					url: `clothing/${ctx.user.userId}/${props.clothingId}`,
 				},
 				async (result) => {
 					setImageUrl(result.imageUrl);
@@ -143,9 +143,7 @@ const AddClothing = (props) => {
 		if (props.clothingId != null && props.clothingId != '')
 			sendRequest(
 				{
-					url:
-						'clothing/xu7Di7YPp4hvrN250XWwqcy7YVLY/' +
-						props.clothingId,
+					url: `clothing/${ctx.user.userId}/${props.clothingId}`,
 					method: 'PUT',
 					body: newClothingData,
 				},
@@ -156,7 +154,7 @@ const AddClothing = (props) => {
 		else
 			sendRequest(
 				{
-					url: 'clothing/xu7Di7YPp4hvrN250XWwqcy7YVLY',
+					url: `clothing/${ctx.user.userId}`,
 					method: 'POST',
 					body: newClothingData,
 				},
@@ -191,10 +189,8 @@ const AddClothing = (props) => {
 								onClick={() => {
 									sendRequest(
 										{
-											url:
-												'clothing/' +
-												'xu7Di7YPp4hvrN250XWwqcy7YVLY/' +
-												props.clothingId,
+											url: `clothing/${ctx.user.userId}/
+												${props.clothingId}`,
 											method: 'DELETE',
 										},
 										() => {
@@ -212,18 +208,6 @@ const AddClothing = (props) => {
 				);
 			},
 		});
-
-		// if (confirmed) {
-		// 	sendRequest(
-		// 		{
-		// 			url: "clothing/" + "xu7Di7YPp4hvrN250XWwqcy7YVLY/" + props.clothingId,
-		// 			method: "DELETE",
-		// 		},
-		// 		() => {
-		// 			history.push("/clothings");
-		// 		}
-		// 	);
-		// }
 	};
 
 	const handleTakePhoto = async (dataUri) => {
@@ -299,7 +283,9 @@ const AddClothing = (props) => {
 			<div className='flex flex-col space-y-5 w-2/3'>
 				<div className='flex flex-col md:flex-row items-center justify-center md: space-x-2'>
 					<label className='block w-1/2'>
-						<span className='text-gray-500 text-sm '>Clothing Name</span>
+						<span className='text-gray-500 text-sm '>
+							Clothing Name
+						</span>
 						<input
 							className=' mt-1 block w-full py-2 focus:outline-none border-0 bg-transparent border-b-2 border-gray-600 text-lg'
 							placeholder='Clothing Number 1'

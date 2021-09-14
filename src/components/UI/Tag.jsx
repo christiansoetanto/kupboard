@@ -7,10 +7,10 @@ const Tag = (props) => {
 	};
 	return (
 		<Card className={`flex content-start justify-between whitespace-nowrap rounded-full py-1 px-4 cursor-pointer ${isSelected && "bg-orange-400 text-white"}`}>
-			<div style={{ backgroundColor: { color } }} className={`h-full self-center flex-shrink rounded-full border-3 border-gray-900`}>
+			<div style={{ backgroundColor: { color } }} className={`h-full self-center flex-shrink rounded-full`}>
 				<div className={`flex flex-nowrap space-x-1 `}>
 					<div className=' flex items-center' type='text' onClick={clickTagHandler}>
-						<div className='rounded-full overflow-hidden w-6 h-6 mr-1 border-2 border-gray-900'>
+						<div className={`rounded-full overflow-hidden w-6 h-6 mr-1 ${tagId != 'reset' && 'border'} border-gray-900`}>
 							<input
 								type='color'
 								value={color}

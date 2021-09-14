@@ -32,7 +32,7 @@ const Clothings = () => {
 
 		// ini di comment untuk keperluan developing
 		// fetchClothings({ url: "clothing/" + ctx.user.uid}, transformClothings);
-		fetchClothings({ url: "clothing/" + "xu7Di7YPp4hvrN250XWwqcy7YVLY" }, transformClothings);
+		fetchClothings({ url: `clothing/${ctx.user.userId}` }, transformClothings);
 
 		fetchCategories({ url: "category" }, (returnData) => {
 			setCategories(returnData);

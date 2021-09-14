@@ -152,34 +152,17 @@ const AddOutfit = (props) => {
 			<div className='grid grid-cols-2 '>
 				<div className='grid grid-rows gap-x-1 gap-y-3 border-8 p-3 m-3'>
 					utama
-					<div
-						className='rounded shadow-xl bg-gray-300 border p-1 flex items-center justify-center w-96 h-96'
-						onClick={() => {
-							getClothing(3);
-						}}>
-						{selectedTopi ? <img src={selectedTopi.imageUrl} className='w-32 h-32'></img> : <div>add topi</div>}
-					</div>
-					<div
-						className='rounded shadow-xl bg-gray-300 border p-1 flex items-center justify-center w-96 h-96'
-						onClick={() => {
-							getClothing(2);
-						}}>
-						{selectedBaju ? <img src={selectedBaju.imageUrl} className='w-32 h-32'></img> : <div>add baju</div>}
-					</div>
-					<div
-						className='rounded shadow-xl bg-gray-300 border p-1 flex items-center justify-center w-96 h-96'
-						onClick={() => {
-							getClothing(1);
-						}}>
-						{selectedCelana ? <img src={selectedCelana.imageUrl} className='w-32 h-32'></img> : <div>add celana</div>}
-					</div>
-					<div
-						className='rounded shadow-xl bg-gray-300 border p-1 flex items-center justify-center w-96 h-96'
-						onClick={() => {
-							getClothing(4);
-						}}>
-						{selectedAlasKaki ? <img src={selectedAlasKaki.imageUrl} className='w-32 h-32'></img> : <div>add alas kaki</div>}
-					</div>
+					{primaryCategories.map((e) => {
+						return (
+							<div
+								className='rounded shadow-xl bg-gray-300 border p-1 flex items-center justify-center w-36 h-36'
+								onClick={() => {
+									getClothing(e.categoryId);
+								}}>
+								{e.state ? <img src={e.state.imageUrl} className='w-32 h-32'></img> : <div>Add {e.categoryName}</div>}
+							</div>
+						);
+					})}
 				</div>
 				<div className='grid grid-rows gap-x-1 gap-y-3 border-8 p-3 m-3'>
 					opsional
@@ -188,7 +171,7 @@ const AddOutfit = (props) => {
 							return (
 								<div
 									key={e.id}
-									className='rounded shadow-xl bg-gray-300 border p-1 flex items-center justify-center w-96 h-96'
+									className='rounded shadow-xl bg-gray-300 border p-1 flex items-center justify-center w-36 h-36'
 									onClick={() => {
 										getSecondaryClothings(e.id);
 									}}>
@@ -197,7 +180,7 @@ const AddOutfit = (props) => {
 							);
 						})}
 					<div
-						className='rounded shadow-xl bg-gray-300 border p-1 flex items-center justify-center w-96 h-96'
+						className='rounded shadow-xl bg-gray-300 border p-1 flex items-center justify-center w-36 h-36'
 						onClick={() => {
 							getSecondaryClothings();
 						}}>

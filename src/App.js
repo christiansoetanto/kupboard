@@ -1,12 +1,11 @@
 import "./App.css";
 import Clothings from "./components/Clothing/Clothings";
 import AddClothing from "./components/Clothing/AddClothing";
-import AddOutfit from "./pages/AddOutfit";
-import Outfits from "./pages/Outfits";
+import AddOutfit from "./components/Outfit/AddOutfit";
+import Outfits from "./components/Outfit/Outfits";
 import { Route, Switch } from "react-router-dom";
 import Layout from "./components/Layouts/Layout";
-import Login from "./pages/Login";
-
+import Login from "./components/Login/Login";
 import ClothingDetail from "./components/Clothing/ClothingDetail";
 function App() {
 	return (
@@ -22,7 +21,7 @@ function App() {
 				<Route path='/outfits' exact>
 					<Outfits />
 				</Route>
-				<Route path='/add-outfits' exact>
+				<Route path='/add-outfit' exact>
 					<AddOutfit />
 				</Route>
 

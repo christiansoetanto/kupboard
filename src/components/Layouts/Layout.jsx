@@ -1,7 +1,7 @@
-import { useContext } from 'react';
-import AuthContext from '../../contexts/auth-context';
-import MainNavigation from './MainNavigation';
-import Login from '../../pages/Login';
+import { useContext } from "react";
+import AuthContext from "../../contexts/auth-context";
+import MainNavigation from "./MainNavigation";
+import Login from "../Login/Login";
 
 function Layout(props) {
 	const ctx = useContext(AuthContext);

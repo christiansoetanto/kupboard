@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import OutfitList from "../components/Outfit/OutfitList";
-import Card from "../components/UI/Card";
-import TagFilter from "../components/Filter/TagFilter";
-import useHttp from "../hooks/use-http";
+import TagFilter from "../Filter/TagFilter";
+import useHttp from "../../hooks/use-http";
+import OutfitList from "./OutfitList";
 const Outfits = () => {
 	const [tags, setTags] = useState([]);
 	const [outfits, setOutfits] = useState([]);

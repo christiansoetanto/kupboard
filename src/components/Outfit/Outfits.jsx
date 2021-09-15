@@ -54,12 +54,17 @@ const Outfits = () => {
 
 	return (
 		<div className=''>
-			<TagFilter tags={tags} onChangedFilter={changedFilterHandler} isLoading={fetchOutfits_isLoading}/>
-			<Link className='rounded shadow-xl bg-white border p-1 flex items-center justify-center w-full' to='/add-outfit'>
-				<div className='text-center font-semibold'>Add More Outfit?</div>
-			</Link>
+			<TagFilter tags={tags} onChangedFilter={changedFilterHandler} isLoading={fetchOutfits_isLoading} />
+			
+			
+			<div className='grid grid-cols-2 md:grid-cols-4 gap-x-1 gap-y-3'>
+				<Link className='rounded shadow-xl bg-white border p-1 flex items-center justify-center w-full' to='/add-outfit'>
+					<div className='text-center font-semibold'>Add More Outfit?</div>
+				</Link>
 
-			<OutfitList outfitList={filteretedOutfits} isLoading={fetchOutfits_isLoading} />
+				<OutfitList outfitList={filteretedOutfits} isLoading={fetchOutfits_isLoading} />
+			</div>
+		
 		</div>
 	);
 };

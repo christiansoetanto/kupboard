@@ -79,10 +79,12 @@ const Clothings = () => {
 		<div className='py-4'>
 			<CategoryFilter categories={categories} onChangedCategory={changedCategoryHandler} isLoading={fetchCategories_isLoading} />
 			<TagFilter tags={tags} onChangedFilter={changedFilterHandler} isLoading={fetchClothings_isLoading} />
-			<Link className='rounded shadow-xl bg-white border p-1 flex items-center justify-center w-full' to='/add-clothing'>
-				<div className='text-center font-semibold'>Add more clothing?</div>
-			</Link>
-			<ClothingList clothingList={filteretedClothings} isLoading={fetchClothings_isLoading} />
+			<div className='grid grid-cols-2 md:grid-cols-4 gap-x-1 gap-y-3'>
+				<Link className='rounded shadow-xl bg-white border p-1 flex items-center justify-center w-full' to='/add-clothing'>
+					<div className='text-center font-semibold'>Add more clothing?</div>
+				</Link>
+				<ClothingList clothingList={filteretedClothings} isLoading={fetchClothings_isLoading} />
+			</div>
 		</div>
 	);
 };

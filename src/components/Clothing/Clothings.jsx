@@ -4,6 +4,8 @@ import TagFilter from "../Filter/TagFilter";
 import useHttp from "../../hooks/use-http";
 import CategoryFilter from "../Filter/CategoryFilter";
 import AuthContext from "../../contexts/auth-context";
+import { Link } from "react-router-dom";
+
 const Clothings = () => {
 	const [tags, setTags] = useState([]);
 	const [clothings, setClothings] = useState([]);
@@ -77,6 +79,9 @@ const Clothings = () => {
 		<div className='py-4'>
 			<CategoryFilter categories={categories} onChangedCategory={changedCategoryHandler} isLoading={fetchCategories_isLoading} />
 			<TagFilter tags={tags} onChangedFilter={changedFilterHandler} isLoading={fetchClothings_isLoading} />
+			<Link className='rounded shadow-xl bg-white border p-1 flex items-center justify-center w-full' to='/add-clothing'>
+				<div className='text-center font-semibold'>Add more clothing?</div>
+			</Link>
 			<ClothingList clothingList={filteretedClothings} isLoading={fetchClothings_isLoading} />
 		</div>
 	);

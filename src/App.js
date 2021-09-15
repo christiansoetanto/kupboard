@@ -7,6 +7,7 @@ import { Route, Switch } from "react-router-dom";
 import Layout from "./components/Layouts/Layout";
 import Login from "./components/Login/Login";
 import ClothingDetail from "./components/Clothing/ClothingDetail";
+import OutfitDetail from "./components/Outfit/OutfitDetail";
 function App() {
 	return (
 		<Layout>
@@ -31,6 +32,10 @@ function App() {
 
 				<Route path='/clothings/:id'>
 					<ClothingDetail />
+				</Route>
+
+				<Route path='/outfits/:id'>
+					<OutfitDetail />
 				</Route>
 
 				<Route path='/login' exact>

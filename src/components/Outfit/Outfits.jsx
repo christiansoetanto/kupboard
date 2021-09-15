@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import TagFilter from "../Filter/TagFilter";
 import useHttp from "../../hooks/use-http";
 import OutfitList from "./OutfitList";
+import AuthContext from "../../contexts/auth-context";
+import { Link } from "react-router-dom";
+
 const Outfits = () => {
+	const ctx = useContext(AuthContext);
+
 	const [tags, setTags] = useState([]);
 	const [outfits, setOutfits] = useState([]);
 	const [filteretedOutfits, setFilteredOutfits] = useState([]);
@@ -23,8 +28,7 @@ const Outfits = () => {
 			setOutfits(returnData);
 		};
 
-		fetchOutfits({ url: "outfit/1" }, transformOutfits);
-		console.log("use effect FETCH Outfit jalan");
+		fetchOutfits({ url: "outfit/" + ctx.user.userId }, transformOutfits);
 	}, [fetchOutfits]);
 
 	useEffect(() => {
@@ -42,7 +46,6 @@ const Outfits = () => {
 			setFilteredOutfits(filteredOutfitList);
 		};
 		filterOutfits();
-		console.log("use effect FILTER Outfit jalan");
 	}, [outfits, tags]);
 
 	const changedFilterHandler = (params) => {
@@ -51,8 +54,12 @@ const Outfits = () => {
 
 	return (
 		<div className=''>
-			<TagFilter tags={tags} onChangedFilter={changedFilterHandler} />
-			<OutfitList outfitList={filteretedOutfits} />
+			<TagFilter tags={tags} onChangedFilter={changedFilterHandler} isLoading={fetchOutfits_isLoading}/>
+			<Link className='rounded shadow-xl bg-white border p-1 flex items-center justify-center w-full' to='/add-outfit'>
+				<div className='text-center font-semibold'>Add More Outfit?</div>
+			</Link>
+
+			<OutfitList outfitList={filteretedOutfits} isLoading={fetchOutfits_isLoading} />
 		</div>
 	);
 };

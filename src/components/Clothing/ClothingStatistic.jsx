@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ClothingStatistics = () => {
+const ClothingStatistic = () => {
     return (
         <div className='w-full rounded bg-orange-100 flex flex-col items-center justify-start pt-2'>
             <div className='text-4xl font-semibold' name='title'>
@@ -14,4 +14,4 @@ const ClothingStatistics = () => {
     )
 }
 
-export default ClothingStatistics
+export default ClothingStatistic

@@ -1,40 +1,35 @@
-import React, { useRef, useEffect, useState, useContext } from 'react';
-import useHttp from '../../hooks/use-http';
-import { useHistory } from 'react-router-dom';
-import firebase from 'firebase';
-import SelectTagList from './SelectTagList';
-import CategoryFilter from '../Filter/CategoryFilter';
-import Camera from 'react-html5-camera-photo';
-import 'react-html5-camera-photo/build/css/index.css';
-import { v4 as uuidv4 } from 'uuid';
-import { set } from 'js-cookie';
-import FileUploader from 'react-firebase-file-uploader';
-import { confirmAlert } from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-import AuthContext from '../../contexts/auth-context';
+import React, { useRef, useEffect, useState, useContext } from "react";
+import useHttp from "../../hooks/use-http";
+import { useHistory } from "react-router-dom";
+import firebase from "firebase";
+import SelectTagList from "./SelectTagList";
+import CategoryFilter from "../Filter/CategoryFilter";
+import Camera from "react-html5-camera-photo";
+import "react-html5-camera-photo/build/css/index.css";
+import { v4 as uuidv4 } from "uuid";
+import { set } from "js-cookie";
+import FileUploader from "react-firebase-file-uploader";
+import { confirmAlert } from "react-confirm-alert"; // Import
+import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
+import AuthContext from "../../contexts/auth-context";
 const AddClothing = (props) => {
 	const history = useHistory();
 
+	const { clothingId } = props;
 	const { isLoading, error, sendRequest } = useHttp();
-	const {
-		isLoading: fetchTags_isLoading,
-		fetchTags_error,
-		sendRequest: fetchTags,
-	} = useHttp();
-	const {
-		fetchCategories_isLoading,
-		fetchCategories_error,
-		sendRequest: fetchCategories,
-	} = useHttp();
+	const { isLoading: fetchTags_isLoading, fetchTags_error, sendRequest: fetchTags } = useHttp();
+	const { fetchCategories_isLoading, fetchCategories_error, sendRequest: fetchCategories } = useHttp();
 	const [categories, setCategories] = useState([]);
 	const [selectedCategory, setSelectedCategory] = useState(0);
-	const [uploadedFilename, setUploadedFilename] = useState('');
+	const [uploadedFilename, setUploadedFilename] = useState("");
 	const [isUploading, setIsUploading] = useState(false);
 	const [progress, setProgress] = useState(0);
-	const [imageUrl, setImageUrl] = useState('');
+	const [imageUrl, setImageUrl] = useState("");
 	const [tags, setTags] = useState([]);
 	const [useCamera, setUseCamera] = useState(false);
-	const [clothingTags, setClothingTags] = useState([]);
+	const [defaultSelectedTags, setDefaultSelectedTags] = useState([]);
+
+	const isEdit = clothingId != null && clothingId != "";
 
 	const ctx = useContext(AuthContext);
 
@@ -55,46 +50,39 @@ const AddClothing = (props) => {
 		setIsUploading(false);
 		firebase
 			.storage()
-			.ref('images')
+			.ref("images")
 			.child(filename)
 			.getDownloadURL()
 			.then((url) => setImageUrl(url));
 	};
 
 	useEffect(async () => {
-		await fetchTags(
-			{ url: `tag/${ctx.user.userId}` },
-			(returnData) => {
-				const allTags = [];
-				for (const e of returnData) {
-					allTags.push({ ...e, isSelected: false, isEdit: false });
-				}
-				const uniqueTags = [];
-
-				allTags.map((x) =>
-					uniqueTags.filter((a) => a.tagId === x.tagId).length > 0
-						? null
-						: uniqueTags.push(x)
-				);
-				setTags(uniqueTags);
+		await fetchTags({ url: `tag/${ctx.user.userId}` }, (returnData) => {
+			const allTags = [];
+			for (const e of returnData) {
+				allTags.push({ ...e, isSelected: false, isEdit: false });
 			}
-		);
+			const uniqueTags = [];
 
-		await fetchCategories({ url: 'category' }, async (returnData) => {
+			allTags.map((x) => (uniqueTags.filter((a) => a.tagId === x.tagId).length > 0 ? null : uniqueTags.push(x)));
+			setTags(uniqueTags);
+		});
+
+		await fetchCategories({ url: "category" }, async (returnData) => {
 			setCategories(returnData);
 		});
 
-		if (props.clothingId != null && props.clothingId != '')
+		if (isEdit)
 			await sendRequest(
 				{
-					url: `clothing/${ctx.user.userId}/${props.clothingId}`,
+					url: `clothing/${ctx.user.userId}/${clothingId}`,
 				},
 				async (result) => {
 					setImageUrl(result.imageUrl);
 					inputNameRef.current.value = result.name;
 					setSelectedCategory(result.category.categoryId);
 
-					setClothingTags(result.tags);
+					setDefaultSelectedTags(result.tags);
 				}
 			);
 	}, [fetchTags, fetchCategories, sendRequest]);
@@ -104,14 +92,12 @@ const AddClothing = (props) => {
 			const selectedTags = tags.map((e) => {
 				return {
 					...e,
-					isSelected: clothingTags
-						.map((x) => x.tagId)
-						.includes(e.tagId),
+					isSelected: defaultSelectedTags.map((x) => x.tagId).includes(e.tagId),
 				};
 			});
 			setTags(selectedTags);
 		}
-	}, [clothingTags]);
+	}, [defaultSelectedTags]);
 
 	const setTagsHandler = (tags) => {
 		setTags(tags);
@@ -139,29 +125,26 @@ const AddClothing = (props) => {
 				categoryId: parseInt(selectedCategory),
 			},
 		};
+		let url = "";
+		let method = "";
+		if (isEdit) {
+			url = `clothing/${ctx.user.userId}/${clothingId}`;
+			method = "PUT";
+		} else {
+			url = `clothing/${ctx.user.userId}`;
+			method = "POST";
+		}
 
-		if (props.clothingId != null && props.clothingId != '')
-			sendRequest(
-				{
-					url: `clothing/${ctx.user.userId}/${props.clothingId}`,
-					method: 'PUT',
-					body: newClothingData,
-				},
-				(result) => {
-					history.push('/clothings');
-				}
-			);
-		else
-			sendRequest(
-				{
-					url: `clothing/${ctx.user.userId}`,
-					method: 'POST',
-					body: newClothingData,
-				},
-				(result) => {
-					history.push('/clothings');
-				}
-			);
+		sendRequest(
+			{
+				url: url,
+				method: method,
+				body: newClothingData,
+			},
+			(result) => {
+				history.push("/clothings");
+			}
+		);
 
 		//redirect ke clothings di sini
 	};
@@ -175,14 +158,9 @@ const AddClothing = (props) => {
 				return (
 					<div className='alert flex flex-col items-center px-8 py-2 space-y-4 border-2  rounded-lg border-red-500 bg-white'>
 						<h1 className='alert__title'>Are you sure?</h1>
-						<p className='alert__body'>
-							You want to delete this clothing?
-						</p>
+						<p className='alert__body'>You want to delete this clothing?</p>
 						<div className='flex justify-between space-x-4'>
-							<button
-								onClick={onClose}
-								className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-300'
-							>
+							<button onClick={onClose} className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-300'>
 								No
 							</button>
 							<button
@@ -190,17 +168,16 @@ const AddClothing = (props) => {
 									sendRequest(
 										{
 											url: `clothing/${ctx.user.userId}/
-												${props.clothingId}`,
-											method: 'DELETE',
+												${clothingId}`,
+											method: "DELETE",
 										},
 										() => {
 											onClose();
-											history.push('/clothings');
+											history.push("/clothings");
 										}
 									);
 								}}
-								className='bg-red-700 text-white py-2 px-4 rounded hover:bg-red-500'
-							>
+								className='bg-red-700 text-white py-2 px-4 rounded hover:bg-red-500'>
 								Yes, Delete it!
 							</button>
 						</div>
@@ -216,7 +193,7 @@ const AddClothing = (props) => {
 		firebase
 			.storage()
 			.ref(ref)
-			.putString(dataUri, 'data_url')
+			.putString(dataUri, "data_url")
 			.then(() => {
 				firebase
 					.storage()
@@ -230,7 +207,7 @@ const AddClothing = (props) => {
 	};
 
 	const handleUseCamera = () => {
-		setImageUrl('');
+		setImageUrl("");
 		setUseCamera((prevState) => !prevState);
 	};
 
@@ -246,7 +223,7 @@ const AddClothing = (props) => {
 							accept='image/*'
 							name='avatar'
 							randomizeFilename
-							storageRef={firebase.storage().ref('images')}
+							storageRef={firebase.storage().ref("images")}
 							onUploadStart={handleUploadStart}
 							onUploadError={handleUploadError}
 							onUploadSuccess={handleUploadSuccess}
@@ -258,15 +235,11 @@ const AddClothing = (props) => {
 					<button
 						type='button'
 						onClick={handleUseCamera}
-						className='flex-1 bg-red-200 rounded-md py-4 px-2 bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-semibold'
-					>
+						className='flex-1 bg-red-200 rounded-md py-4 px-2 bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-semibold'>
 						use your camera
 					</button>
 				</div>
-				<div
-					className=' flex flex-col items-center justify-center'
-					style={{ maxHeight: '24rem' }}
-				>
+				<div className=' flex flex-col items-center justify-center' style={{ maxHeight: "24rem" }}>
 					{isUploading && <p>Progress: {progress}</p>}
 					{imageUrl && <img src={imageUrl} className='h-full' />}
 					{/* {imageUrl && <ImageCropper src={imageUrl} setImageUrl={setImageUrl} imageUrl={imageUrl} className='bg-red-200' style={{maxHeight:'50px'}}/>} */}
@@ -283,9 +256,7 @@ const AddClothing = (props) => {
 			<div className='flex flex-col space-y-5 w-2/3'>
 				<div className='flex flex-col md:flex-row items-center justify-center md: space-x-2'>
 					<label className='block w-1/2'>
-						<span className='text-gray-500 text-sm '>
-							Clothing Name
-						</span>
+						<span className='text-gray-500 text-sm '>Clothing Name</span>
 						<input
 							className=' mt-1 block w-full py-2 focus:outline-none border-0 bg-transparent border-b-2 border-gray-600 text-lg'
 							placeholder='Clothing Number 1'
@@ -310,23 +281,15 @@ const AddClothing = (props) => {
 				<hr />
 
 				<div className='flex justify-end space-x-4'>
-					{props.clothingId != null && props.clothingId != '' && (
+					{isEdit && (
 						<div onClick={deleteHandler} className='py-2 px-1 w-1/'>
-							<span
-								onClick={deleteHandler}
-								className='hover:text-red-700 hover:underline rounded cursor-pointer'
-							>
+							<span onClick={deleteHandler} className='hover:text-red-700 hover:underline rounded cursor-pointer'>
 								Delete Clothings
 							</span>
 						</div>
 					)}
-					<button
-						onClick={submitHandler}
-						className='py-2 px-1 w-2/3 hover:bg-purple-400  font-semibold hover:text-white rounded border-2 border-purple-400'
-					>
-						{props.clothingId != null
-							? 'Update Clothing'
-							: 'Add Clothing'}
+					<button onClick={submitHandler} className='py-2 px-1 w-2/3 hover:bg-purple-400  font-semibold hover:text-white rounded border-2 border-purple-400'>
+						{isEdit ? "Update Clothing" : "Add Clothing"}
 					</button>
 				</div>
 			</div>

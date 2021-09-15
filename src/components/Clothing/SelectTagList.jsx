@@ -10,7 +10,6 @@ const SelectTagList = (props) => {
 	const { isLoading, error, sendRequest } = useHttp();
 	const ctx = useContext(AuthContext);
 
-
 	const clickTagHandler = (tag) => {
 		console.log(tag.tagId);
 		let selectedTags = [];
@@ -103,14 +102,18 @@ const SelectTagList = (props) => {
 	};
 
 	return (
-		<div className='flex flex-start overflow-scroll no-scrollbar'>
-			<Card>
-				<button type='button' className='whitespace-nowrap' onClick={triggerAddTagHandler}>
-					Add tag
-				</button>
+		<div className='flex flex-start flex-wrap overflow-scroll no-scrollbar'>
+			<Card className={`flex content-start justify-between whitespace-nowrap rounded-full py-1 px-4 cursor-pointer`}>
+				<div className={`h-full self-center flex-shrink rounded-full border-3 border-gray-900`}>
+					<div className='flex flex-nowrap space-x-1'>
+						<button type='button' className='whitespace-nowrap' onClick={triggerAddTagHandler}>
+							{isAddTag ? "Cancel" : "Add Tag"}
+						</button>
+					</div>
+				</div>
 			</Card>
-			{isAddTag && <NewTag onAdd={addNewTagHandler} onCancelAdd={cancelAddNewTagHandler} />}
 
+			{isAddTag && <NewTag onAdd={addNewTagHandler} onCancelAdd={cancelAddNewTagHandler} />}
 			{tags.map((item) => (
 				<Fragment key={item.tagId}>
 					<AddClothingTag

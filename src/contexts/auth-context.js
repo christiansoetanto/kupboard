@@ -32,7 +32,7 @@ export const AuthContextProvider = (props) => {
 	const { sendRequest } = useHttp();
 
 	useEffect(() => {
-		const storedUserInformation = Cookies.get('user');
+		const storedUserInformation = Cookies.get("user");
 		if (storedUserInformation) {
 			setIsLoggedIn(true);
 			setUser(JSON.parse(storedUserInformation));
@@ -40,25 +40,24 @@ export const AuthContextProvider = (props) => {
 	}, []);
 
 	const logoutHandler = () => {
-		Cookies.remove('user');
+		Cookies.remove("user");
 		setUser(null);
 		setIsLoggedIn(false);
 	};
 
 	const registerUser = async (data) => {
-
 		const dataToBeSent = {
 			UserId: data.uid,
 			Name: data.displayName,
 			Email: data.email,
 			PhotoURL: data.photoURL,
 			PhoneNumber: data.PhoneNumber,
-			ProviderId: data.providerData[0].providerId
-		}
+			ProviderId: data.providerData[0].providerId,
+		};
 
 		await sendRequest({ url: "user/", method: "POST", body: dataToBeSent }, (result) => {
 			// localStorage.setItem("user", JSON.stringify(result));
-			Cookies.set('user', JSON.stringify(result.data), {expires: 365});
+			Cookies.set("user", JSON.stringify(result.data), { expires: 365 });
 			setUser(result);
 			setIsLoggedIn(true);
 		});
@@ -71,7 +70,7 @@ export const AuthContextProvider = (props) => {
 			if (result.isExists) {
 				// localStorage.setItem("user", JSON.stringify(result.data));
 				setUser(result.data);
-				Cookies.set('user', JSON.stringify(result.data), {expires: 365});
+				Cookies.set("user", JSON.stringify(result.data), { expires: 365 });
 				setIsLoggedIn(true);
 			} else {
 				await registerUser(tempUser);

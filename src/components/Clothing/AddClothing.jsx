@@ -214,7 +214,7 @@ const AddClothing = (props) => {
 	return (
 		// <Card>
 		<div className='flex flex-col md:flex-row md:items-stretch space-y-8 md:space-y-0 md:space-x-2 justify-center items-center'>
-			<div className='pt-5 pb-2 px-2 flex flex-col items-center justify-center border-dashed border-2 rounded-lg border-orange-300 space-y-4 md:w-1/3'>
+			<div className='pt-5 pb-2 px-2 flex flex-col items-center justify-start border-dashed border-2 rounded-lg border-orange-300 space-y-4 md:w-1/3'>
 				<div className='text-center flex justify-between items-center w-full space-x-2'>
 					<label className='cursor-pointer flex-1 bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-semibold rounded-md py-4 px-2'>
 						Upload pic

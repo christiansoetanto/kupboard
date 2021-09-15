@@ -1,6 +1,7 @@
-import React from "react";
-import ClothingItem from "./ClothingItem";
-import { Link } from "react-router-dom";
+import React from 'react';
+import ClothingItem from './ClothingItem';
+import { Link } from 'react-router-dom';
+import { Fragment } from 'react';
 const ClothingList = (props) => {
 	const { clothingList, isLoading } = props;
 
@@ -14,11 +15,15 @@ const ClothingList = (props) => {
 		);
 
 	if (clothingList && clothingList.length > 0) {
-		return clothingList.map((c) => {
-			<ClothingItem key={c.clothingId} clothing={c} />;
-		});
+		return clothingList.map((c) => (
+			<ClothingItem key={c.clothingId} clothing={c} />
+		));
 	} else {
-		return <div className='rounded shadow-xl bg-gray-300 border p-1 flex items-center justify-center w-full h-72'>NO CLOTHING FOUND</div>;
+		return (
+			<div className='rounded shadow-xl bg-gray-300 border p-1 flex items-center justify-center w-full h-72'>
+				NO CLOTHING FOUND
+			</div>
+		);
 	}
 };
 

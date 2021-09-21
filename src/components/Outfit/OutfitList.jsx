@@ -3,6 +3,7 @@ import OutfitItem from "./OutfitItem";
 import { Link } from "react-router-dom";
 const OutfitList = (props) => {
 	const { outfitList, isLoading } = props;
+	console.log(outfitList);
 	if (isLoading)
 		return (
 			<Fragment>

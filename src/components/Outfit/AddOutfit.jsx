@@ -1,16 +1,17 @@
-import React, { useRef, useState, useEffect, useContext } from 'react';
-import Card from '../UI/Card';
-import useHttp from '../../hooks/use-http';
-import { useHistory } from 'react-router-dom';
-import { confirmAlert } from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-import { v4 as uuidv4 } from 'uuid';
-import SelectTagList from '../Clothing/SelectTagList';
-import AuthContext from '../../contexts/auth-context';
-import CancelSvg from '../UI/CancelSvg';
-import AddSvg from '../UI/AddSvg';
-import DatePicker, { Calendar } from 'react-multi-date-picker';
-import DatePanel from "react-multi-date-picker/plugins/date_panel"
+import React, { useRef, useState, useEffect, useContext } from "react";
+import Card from "../UI/Card";
+import useHttp from "../../hooks/use-http";
+import { useHistory } from "react-router-dom";
+import { confirmAlert } from "react-confirm-alert"; // Import
+import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
+import { v4 as uuidv4 } from "uuid";
+import SelectTagList from "../Clothing/SelectTagList";
+import AuthContext from "../../contexts/auth-context";
+import CancelSvg from "../UI/CancelSvg";
+import AddSvg from "../UI/AddSvg";
+import DatePicker, { Calendar } from "react-multi-date-picker";
+import DatePanel from "react-multi-date-picker/plugins/date_panel";
+import weekends from "react-multi-date-picker/plugins/highlight_weekends";
 /*
 Hat = 3
 Shirt = 2
@@ -22,7 +23,7 @@ const AddOutfit = (props) => {
 	const history = useHistory();
 	const { outfitId } = props;
 
-	const isEdit = outfitId != null && outfitId != '';
+	const isEdit = outfitId != null && outfitId != "";
 
 	const { isLoading, error, sendRequest } = useHttp();
 
@@ -37,55 +38,53 @@ const AddOutfit = (props) => {
 	const [footwearList, setFootwearList] = useState(null);
 
 	const [secondaryClothings, setSecondaryClothings] = useState([]);
-	const [selectedSecondaryClothings, setSelectedSecondaryClothings] =
-		useState([]);
+	const [selectedSecondaryClothings, setSelectedSecondaryClothings] = useState([]);
 
 	const [tags, setTags] = useState([]);
 	const [defaultSelectedTags, setDefaultSelectedTags] = useState([]);
 
 	const [dateValue, setDateValue] = useState([]);
-	const [hasCalendar, setHasCalendar] = useState(false)
-	
-	const nameRef = useRef('');
+	const [hasCalendar, setHasCalendar] = useState(false);
+
+	const nameRef = useRef("");
 
 	const primaryCategories = [
 		{
 			categoryId: 3,
-			categoryName: 'Hat',
+			categoryName: "Hat",
 			selectedState: selectedHat,
 			setSelectedState: setSelectedHat,
 			listState: hatList,
 			setListState: setHatList,
-			defaultImage: 'https://img.icons8.com/dotty/80/000000/trilby.png',
+			defaultImage: "https://img.icons8.com/dotty/80/000000/trilby.png",
 		},
 		{
 			categoryId: 2,
-			categoryName: 'Shirt',
+			categoryName: "Shirt",
 			selectedState: selectedShirt,
 			setSelectedState: setSelectedShirt,
 			listState: shirtList,
 			setListState: setShirtList,
-			defaultImage:
-				'https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/000000/external-shirt-hygiene-kiranshastry-lineal-kiranshastry-2.png',
+			defaultImage: "https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/000000/external-shirt-hygiene-kiranshastry-lineal-kiranshastry-2.png",
 		},
 		{
 			categoryId: 1,
-			categoryName: 'Pants',
+			categoryName: "Pants",
 			selectedState: selectedPants,
 			setSelectedState: setSelectedPants,
 			listState: pantsList,
 			setListState: setPantsList,
 			defaultImage:
-				'https://img.icons8.com/external-vitaliy-gorbachev-lineal-vitaly-gorbachev/60/000000/external-pants-clothes-vitaliy-gorbachev-lineal-vitaly-gorbachev-1.png',
+				"https://img.icons8.com/external-vitaliy-gorbachev-lineal-vitaly-gorbachev/60/000000/external-pants-clothes-vitaliy-gorbachev-lineal-vitaly-gorbachev-1.png",
 		},
 		{
 			categoryId: 4,
-			categoryName: 'Footwear',
+			categoryName: "Footwear",
 			selectedState: selectedFootwear,
 			setSelectedState: setSelectedFootwear,
 			listState: footwearList,
 			setListState: setFootwearList,
-			defaultImage: 'https://img.icons8.com/ios/50/000000/mens-shoe.png',
+			defaultImage: "https://img.icons8.com/ios/50/000000/mens-shoe.png",
 		},
 	];
 
@@ -96,6 +95,7 @@ const AddOutfit = (props) => {
 			clothings: [],
 			tags: [],
 			name: nameRef.current.value,
+			scheduleDate: dateValue,
 		};
 		primaryCategories.map((e) => {
 			if (e.selectedState) {
@@ -108,18 +108,20 @@ const AddOutfit = (props) => {
 			if (e) submitData.clothings.push({ clothingId: e.clothingId });
 		});
 
-		tags.filter((e) => e.isSelected === true).map((e) => {
-			if (e) submitData.tags.push({ tagId: e.tagId });
-		});
+		tags
+			.filter((e) => e.isSelected === true)
+			.map((e) => {
+				if (e) submitData.tags.push({ tagId: e.tagId });
+			});
 
-		let url = '';
-		let method = '';
+		let url = "";
+		let method = "";
 		if (isEdit) {
 			url = `outfit/${ctx.user.userId}/${outfitId}`;
-			method = 'PUT';
+			method = "PUT";
 		} else {
 			url = `outfit/${ctx.user.userId}`;
-			method = 'POST';
+			method = "POST";
 		}
 		sendRequest(
 			{
@@ -128,8 +130,7 @@ const AddOutfit = (props) => {
 				body: submitData,
 			},
 			(result) => {
-				console.log(result);
-				history.push('/outfits');
+				history.push("/outfits");
 			}
 		);
 	};
@@ -140,13 +141,8 @@ const AddOutfit = (props) => {
 				return (
 					<div className='flex flex-col relative bg-white rounded border border-gray-900 py-2 px-4'>
 						<div className='flex flex-row justify-between items-center mb-8 border-b-2 border-gray-200'>
-							<div className='text-2xl font-semibold '>
-								Pick your clothing
-							</div>
-							<div
-								className='hover:text-gray-500'
-								onClick={onClose}
-							>
+							<div className='text-2xl font-semibold '>Pick your clothing</div>
+							<div className='hover:text-gray-500' onClick={onClose}>
 								<CancelSvg />
 							</div>
 						</div>
@@ -157,15 +153,9 @@ const AddOutfit = (props) => {
 										key={e.clothingId}
 										className='w-28'
 										onClick={() => {
-											selectClothing(
-												e.categoryId,
-												e.clothingId,
-												e.imageUrl,
-												id
-											);
+											selectClothing(e.categoryId, e.clothingId, e.imageUrl, id);
 											onClose();
-										}}
-									>
+										}}>
 										<img src={e.imageUrl}></img>
 									</div>
 								);
@@ -185,8 +175,7 @@ const AddOutfit = (props) => {
 						<button
 							onClick={() => {
 								onClose();
-							}}
-						>
+							}}>
 							Close
 						</button>
 					</div>
@@ -196,46 +185,33 @@ const AddOutfit = (props) => {
 	};
 
 	const getClothing = (categoryId) => {
-		const clothings = primaryCategories.filter(
-			(e) => e.categoryId === categoryId
-		)[0].listState;
-		console.log(clothings);
+		const clothings = primaryCategories.filter((e) => e.categoryId === categoryId)[0].listState;
 		if (clothings) {
-			console.log('udah pernah ada');
 			if (clothings.length > 0) {
 				openPopupSelectClothing(clothings, null);
 			} else openPopupNoClothing();
 		} else {
-			console.log('Fetch');
-			sendRequest(
-				{ url: `clothing/${ctx.user.userId}/category/${categoryId}` },
-				(returnData) => {
-					const clothings = [];
-					returnData.forEach((e) => {
-						clothings.push({
-							clothingId: e.clothingId,
-							imageUrl: e.imageUrl,
-							categoryId: categoryId,
-						});
+			sendRequest({ url: `clothing/${ctx.user.userId}/category/${categoryId}` }, (returnData) => {
+				const clothings = [];
+				returnData.forEach((e) => {
+					clothings.push({
+						clothingId: e.clothingId,
+						imageUrl: e.imageUrl,
+						categoryId: categoryId,
 					});
-					if (clothings.length > 0) {
-						primaryCategories
-							.filter((e) => e.categoryId === categoryId)[0]
-							.setListState(clothings);
-						openPopupSelectClothing(clothings, null);
-					} else {
-						primaryCategories
-							.filter((e) => e.categoryId === categoryId)[0]
-							.setListState([]);
-						openPopupNoClothing();
-					}
+				});
+				if (clothings.length > 0) {
+					primaryCategories.filter((e) => e.categoryId === categoryId)[0].setListState(clothings);
+					openPopupSelectClothing(clothings, null);
+				} else {
+					primaryCategories.filter((e) => e.categoryId === categoryId)[0].setListState([]);
+					openPopupNoClothing();
 				}
-			);
+			});
 		}
 	};
 	const getSecondaryClothings = (id) => {
-		if (secondaryClothings.length > 0)
-			openPopupSelectClothing(secondaryClothings, id);
+		if (secondaryClothings.length > 0) openPopupSelectClothing(secondaryClothings, id);
 		else openPopupNoClothing();
 	};
 
@@ -284,7 +260,6 @@ const AddOutfit = (props) => {
 			let secondaryClothings = [];
 			secondaryClothings = prev.filter((e) => e.id !== id).map((e) => e);
 
-			console.log(secondaryClothings);
 			return secondaryClothings;
 		});
 	};
@@ -293,11 +268,10 @@ const AddOutfit = (props) => {
 		sendRequest(
 			{
 				url: `outfit/${ctx.user.userId}/${outfitId}`,
-				method: 'DELETE',
+				method: "DELETE",
 			},
 			(result) => {
-				console.log(result);
-				history.push('/outfits');
+				history.push("/outfits");
 			}
 		);
 	};
@@ -307,16 +281,9 @@ const AddOutfit = (props) => {
 			const transformOutfit = (returnData) => {
 				const transformClothing = (clothings) => {
 					clothings.map((e) => {
-						if (
+						if (primaryCategories.map((pc) => pc.categoryId).includes(e.category.categoryId)) {
 							primaryCategories
-								.map((pc) => pc.categoryId)
-								.includes(e.category.categoryId)
-						) {
-							primaryCategories
-								.filter(
-									(pc) =>
-										pc.categoryId === e.category.categoryId
-								)[0]
+								.filter((pc) => pc.categoryId === e.category.categoryId)[0]
 								.setSelectedState({
 									clothingId: e.clothingId,
 									imageUrl: e.imageUrl,
@@ -340,39 +307,41 @@ const AddOutfit = (props) => {
 					setDefaultSelectedTags(tags);
 				};
 
+				const transformScheduleDate = (date) => {
+					setDateValue(
+						date.map((e) => {
+							return new Date(e);
+						})
+					);
+				};
+
 				transformClothing(returnData.clothings);
 				transformTags(returnData.tags);
+				if (returnData.scheduleDate.length > 0) {
+					transformScheduleDate(returnData.scheduleDate);
+					setHasCalendar(true);
+				}
 				nameRef.current.value = returnData.name;
 			};
 
-			sendRequest(
-				{ url: `outfit/${ctx.user.userId}/${outfitId}` },
-				transformOutfit
-			);
+			sendRequest({ url: `outfit/${ctx.user.userId}/${outfitId}` }, transformOutfit);
 		};
 
 		const loadTags = async () => {
-			await sendRequest(
-				{ url: `tag/${ctx.user.userId}` },
-				(returnData) => {
-					const allTags = [];
-					for (const e of returnData) {
-						allTags.push({
-							...e,
-							isSelected: false,
-							isEdit: false,
-						});
-					}
-					const uniqueTags = [];
-
-					allTags.map((x) =>
-						uniqueTags.filter((a) => a.tagId === x.tagId).length > 0
-							? null
-							: uniqueTags.push(x)
-					);
-					setTags(uniqueTags);
+			await sendRequest({ url: `tag/${ctx.user.userId}` }, (returnData) => {
+				const allTags = [];
+				for (const e of returnData) {
+					allTags.push({
+						...e,
+						isSelected: false,
+						isEdit: false,
+					});
 				}
-			);
+				const uniqueTags = [];
+
+				allTags.map((x) => (uniqueTags.filter((a) => a.tagId === x.tagId).length > 0 ? null : uniqueTags.push(x)));
+				setTags(uniqueTags);
+			});
 		};
 
 		const loadSecondaryClothings = async () => {
@@ -404,9 +373,7 @@ const AddOutfit = (props) => {
 			const selectedTags = tags.map((e) => {
 				return {
 					...e,
-					isSelected: defaultSelectedTags
-						.map((x) => x.tagId)
-						.includes(e.tagId),
+					isSelected: defaultSelectedTags.map((x) => x.tagId).includes(e.tagId),
 				};
 			});
 			setTags(selectedTags);
@@ -414,47 +381,41 @@ const AddOutfit = (props) => {
 	}, [defaultSelectedTags]);
 
 	const handelDatePickerChange = (dates) => {
-		setDateValue(dates.map((e) => {
-			return e.toDate();
-		}));
-		// console.log(dateValue)
+		setDateValue(
+			dates.map((e) => {
+				return e.toDate();
+			})
+		);
 	};
 
 	const handleChekboxClick = (event) => {
 		const checked = event.target.checked;
 		setHasCalendar(checked);
-	}
+	};
 
 	return (
 		<div>
 			<div className='flex flex-col md:flex-row md:justify-between'>
-				<div className='flex w-3/5' >
+				<div className='flex w-3/5'>
 					<div className='flex flex-col items-center justify-start  gap-x-1 gap-y-3 border-8 p-3 m-3 w-full'>
-						<div className='text-lg md:text-2xl border-b-2 w-full text-center'>
-							Main Outfit
-						</div>
+						<div className='text-lg md:text-2xl border-b-2 w-full text-center'>Main Outfit</div>
 						{primaryCategories.map((e) => {
 							return (
 								<div
 									key={e.categoryId}
 									className='rounded shadow-xl bg-gray-300 border p-1 flex items-center justify-center w-28 cursor-pointer'
-									style={{ minHeight: '5rem' }}
+									style={{ minHeight: "5rem" }}
 									onClick={() => {
 										getClothing(e.categoryId);
-									}}
-								>
+									}}>
 									{e.selectedState ? (
 										<div>
-											<img
-												src={e.selectedState.imageUrl}
-												className='w-28'
-											></img>
+											<img src={e.selectedState.imageUrl} className='w-28'></img>
 											<button
 												onClick={(event) => {
 													event.stopPropagation();
 													e.setSelectedState(null);
-												}}
-											>
+												}}>
 												DELETE THIS
 											</button>
 										</div>
@@ -466,30 +427,23 @@ const AddOutfit = (props) => {
 						})}
 					</div>
 					<div className='flex flex-col items-center justify-start w-full gap-x-1 gap-y-3 border-8 p-3 m-3'>
-						<div className='text-lg md:text-2xl border-b-2 w-full text-center'>
-							Optional
-						</div>
+						<div className='text-lg md:text-2xl border-b-2 w-full text-center'>Optional</div>
 						{selectedSecondaryClothings.length > 0 &&
 							selectedSecondaryClothings.map((e) => {
 								return (
 									<div
 										key={e.id}
 										className='rounded shadow-xl bg-gray-300 border p-1 flex items-center justify-center w-28 cursor-pointer'
-										style={{ minHeight: '5rem' }}
+										style={{ minHeight: "5rem" }}
 										onClick={() => {
 											getSecondaryClothings(e.id);
-										}}
-									>
-										<img
-											src={e.imageUrl}
-											className='w-28'
-										></img>
+										}}>
+										<img src={e.imageUrl} className='w-28'></img>
 										<button
 											onClick={(event) => {
 												event.stopPropagation();
 												removeSecondaryClothing(e.id);
-											}}
-										>
+											}}>
 											DELETE THIS
 										</button>
 									</div>
@@ -497,12 +451,11 @@ const AddOutfit = (props) => {
 							})}
 						<div
 							className='rounded shadow-xl bg-gray-300 border p-1 flex items-center justify-center w-28 cursor-pointer text-gray-500 hover:text-gray-700'
-							style={{ minHeight: '5rem' }}
+							style={{ minHeight: "5rem" }}
 							onClick={() => {
 								getSecondaryClothings();
-							}}
-						>
-							<AddSvg className='w-12 h-12'/>
+							}}>
+							<AddSvg className='w-12 h-12' />
 						</div>
 					</div>
 				</div>
@@ -510,13 +463,7 @@ const AddOutfit = (props) => {
 					<span className=''>
 						<label htmlFor='outfit-name'>Outfit Name</label>
 						<br />
-						<input
-							type='text'
-							name=''
-							id='outfit-name'
-							className='form-input rounded w-full'
-							ref={nameRef}
-						/>
+						<input type='text' name='' id='outfit-name' className='form-input rounded w-full' ref={nameRef} />
 					</span>
 
 					<div>
@@ -529,10 +476,7 @@ const AddOutfit = (props) => {
 					</div>
 
 					<div>
-						<label
-							htmlFor='chbx-set-date'
-							className='cursor-pointer flex items-center'
-						>
+						<label htmlFor='chbx-set-date' className='cursor-pointer flex items-center'>
 							<input
 								type='checkbox'
 								id='chbx-set-date'
@@ -540,9 +484,7 @@ const AddOutfit = (props) => {
 								value={hasCalendar}
 								onClick={handleChekboxClick}
 							/>
-							<span className='ml-2'>
-								Set a date for this outfit?
-							</span>
+							<span className='ml-2'>Set a date for this outfit?</span>
 						</label>
 					</div>
 
@@ -553,10 +495,8 @@ const AddOutfit = (props) => {
 								value={dateValue}
 								onChange={handelDatePickerChange}
 								showOtherDays={true}
-								plugins={[
-									<DatePanel />
-								   ]}
-								format="DD MMM"
+								plugins={[<DatePanel />, weekends()]}
+								format='DD MMM'
 								sort
 							/>
 						</div>
@@ -567,18 +507,12 @@ const AddOutfit = (props) => {
 					</div> */}
 
 					{isEdit && (
-						<div
-							onClick={deleteHandler}
-							className='p-4 rounded border-2 border-blue-200 hover:bg-blue-500 hover:text-white'
-						>
+						<div onClick={deleteHandler} className='p-4 rounded border-2 border-blue-200 hover:bg-blue-500 hover:text-white'>
 							Delete
 						</div>
 					)}
-					<button
-						className='p-4 rounded border-2 border-blue-200 hover:bg-blue-500 hover:text-white'
-						onClick={submitHandler}
-					>
-						{isEdit ? 'Update Outfit' : 'Add Outfit'}
+					<button className='p-4 rounded border-2 border-blue-200 hover:bg-blue-500 hover:text-white' onClick={submitHandler}>
+						{isEdit ? "Update Outfit" : "Add Outfit"}
 					</button>
 				</div>
 			</div>

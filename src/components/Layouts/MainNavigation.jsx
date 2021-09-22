@@ -68,6 +68,13 @@ function MainNavigation() {
 						>
 							Outfits
 						</NavLink>
+						<NavLink
+							className='md:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-green-400'
+							to='/schedule'
+							onClick={handleNavLinkOnClick}
+						>
+							Schedule
+						</NavLink>
 					</div>
 				</nav>
 				<nav className='flex'>
@@ -86,25 +93,13 @@ function MainNavigation() {
 								/>
 							</NavLink>
 						)}
-						{!ctx.isLoggedIn && (
-							<NavLink
-								className='md:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-orange-400'
-								activeClassName='border-orange-400'
-								to='/login'
-								onClick={handleNavLinkOnClick}
-							>
-								Log in
-							</NavLink>
-						)}
-						{ctx.isLoggedIn && (
-							<NavLink
-								className='md:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-orange-400'
-								to='/'
-								onClick={logoutHandler}
-							>
-								Log Out
-							</NavLink>
-						)}
+						<NavLink
+							className='md:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-orange-400'
+							to='/'
+							onClick={logoutHandler}
+						>
+							Log Out
+						</NavLink>
 					</div>
 				</nav>
 			</div>

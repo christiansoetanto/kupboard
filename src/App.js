@@ -8,6 +8,7 @@ import Layout from "./components/Layouts/Layout";
 import Login from "./components/Login/Login";
 import ClothingDetail from "./components/Clothing/ClothingDetail";
 import OutfitDetail from "./components/Outfit/OutfitDetail";
+import Schedule from "./components/Schedule/Schedule";
 function App() {
 	return (
 		<Layout>
@@ -36,11 +37,16 @@ function App() {
 
 				<Route path='/outfits/:id'>
 					<OutfitDetail />
+				</Route>				
+
+				<Route path='/schedule/'>
+					<Schedule />
 				</Route>
 
 				<Route path='/login' exact>
 					<Login />
 				</Route>
+
 			</Switch>
 		</Layout>
 	);

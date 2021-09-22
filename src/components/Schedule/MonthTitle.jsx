@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ChevronLeftSvg from '../UI/ChevronLeftSvg';
+import ChevronRightSvg from '../UI/ChevronRightSvg';
 
 const MonthTitle = (props) => {
 	var m_names = [
@@ -15,13 +17,23 @@ const MonthTitle = (props) => {
 		'November',
 		'December',
 	];
-	const { currentMonth = new Date().getMonth(), className } = props;
+	const { defaultMonth = new Date().getMonth(), className } = props;
+
+	const [currentMonth, setCurrentMonth] = useState(defaultMonth);
+
+	const decreaseMonth = () =>
+		setCurrentMonth((prevState) => (prevState -= 1));
+
+	const increaseMonth = () =>
+	setCurrentMonth((prevState) => (prevState += 1));
 
 	return (
 		<div
-			className={`flex w-full text-3xl items-center justify-center ${className}`}
+			className={`flex w-full text-3xl items-center justify-between ${className}`}
 		>
-			{m_names[currentMonth]}
+			<ChevronLeftSvg className='cursor-pointer' onClick={decreaseMonth}/>
+			<div>{m_names[currentMonth]}</div>
+			<ChevronRightSvg className='cursor-pointer' onClick={increaseMonth} />
 		</div>
 	);
 };

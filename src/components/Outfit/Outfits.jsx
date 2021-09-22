@@ -11,7 +11,7 @@ const Outfits = () => {
 	const [tags, setTags] = useState([]);
 	const [outfits, setOutfits] = useState([]);
 	const [filteretedOutfits, setFilteredOutfits] = useState([]);
-	const { fetchOutfits_isLoading, fetchOutfits_error, sendRequest: fetchOutfits } = useHttp();
+	const { isLoading: fetchOutfits_isLoading, fetchOutfits_error, sendRequest: fetchOutfits } = useHttp();
 
 	useEffect(() => {
 		const transformOutfits = (returnData) => {

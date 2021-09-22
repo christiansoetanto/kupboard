@@ -40,22 +40,22 @@ const OutfitItem = (props) => {
 					<img
 						src={hat}
 						alt='asd'
-						className='w-16 h-16'
-						// style={{ maxHeight: '15rem' }}
+						className='w-16'
+						style={{ maxHeight: '15rem' }}
 					/>
 					<img
 						src={shirt}
 						alt='sdg'
-						className='w-28 h-28'
-						// style={{ maxHeight: '15rem' }}
+						className='w-28'
+						style={{ maxHeight: '15rem' }}
 					/>
 					<img
 						src={pants}
 						alt='fgh'
-						className='w-20 h-36'
-						// style={{ maxHeight: '15rem' }}
+						className='w-20'
+						style={{ maxHeight: '15rem' }}
 					/>
-					<img src={footwear} alt='jkl' className='w-14 h-14' style={{ maxHeight: "15rem" }} />
+					<img src={footwear} alt='jkl' className='w-14' style={{ maxHeight: "15rem" }} />
 				</div>
 			</div>
 		</div>

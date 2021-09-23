@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DateCell from './DateCell';
 import GridCalendar from './GridCalendar';
 import MonthTitle from './MonthTitle';
@@ -6,48 +6,54 @@ import MonthTitle from './MonthTitle';
 const Schedule = (props) => {
 	const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
 	const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
-	const [firstDayOfMonth, setFirstDayOfMonth] = useState(
-		new Date(currentYear, currentMonth, 1).getDay()
-	);
-	const [lastDateOfMonth, setLastDateOfMonth] = useState(
-		new Date(currentYear, currentMonth + 1, 0).getDate()
-	);
+	const [dateCells, setDateCells] = useState(null);
 
-	let dateCells = [];
-	let firstDate = 1;
-	for (let index = 1; index <= 35; index++) {
-		if (index >= firstDayOfMonth && firstDate <= lastDateOfMonth) {
-			dateCells.push(
-				<DateCell
-					className='flex items-center justify-center border border-gray-300'
-					data-date={index}
-					style={{ minHeight: '6rem' }}
-					date={new Date(currentYear, currentMonth, firstDate)}
-				/>
-			);
-			firstDate++;
-		} else dateCells.push(<div></div>);
-	}
+	useEffect(() => {
 
-	// for (let i = 1; i <= 31; i++) {
-	// 	dates.push(
-	// 		<div
-	// 			className='flex items-center justify-center border border-gray-300'
-	// 			data-date={i}
-	// 			style={{ minHeight: '6rem' }}
-	// 		>
-	// 			{i}
-	// 		</div>
-	// 	);
-	// }
 
-	// const onDateClick = (e) => {
-	// 	alert(`you clicked on ${e.target.getAttribute('data-date')}`);
-	// };
+        const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+        const lastDateOfMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+		const tempDateCells = [];
+		let firstDate = 1;
+		for (let index = 1; index <= 35; index++) {
+			if (index >= firstDayOfMonth && firstDate <= lastDateOfMonth) {
+				tempDateCells.push(
+					<DateCell
+						className='flex items-center justify-center border border-gray-300'
+						data-date={index}
+						style={{ minHeight: '6rem' }}
+						date={new Date(currentYear, currentMonth, firstDate)}
+						key={new Date(currentYear, currentMonth, firstDate)}
+					/>
+				);
+				firstDate++;
+			} else {
+				tempDateCells.push(<div key={index + 100}></div>);
+			}
+            setDateCells(tempDateCells);
+		}
+
+        console.log('hahahaha')
+
+	}, [currentMonth, currentYear]);
+
+
+
+	const decreaseMonth = () =>
+		setCurrentMonth((prevState) => (prevState -= 1));
+
+	const increaseMonth = () =>
+		setCurrentMonth((prevState) => (prevState += 1));
 
 	return (
 		<div className='flex flex-col'>
-			<MonthTitle className='mb-8' />
+			<MonthTitle
+				className='mb-8'
+				currentMonth={currentMonth}
+				decreaseMonth={decreaseMonth}
+				increaseMonth={increaseMonth}
+			/>
 			<GridCalendar dateCells={dateCells} />
 		</div>
 	);

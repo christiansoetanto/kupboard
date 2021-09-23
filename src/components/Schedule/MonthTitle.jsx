@@ -17,15 +17,17 @@ const MonthTitle = (props) => {
 		'November',
 		'December',
 	];
-	const { defaultMonth = new Date().getMonth(), className } = props;
+	const { currentMonth = new Date().getMonth(), className, decreaseMonth, increaseMonth } = props;
 
-	const [currentMonth, setCurrentMonth] = useState(defaultMonth);
+	console.log(currentMonth)
 
-	const decreaseMonth = () =>
-		setCurrentMonth((prevState) => (prevState -= 1));
+	// const [currentMonth, setCurrentMonth] = useState(defaultMonth);
 
-	const increaseMonth = () =>
-	setCurrentMonth((prevState) => (prevState += 1));
+	// const decreaseMonth = () =>
+	// 	setCurrentMonth((prevState) => (prevState -= 1));
+
+	// const increaseMonth = () =>
+	// setCurrentMonth((prevState) => (prevState += 1));
 
 	return (
 		<div

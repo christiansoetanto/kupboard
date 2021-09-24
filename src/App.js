@@ -9,7 +9,6 @@ import Login from "./components/Login/Login";
 import ClothingDetail from "./components/Clothing/ClothingDetail";
 import OutfitDetail from "./components/Outfit/OutfitDetail";
 import Schedule from "./components/Schedule/Schedule";
-import ScheduleCS from "./components/Schedule/ScheduleCS";
 function App() {
 	return (
 		<Layout>
@@ -42,9 +41,6 @@ function App() {
 
 				<Route path='/schedule/'>
 					<Schedule />
-				</Route>
-				<Route path='/schedulecs/'>
-					<ScheduleCS />
 				</Route>
 				<Route path='/login' exact>
 					<Login />

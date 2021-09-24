@@ -1,18 +1,16 @@
-import React from 'react';
-
+import React from "react";
+import ScheduleOutfitItem from "./ScheduleOutfitItem";
 const DateCell = (props) => {
-	const { date, onClick } = props;
+	const { date, schedule, onClick } = props;
 
 	const dateClickHandler = () => onClick(date);
 
 	return (
-		<div
-			className='flex items-start justify-center border border-gray-300'
-			data-date={date}
-			style={{ minHeight: '6rem' }}
-            onClick={dateClickHandler}
-		>
-			{date.getDate()}
+		<div className='justify-center border border-gray-300' data-date={date} style={{ minHeight: "6rem" }} onClick={dateClickHandler}>
+			<div className='items-center text-center'>{date.getDate()}</div>
+			{schedule.map((e, i) => (
+				<ScheduleOutfitItem key={i} outfitId={e.outfitId} outfitName={e.outfitName} clothings={e.clothings} />
+			))}
 		</div>
 	);
 };

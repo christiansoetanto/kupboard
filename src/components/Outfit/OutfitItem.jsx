@@ -15,12 +15,7 @@ const OutfitItem = (props) => {
 		<div className='rounded shadow-xl bg-white border p-1' onClick={handleCardClick}>
 			<div className='flex items-center justify-center'>
 				<div style={{ maxWidth: "13rem" }} className='flex flex-col space-y-1 items-center justify-center'>
-					<PrimaryClothingImages
-						hat={clothings.filter((e) => e.category.categoryId == 3)[0]?.imageUrl}
-						shirt={clothings.filter((e) => e.category.categoryId == 2)[0]?.imageUrl}
-						pants={clothings.filter((e) => e.category.categoryId == 1)[0]?.imageUrl}
-						footwear={clothings.filter((e) => e.category.categoryId == 4)[0]?.imageUrl}
-					/>
+					<PrimaryClothingImages clothings={clothings} />
 				</div>
 			</div>
 		</div>

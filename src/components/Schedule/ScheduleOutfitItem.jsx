@@ -13,13 +13,7 @@ const ScheduleOutfitItem = (props) => {
 			<ReactTooltip id={tooltip_id} type='light' effect='solid'>
 				<div>{outfitName}</div>
 				<div>
-					<PrimaryClothingImages
-						key={tooltip_id}
-						hat={clothings.filter((e) => e.category.categoryId == 3)[0]?.imageUrl}
-						shirt={clothings.filter((e) => e.category.categoryId == 2)[0]?.imageUrl}
-						pants={clothings.filter((e) => e.category.categoryId == 1)[0]?.imageUrl}
-						footwear={clothings.filter((e) => e.category.categoryId == 4)[0]?.imageUrl}
-					/>
+					<PrimaryClothingImages clothings={clothings} />
 				</div>
 			</ReactTooltip>
 		</Fragment>

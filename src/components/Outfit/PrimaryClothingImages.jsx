@@ -1,14 +1,15 @@
 import React from "react";
 
 const PrimaryClothingImages = (props) => {
-	let { hat, shirt, pants, footwear } = props;
-	hat = hat ?? "https://img.icons8.com/dotty/80/000000/trilby.png";
-	shirt = shirt ?? "https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/000000/external-shirt-hygiene-kiranshastry-lineal-kiranshastry-2.png";
-
-	pants =
-		pants ??
+	const { clothings } = props;
+	const hat = clothings.filter((e) => e.category.categoryId == 3)[0]?.imageUrl ?? "https://img.icons8.com/dotty/80/000000/trilby.png";
+	const shirt =
+		clothings.filter((e) => e.category.categoryId == 2)[0]?.imageUrl ??
+		"https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/000000/external-shirt-hygiene-kiranshastry-lineal-kiranshastry-2.png";
+	const pants =
+		clothings.filter((e) => e.category.categoryId == 1)[0]?.imageUrl ??
 		"https://img.icons8.com/external-vitaliy-gorbachev-lineal-vitaly-gorbachev/60/000000/external-pants-clothes-vitaliy-gorbachev-lineal-vitaly-gorbachev-1.png";
-	footwear = footwear ?? "https://img.icons8.com/ios/50/000000/mens-shoe.png";
+	const footwear = clothings.filter((e) => e.category.categoryId == 4)[0]?.imageUrl ?? "https://img.icons8.com/ios/50/000000/mens-shoe.png";
 
 	return (
 		<div>

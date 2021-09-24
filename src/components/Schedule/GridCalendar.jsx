@@ -39,9 +39,6 @@ const GridCalendar = (props) => {
 				});
 			}
 		}
-		// setDateCells(tempDateCells);
-		console.log('heheheheh');
-		console.log(tempDateCells);
 
 	return (
 		<div className='flex flex-col gap-y-4'>

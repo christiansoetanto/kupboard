@@ -19,8 +19,6 @@ const MonthTitle = (props) => {
 	];
 	const { currentMonth = new Date().getMonth(), className, decreaseMonth, increaseMonth } = props;
 
-	console.log(currentMonth)
-
 	// const [currentMonth, setCurrentMonth] = useState(defaultMonth);
 
 	// const decreaseMonth = () =>

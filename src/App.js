@@ -9,6 +9,7 @@ import Login from "./components/Login/Login";
 import ClothingDetail from "./components/Clothing/ClothingDetail";
 import OutfitDetail from "./components/Outfit/OutfitDetail";
 import Schedule from "./components/Schedule/Schedule";
+import Profile from "./components/Profile/Profile";
 function App() {
 	return (
 		<Layout>
@@ -44,6 +45,10 @@ function App() {
 				</Route>
 				<Route path='/login' exact>
 					<Login />
+				</Route>
+
+				<Route path='/profile' exact>
+					<Profile />
 				</Route>
 			</Switch>
 		</Layout>

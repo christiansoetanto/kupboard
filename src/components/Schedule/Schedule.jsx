@@ -14,7 +14,7 @@ const Schedule = (props) => {
 	const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
 	const [dateCell, setDateCell] = useState([]);
 	const [outfitList, setOutfitList] = useState(null);
-	const [outfitScheduleList, setOutfitScheduleList] = useState([])
+	const [outfitScheduleList, setOutfitScheduleList] = useState([]);
 
 	const { isLoading, error, sendRequest } = useHttp();
 	const {
@@ -89,7 +89,6 @@ const Schedule = (props) => {
 		buildCalendar();
 	}, [currentMonth, currentYear]);
 
-
 	// useEffect(() => {
 	// 	console.log('ehhehe')
 	// 	if (dateCell == null || outfitScheduleList.length < 1) {
@@ -151,53 +150,58 @@ const Schedule = (props) => {
 
 	const addOutfitToSchedule = (date, outfit) => {
 
-		// console.log(outfit)
-
 		let scheduleId = 0;
-		outfitScheduleList.forEach(element => {
+		outfitScheduleList.forEach((element) => {
 			if (scheduleId < element.scheduleId)
 				scheduleId = element.scheduleId;
 		});
 		scheduleId += 1;
 
-
 		const tempOutfitScheduleList = [...outfitScheduleList];
 
-
-		tempOutfitScheduleList.push({
+		const newOutfitToBeAdded = {
 			outfitId: outfit.outfitId,
 			outfitName: outfit.name,
 			scheduleDate: date,
 			scheduleId: scheduleId,
 			clothings: outfit.clothings,
-		})
-		setOutfitScheduleList(tempOutfitScheduleList)
-		// console.log(tempOutfitScheduleList)
+		}
 
-		let calendar = [...dateCell]
-		tempOutfitScheduleList.map((osl) => {
-			let idx = calendar.findIndex(
-				(c) =>
-					new Date(c.date).getTime() ==
-					new Date(
-						new Date(osl.scheduleDate).setHours(
-							0,
-							0,
-							0,
-							0
-						)
-					).getTime()
-			);
-			if (idx !== -1) {
-				calendar[idx].schedule.push(osl);
-			}
-		});
-		setDateCell(calendar);
-		console.log(calendar);
-		// console.log(outfitScheduleList)
-	}
+		tempOutfitScheduleList.push(newOutfitToBeAdded);
+		setOutfitScheduleList(tempOutfitScheduleList);
+
+		let idx = dateCell.findIndex(
+			(c) =>
+				new Date(c.date).getTime() ==
+				new Date(
+					new Date(date).setHours(0, 0, 0, 0)
+				).getTime()
+		);
+		if (idx !== -1) {
+			dateCell[idx].schedule.push(newOutfitToBeAdded);
+		}
+	};
 
 	const dateClickHandler = (date) => {
+		
+		if (!outfitList) {
+			confirmAlert({
+				customUI: ({ onClose}) => {
+					return <PopUp  title={`Loading Your Outfit`} onClose={onClose}>
+					</PopUp>
+				}
+			})
+		}
+
+		if (outfitList.length == 0) {
+			confirmAlert({
+				customUI: ({ onClose}) => {
+					return <PopUp  title={`You don't have any outfit yet, try creating one`} onClose={onClose}>
+					</PopUp>
+				}
+			})
+		}
+
 		if (outfitList.length > 0) {
 			confirmAlert({
 				customUI: ({ onClose }) => {
@@ -205,21 +209,47 @@ const Schedule = (props) => {
 						<PopUp title={'Pick Your Outfit'} onClose={onClose}>
 							<div className='flex space-x-4 flex-wrap px-12 py-4'>
 								{outfitList.map((e) => {
-									return (
-										<div
-											data-outfitid={e.outfitId}
-											key={e.outfitId}
-											onClick={() => {
-												addOutfitToSchedule(date, e)
-											}}
-											className='border-2 cursor-pointer hover:bg-orange-200 border-gray-400 rounded px-8'
-										>
-											<PrimaryClothingImages
-												key={e.outfitId}
-												clothings={e.clothings}
-											/>
-										</div>
+									let idxCalendar = dateCell.findIndex(
+										(c) =>
+											new Date(c.date).getTime() ==
+											new Date(
+												new Date(date).setHours(
+													0,
+													0,
+													0,
+													0
+												)
+											).getTime()
 									);
+
+									if (
+										!dateCell[idxCalendar].schedule
+											.map(
+												(scheduleItem) =>
+													scheduleItem.outfitId
+											)
+											.includes(e.outfitId)
+									) {
+										return (
+											<div
+												data-outfitid={e.outfitId}
+												key={e.outfitId}
+												onClick={() => {
+													addOutfitToSchedule(
+														date,
+														e
+													);
+													onClose();
+												}}
+												className='border-2 cursor-pointer hover:bg-orange-200 border-gray-400 rounded px-8'
+											>
+												<PrimaryClothingImages
+													key={e.outfitId}
+													clothings={e.clothings}
+												/>
+											</div>
+										);
+									}
 								})}
 							</div>
 						</PopUp>

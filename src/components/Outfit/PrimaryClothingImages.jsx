@@ -12,7 +12,7 @@ const PrimaryClothingImages = (props) => {
 	const footwear = clothings.filter((e) => e.category.categoryId == 4)[0]?.imageUrl ?? "https://img.icons8.com/ios/50/000000/mens-shoe.png";
 
 	return (
-		<div>
+		<div className='flex flex-col items-center justify-start'>
 			<img src={hat} alt='asd' className='w-16' style={{ maxHeight: "15rem" }} />
 			<img src={shirt} alt='sdg' className='w-28' style={{ maxHeight: "15rem" }} />
 			<img src={pants} alt='fgh' className='w-20' style={{ maxHeight: "15rem" }} />

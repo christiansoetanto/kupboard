@@ -3,7 +3,7 @@ import ReactTooltip from "react-tooltip";
 import PrimaryClothingImages from "../Outfit/PrimaryClothingImages";
 const ScheduleOutfitItem = (props) => {
 	const { outfitId, outfitName, clothings } = props;
-	const tooltip_id = `tooltip_${outfitName}`;
+	const tooltip_id = `tooltip_${outfitId}`;
 
 	return (
 		<Fragment>

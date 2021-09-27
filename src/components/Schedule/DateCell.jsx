@@ -9,7 +9,7 @@ const DateCell = (props) => {
 		<div className='justify-center border border-gray-300' data-date={date} style={{ minHeight: "6rem" }} onClick={dateClickHandler}>
 			<div className='items-center text-center'>{date.getDate()}</div>
 			{schedule.map((e, i) => (
-				<ScheduleOutfitItem key={i} outfitId={e.outfitId} outfitName={e.outfitName} clothings={e.clothings} />
+				<ScheduleOutfitItem key={i} outfitId={e.outfitId} outfitName={e.outfitName ?? 'No name :('} clothings={e.clothings} />
 			))}
 		</div>
 	);

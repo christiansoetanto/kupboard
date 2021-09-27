@@ -42,7 +42,7 @@ const Schedule = (props) => {
 							).getTime()
 					);
 					if (idx !== -1) {
-						calendar[idx].schedule.push(rd);
+						calendar[idx].schedule.map(scheduleItem => scheduleItem.outfitId) == rd.outfitId || calendar[idx].schedule.push(rd);
 					}
 				});
 				setDateCell(calendar);

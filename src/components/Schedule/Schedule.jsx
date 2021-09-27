@@ -17,11 +17,39 @@ const Schedule = (props) => {
 	const [outfitScheduleList, setOutfitScheduleList] = useState([]);
 
 	const { isLoading, error, sendRequest } = useHttp();
-	const {
-		isLoading: isLoadingOutfits,
-		error: errorOutfits,
-		sendRequest: getOutfits,
-	} = useHttp();
+	const { sendRequest: getOutfits } = useHttp();
+	const { sendRequest: insertNewSchedule } = useHttp;
+
+	const mapOutfitWithCalendar =async (calendar) => {
+		await sendRequest(
+			{
+				url: `schedule/${ctx.user.userId}/${
+					currentMonth + 1
+				}/${currentYear}`,
+			},
+			(returnData) => {
+				// console.log('heheheheh')
+				setOutfitScheduleList(returnData);
+
+				// const calendar = [...dateCell];
+				
+				returnData.map((rd) => {
+					let idx = calendar.findIndex(
+						(c) =>
+							new Date(c.date).getTime() ==
+							new Date(
+								new Date(rd.scheduleDate).setHours(0, 0, 0, 0)
+							).getTime()
+					);
+					if (idx !== -1) {
+						calendar[idx].schedule.push(rd);
+					}
+				});
+				setDateCell(calendar);
+				console.log(calendar)
+			}
+		);
+	};
 
 	useEffect(async () => {
 		const buildCalendar = async () => {
@@ -54,71 +82,17 @@ const Schedule = (props) => {
 				}
 			}
 			setDateCell(calendar);
-
-			sendRequest(
-				{
-					url: `schedule/${ctx.user.userId}/${
-						currentMonth + 1
-					}/${currentYear}`,
-				},
-				(returnData) => {
-					setOutfitScheduleList(returnData);
-					returnData.map((rd) => {
-						let idx = calendar.findIndex(
-							(c) =>
-								new Date(c.date).getTime() ==
-								new Date(
-									new Date(rd.scheduleDate).setHours(
-										0,
-										0,
-										0,
-										0
-									)
-								).getTime()
-						);
-						if (idx !== -1) {
-							calendar[idx].schedule.push(rd);
-						}
-					});
-					setDateCell(calendar);
-					console.log(calendar);
-				}
-			);
+			// console.log('hohohooho')
+			await mapOutfitWithCalendar(calendar);
+			// console.log(calendar)
 		};
 
 		buildCalendar();
 	}, [currentMonth, currentYear]);
 
-	// useEffect(() => {
-	// 	console.log('ehhehe')
-	// 	if (dateCell == null || outfitScheduleList.length < 1) {
-	// 		return;
-	// 	}
-	// 	console.log('kookkok')
-	// 	let calendar = [...dateCell]
-	// 	outfitScheduleList.map((osl) => {
-	// 		let idx = calendar.findIndex(
-	// 			(c) =>
-	// 				new Date(c.date).getTime() ==
-	// 				new Date(
-	// 					new Date(osl.scheduleDate).setHours(
-	// 						0,
-	// 						0,
-	// 						0,
-	// 						0
-	// 					)
-	// 				).getTime()
-	// 		);
-	// 		if (idx !== -1) {
-	// 			calendar[idx].schedule.push(osl);
-	// 		}
-	// 	});
-	// 	setDateCell(calendar);
-	// 	console.log(calendar);
-	// }, [outfitScheduleList,])
 
 	useEffect(() => {
-		sendRequest(
+		getOutfits(
 			{
 				url: `outfit/${ctx.user.userId}/`,
 			},
@@ -149,60 +123,56 @@ const Schedule = (props) => {
 	};
 
 	const addOutfitToSchedule = (date, outfit) => {
-
-		let scheduleId = 0;
-		outfitScheduleList.forEach((element) => {
-			if (scheduleId < element.scheduleId)
-				scheduleId = element.scheduleId;
-		});
-		scheduleId += 1;
-
-		const tempOutfitScheduleList = [...outfitScheduleList];
-
+		console.log(date.getDate())
 		const newOutfitToBeAdded = {
 			outfitId: outfit.outfitId,
 			outfitName: outfit.name,
-			scheduleDate: date,
-			scheduleId: scheduleId,
+			scheduleDate: new Date(`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}Z`),
 			clothings: outfit.clothings,
-		}
+		};
 
-		tempOutfitScheduleList.push(newOutfitToBeAdded);
-		setOutfitScheduleList(tempOutfitScheduleList);
 
-		let idx = dateCell.findIndex(
-			(c) =>
-				new Date(c.date).getTime() ==
-				new Date(
-					new Date(date).setHours(0, 0, 0, 0)
-				).getTime()
+		sendRequest(
+			{
+				url: `schedule/${ctx.user.userId}/`,
+				method: 'POST',
+				body: newOutfitToBeAdded,
+			},
+			(returnData) => {
+				console.log(returnData);
+				mapOutfitWithCalendar([...dateCell]);
+			}
 		);
-		if (idx !== -1) {
-			dateCell[idx].schedule.push(newOutfitToBeAdded);
-		}
 	};
 
 	const dateClickHandler = (date) => {
-		
 		if (!outfitList) {
 			confirmAlert({
-				customUI: ({ onClose}) => {
-					return <PopUp  title={`Loading Your Outfit`} onClose={onClose}>
-					</PopUp>
-				}
-			})
+				customUI: ({ onClose }) => {
+					return (
+						<PopUp
+							title={`Loading Your Outfit`}
+							onClose={onClose}
+						></PopUp>
+					);
+				},
+			});
 		}
 
-		if (outfitList.length == 0) {
+		else if (outfitList.length == 0) {
 			confirmAlert({
-				customUI: ({ onClose}) => {
-					return <PopUp  title={`You don't have any outfit yet, try creating one`} onClose={onClose}>
-					</PopUp>
-				}
-			})
+				customUI: ({ onClose }) => {
+					return (
+						<PopUp
+							title={`You don't have any outfit yet, try creating one`}
+							onClose={onClose}
+						></PopUp>
+					);
+				},
+			});
 		}
 
-		if (outfitList.length > 0) {
+		else if (outfitList.length > 0) {
 			confirmAlert({
 				customUI: ({ onClose }) => {
 					return (

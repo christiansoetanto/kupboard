@@ -20,7 +20,7 @@ const Schedule = (props) => {
 	const { sendRequest: getOutfits } = useHttp();
 	const { sendRequest: insertNewSchedule } = useHttp;
 
-	const mapOutfitWithCalendar =async (calendar) => {
+	const mapOutfitWithCalendar = async (calendar) => {
 		await sendRequest(
 			{
 				url: `schedule/${ctx.user.userId}/${
@@ -32,7 +32,7 @@ const Schedule = (props) => {
 				setOutfitScheduleList(returnData);
 
 				// const calendar = [...dateCell];
-				
+
 				returnData.map((rd) => {
 					let idx = calendar.findIndex(
 						(c) =>
@@ -41,12 +41,17 @@ const Schedule = (props) => {
 								new Date(rd.scheduleDate).setHours(0, 0, 0, 0)
 							).getTime()
 					);
+					console.log(idx + ' hahahah');
 					if (idx !== -1) {
-						calendar[idx].schedule.map(scheduleItem => scheduleItem.outfitId) == rd.outfitId || calendar[idx].schedule.push(rd);
+						calendar[idx].schedule
+							.map((scheduleItem) => scheduleItem.outfitId)
+							.includes(rd.outfitId)
+							||
+							calendar[idx].schedule.push(rd);
 					}
 				});
 				setDateCell(calendar);
-				console.log(calendar)
+				console.log(calendar);
 			}
 		);
 	};
@@ -90,7 +95,6 @@ const Schedule = (props) => {
 		buildCalendar();
 	}, [currentMonth, currentYear]);
 
-
 	useEffect(() => {
 		getOutfits(
 			{
@@ -123,14 +127,17 @@ const Schedule = (props) => {
 	};
 
 	const addOutfitToSchedule = (date, outfit) => {
-		console.log(date.getDate())
+		console.log(date.getDate());
 		const newOutfitToBeAdded = {
 			outfitId: outfit.outfitId,
 			outfitName: outfit.name,
-			scheduleDate: new Date(`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}Z`),
+			scheduleDate: new Date(
+				`${date.getFullYear()}-${
+					date.getMonth() + 1
+				}-${date.getDate()}Z`
+			),
 			clothings: outfit.clothings,
 		};
-
 
 		sendRequest(
 			{
@@ -157,9 +164,7 @@ const Schedule = (props) => {
 					);
 				},
 			});
-		}
-
-		else if (outfitList.length == 0) {
+		} else if (outfitList.length == 0) {
 			confirmAlert({
 				customUI: ({ onClose }) => {
 					return (
@@ -170,9 +175,7 @@ const Schedule = (props) => {
 					);
 				},
 			});
-		}
-
-		else if (outfitList.length > 0) {
+		} else if (outfitList.length > 0) {
 			confirmAlert({
 				customUI: ({ onClose }) => {
 					return (

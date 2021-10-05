@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { confirmAlert } from "react-confirm-alert";
 
 const useHttp = () => {
 	const [isLoading, setIsLoading] = useState(false);
@@ -26,7 +27,7 @@ const useHttp = () => {
 
 			const data = await response.json();
 
-			applyData(data);
+			await applyData(data);
 		} catch (err) {
 			setError(err.message || "Something went wrong!");
 		}

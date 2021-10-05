@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import DateCell from "./DateCell";
-
+import ReactTooltip from "react-tooltip";
 const GridCalendar = (props) => {
-	const { dateCell, onClick } = props;
+	const { dateCell, onClick, onDelete } = props;
 
 	const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 	const dateClickHandler = (date) => {
 		onClick(date);
+	};
+
+	const deleteHandler = (scheduleId, scheduleDate) => {
+		onDelete(scheduleId, scheduleDate);
 	};
 
 	return (
@@ -32,6 +36,7 @@ const GridCalendar = (props) => {
 								key={index}
 								schedule={e.schedule}
 								onClick={dateClickHandler}
+								onDelete={deleteHandler}
 							/>
 						);
 					} else {

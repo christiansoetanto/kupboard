@@ -41,7 +41,6 @@ const Schedule = (props) => {
 								new Date(rd.scheduleDate).setHours(0, 0, 0, 0)
 							).getTime()
 					);
-					console.log(idx + ' hahahah');
 					if (idx !== -1) {
 						calendar[idx].schedule
 							.map((scheduleItem) => scheduleItem.outfitId)
@@ -51,7 +50,6 @@ const Schedule = (props) => {
 					}
 				});
 				setDateCell(calendar);
-				console.log(calendar);
 			}
 		);
 	};
@@ -127,7 +125,6 @@ const Schedule = (props) => {
 	};
 
 	const addOutfitToSchedule = (date, outfit) => {
-		console.log(date.getDate());
 		const newOutfitToBeAdded = {
 			outfitId: outfit.outfitId,
 			outfitName: outfit.name,
@@ -146,7 +143,6 @@ const Schedule = (props) => {
 				body: newOutfitToBeAdded,
 			},
 			(returnData) => {
-				console.log(returnData);
 				mapOutfitWithCalendar([...dateCell]);
 			}
 		);

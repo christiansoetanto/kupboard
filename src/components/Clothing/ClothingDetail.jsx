@@ -8,7 +8,7 @@ const ClothingDetail = (props) => {
 	return (
 		<div className='flex flex-col space-y-10'>
 			<AddClothing clothingId={id} />
-			<ClothingStatistic />
+			<ClothingStatistic id={id} />
 		</div>
 	);
 };

@@ -8,7 +8,7 @@ const OutfitDetail = (props) => {
 	return (
 		<div className='flex flex-col space-y-10'>
 			<AddOutfit outfitId={id} />
-			<OutfitStatistics />
+			<OutfitStatistics id={id} />
 		</div>
 	);
 };

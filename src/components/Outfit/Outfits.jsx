@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import TagFilter from "../Filter/TagFilter";
+import FilterTag from "../Filter/FilterTag";
 import useHttp from "../../hooks/use-http";
 import OutfitList from "./OutfitList";
 import AuthContext from "../../contexts/auth-context";
@@ -16,11 +16,12 @@ const Outfits = () => {
 	useEffect(() => {
 		const transformOutfits = (returnData) => {
 			const allTags = [];
-			for (const c of returnData) {
-				c.tags.forEach((element) => {
-					allTags.push({ ...element, isSelected: false });
-				});
+			for (const outfit of returnData) {
+				for (const tag of outfit.tags) {
+					allTags.push({ ...tag, isSelected: false });
+				}
 			}
+
 			const uniqueTags = [];
 
 			allTags.map((x) => (uniqueTags.filter((a) => a.tagId === x.tagId).length > 0 ? null : uniqueTags.push(x)));
@@ -41,7 +42,7 @@ const Outfits = () => {
 					.map((i) => i.tagId);
 
 				if (selectedTags.length === 0) return true;
-				else return selectedTags.some((t) => item.tags.map((e) => e.tagId).indexOf(t) >= 0);
+				else return selectedTags.every((t) => item.tags.map((e) => e.tagId).indexOf(t) >= 0);
 			});
 			setFilteredOutfits(filteredOutfitList);
 		};
@@ -54,9 +55,8 @@ const Outfits = () => {
 
 	return (
 		<div className=''>
-			<TagFilter tags={tags} onChangedFilter={changedFilterHandler} isLoading={fetchOutfits_isLoading} />
-			
-			
+			<FilterTag tags={tags} onChangedFilter={changedFilterHandler} isLoading={fetchOutfits_isLoading} />
+
 			<div className='grid grid-cols-2 md:grid-cols-4 gap-x-1 gap-y-3'>
 				<Link className='rounded shadow-xl bg-white border p-1 flex items-center justify-center w-full' to='/add-outfit'>
 					<div className='text-center font-semibold'>Add More Outfit?</div>
@@ -64,7 +64,6 @@ const Outfits = () => {
 
 				<OutfitList outfitList={filteretedOutfits} isLoading={fetchOutfits_isLoading} />
 			</div>
-		
 		</div>
 	);
 };

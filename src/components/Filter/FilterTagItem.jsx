@@ -1,16 +1,19 @@
 import React, { useState } from "react";
-import Card from "./Card";
-const Tag = (props) => {
+import Card from "../UI/Card";
+const FilterTagItem = (props) => {
 	const { tagId, color, name, isSelected, onClickTag } = props;
 	const clickTagHandler = (e) => {
 		onClickTag({ tagId: tagId, name: name, isSelected: !isSelected });
 	};
 	return (
-		<Card className={`flex content-start justify-between whitespace-nowrap rounded-full py-1 px-4 cursor-pointer ${isSelected && "bg-orange-400 text-white"}`}>
+		<Card
+			className={`flex content-start justify-between whitespace-nowrap rounded-full py-1 px-4 cursor-pointer ${
+				isSelected && "bg-orange-400 text-white"
+			}`}>
 			<div style={{ backgroundColor: { color } }} className={`h-full self-center flex-shrink rounded-full`}>
 				<div className={`flex flex-nowrap space-x-1 `}>
 					<div className=' flex items-center' type='text' onClick={clickTagHandler}>
-						<div className={`rounded-full overflow-hidden w-6 h-6 mr-1 ${tagId != 'reset' && 'border'} border-gray-900`}>
+						<div className={`rounded-full overflow-hidden w-6 h-6 mr-1 border border-gray-900`}>
 							<input
 								type='color'
 								value={color}
@@ -29,4 +32,4 @@ const Tag = (props) => {
 	);
 };
 
-export default Tag;
+export default FilterTagItem;

@@ -1,17 +1,16 @@
 import React, { Fragment, useContext, useState } from "react";
 import useHttp from "../../hooks/use-http";
-import AddClothingTag from "./AddClothingTag";
+import Tag from "./Tag";
 import NewTag from "./NewTag";
 import Card from "../UI/Card";
 import AuthContext from "../../contexts/auth-context";
-const SelectTagList = (props) => {
+const Tags = (props) => {
 	const { tags, onSetTags } = props;
 	const [isAddTag, setIsAddTag] = useState(false);
 	const { isLoading, error, sendRequest } = useHttp();
 	const ctx = useContext(AuthContext);
 
 	const clickTagHandler = (tag) => {
-		console.log(tag.tagId);
 		let selectedTags = [];
 
 		selectedTags = tags.map((obj) => (tag.tagId === obj.tagId ? { ...obj, isSelected: !obj.isSelected } : obj));
@@ -27,14 +26,12 @@ const SelectTagList = (props) => {
 	};
 
 	const clickEditHandler = (tagId) => {
-		console.log("edit id: " + tagId);
 		let newTags = [];
 
 		newTags = tags.map((obj) => (tagId === obj.tagId ? { ...obj, isEdit: !obj.isEdit } : obj));
 		onSetTags(newTags);
 	};
 	const clickDeleteHandler = (tagId) => {
-		console.log("delete id: " + tagId);
 
 		sendRequest(
 			{
@@ -43,17 +40,13 @@ const SelectTagList = (props) => {
 			},
 			() => {
 				let newTags = [];
-				console.log(tagId);
 				newTags = tags.filter((obj) => tagId !== obj.tagId);
-
-				console.log(newTags);
 				onSetTags(newTags);
 			}
 		);
 	};
 
 	const saveHandler = (newTag) => {
-		console.log(newTag);
 		sendRequest(
 			{
 				url: `tag/${ctx.user.userId}/${newTag.tagId}`,
@@ -63,7 +56,6 @@ const SelectTagList = (props) => {
 			(result) => {
 				let newTags = [];
 				newTags = tags.map((obj) => (result.tagId === obj.tagId ? { ...result, isEdit: false, isSelected: false } : obj));
-				console.log(newTags);
 
 				onSetTags(newTags);
 			}
@@ -80,7 +72,6 @@ const SelectTagList = (props) => {
 			(result) => {
 				let newTags = tags;
 				newTags.push({ ...result, isEdit: false, isSelected: false });
-				console.log(newTags);
 				setIsAddTag((prev) => {
 					return !prev;
 				});
@@ -116,7 +107,7 @@ const SelectTagList = (props) => {
 			{isAddTag && <NewTag onAdd={addNewTagHandler} onCancelAdd={cancelAddNewTagHandler} />}
 			{tags.map((item) => (
 				<Fragment key={item.tagId}>
-					<AddClothingTag
+					<Tag
 						key={item.tagId}
 						tagId={item.tagId}
 						name={item.name}
@@ -135,4 +126,4 @@ const SelectTagList = (props) => {
 	);
 };
 
-export default SelectTagList;
+export default Tags;

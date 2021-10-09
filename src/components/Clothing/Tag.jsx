@@ -1,23 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
-import CancelSvg from '../UI/CancelSvg';
-import Card from '../UI/Card';
-import DeleteSvg from '../UI/DeleteSvg';
-import EditSvg from '../UI/EditSvg';
-import SaveSvg from '../UI/SaveSvg';
+import React, { useState, useEffect, useRef } from "react";
+import CancelSvg from "../UI/CancelSvg";
+import Card from "../UI/Card";
+import DeleteSvg from "../UI/DeleteSvg";
+import EditSvg from "../UI/EditSvg";
+import SaveSvg from "../UI/SaveSvg";
 
 const AddClothingTag = (props) => {
-	const {
-		tagId,
-		color,
-		name,
-		isSelected,
-		isEdit,
-		onClickTag,
-		onClickEdit,
-		onClickDelete,
-		onSave,
-		onCancelEdit,
-	} = props;
+	const { tagId, color, name, isSelected, isEdit, onClickTag, onClickEdit, onClickDelete, onSave, onCancelEdit } = props;
 	const clickTagHandler = (e) => {
 		onClickTag({ tagId: tagId, name: name, isSelected: !isSelected });
 	};
@@ -30,7 +19,6 @@ const AddClothingTag = (props) => {
 	};
 
 	const saveTagHandler = () => {
-
 		onSave({
 			tagId: tagId,
 			name: nameRef.current.value,
@@ -56,13 +44,9 @@ const AddClothingTag = (props) => {
 	return (
 		<Card
 			className={`flex content-start justify-between whitespace-nowrap rounded-full py-1 px-4 cursor-pointer ${
-				isSelected && 'bg-orange-400 text-white'
-			}`}
-		>
-			<div
-				style={{ backgroundColor: { color } }}
-				className={`h-full self-center flex-shrink rounded-full border-3 border-gray-900`}
-			>
+				isSelected && "bg-orange-400 text-white"
+			}`}>
+			<div style={{ backgroundColor: { color } }} className={`h-full self-center flex-shrink rounded-full border-3 border-gray-900`}>
 				{isEdit && (
 					<div className='flex flex-nowrap space-x-1'>
 						<div className='rounded-full overflow-hidden w-6 h-6 mr-1'>
@@ -71,7 +55,7 @@ const AddClothingTag = (props) => {
 								ref={colorRef}
 								className='bg-transparent h-52 w-52 p-0 border-0 cursor-pointer'
 								style={{
-									transform: 'translate(-25%, -25%)',
+									transform: "translate(-25%, -25%)",
 								}}
 							/>
 						</div>
@@ -90,11 +74,7 @@ const AddClothingTag = (props) => {
 				)}
 				{!isEdit && (
 					<div className='flex flex-nowrap space-x-1'>
-						<div
-							className=' flex items-center'
-							type='text'
-							onClick={clickTagHandler}
-						>
+						<div className=' flex items-center' type='text' onClick={clickTagHandler}>
 							<div className='rounded-full overflow-hidden w-6 h-6 mr-1'>
 								<input
 									type='color'
@@ -102,7 +82,7 @@ const AddClothingTag = (props) => {
 									disabled={true}
 									className='bg-transparent h-52 w-52 p-0 border-0 cursor-pointer'
 									style={{
-										transform: 'translate(-25%, -25%)',
+										transform: "translate(-25%, -25%)",
 									}}
 								/>
 							</div>

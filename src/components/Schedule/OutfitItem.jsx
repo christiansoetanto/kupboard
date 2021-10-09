@@ -7,7 +7,7 @@ import DeleteSvg from "../UI/DeleteSvg";
 import useHttp from "../../hooks/use-http";
 import AuthContext from "../../contexts/auth-context";
 
-const ScheduleOutfitItem = (props) => {
+const OutfitItem = (props) => {
 	const { scheduleId, outfitId, outfitName, clothings, scheduleDate, onDelete } = props;
 	const tooltip_id = `${outfitId}`;
 	const ctx = useContext(AuthContext);
@@ -32,6 +32,12 @@ const ScheduleOutfitItem = (props) => {
 							className={"border-black bg-green-500"}>
 							DELETE THIS
 						</button>
+						<DeleteSvg
+							onClick={() => {
+								deleteHandler();
+								onClose();
+							}}
+						/>
 					</PopUp>
 				);
 			},
@@ -60,4 +66,4 @@ const ScheduleOutfitItem = (props) => {
 	);
 };
 
-export default ScheduleOutfitItem;
+export default OutfitItem;

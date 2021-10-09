@@ -41,9 +41,6 @@ const Schedule = (props) => {
 				});
 			}
 		}
-		// setDateCell(calendar);
-		// console.log('hohohooho')
-		// await mapOutfitWithCalendar(calendar);
 		await sendRequest(
 			{
 				url: `schedule/${ctx.user.userId}/${currentMonth + 1}/${currentYear}`,
@@ -51,7 +48,6 @@ const Schedule = (props) => {
 			(returnData) => {
 				setOutfitScheduleList(returnData);
 
-				// const calendar = [...dateCell];
 
 				returnData.map((rd) => {
 					let idx = calendar.findIndex((c) => {
@@ -64,7 +60,6 @@ const Schedule = (props) => {
 				setDateCell(calendar);
 			}
 		);
-		// console.log(calendar)
 	};
 
 	useEffect(async () => {

@@ -10,6 +10,7 @@ import ClothingDetail from "./components/Clothing/ClothingDetail";
 import OutfitDetail from "./components/Outfit/OutfitDetail";
 import Schedule from "./components/Schedule/Schedule";
 import Profile from "./components/Profile/Profile";
+import Home from "./components/Home/Home";
 function App() {
 	return (
 		<Layout>
@@ -29,7 +30,7 @@ function App() {
 				</Route>
 
 				<Route path='/' exact>
-					<div>ini halaman home hehe</div>
+					<Home />
 				</Route>
 
 				<Route path='/clothings/:id'>

@@ -10,7 +10,6 @@ const OutfitStatistic = (props) => {
 
 	useEffect(() => {
 		sendRequest({ url: `statistic/outfit/${ctx.user.userId}/${id}` }, (returnData) => {
-			console.log(returnData);
 			setStatistic(returnData);
 		});
 	}, []);

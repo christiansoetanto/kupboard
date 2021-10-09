@@ -5,7 +5,7 @@ import Card from "../UI/Card";
 const OutfitItem = (props) => {
 	const history = useHistory();
 
-	const { clothings, tags, outfitId } = props.outfit;
+	const { clothings, tags, outfitId, name } = props.outfit;
 
 	const handleCardClick = () => {
 		history.push(`/outfits/${outfitId}`);
@@ -18,6 +18,7 @@ const OutfitItem = (props) => {
 					<PrimaryClothingImages clothings={clothings} />
 				</div>
 			</div>
+			<div className=' text-center center items-center justify-center'>{name}</div>
 		</div>
 	);
 };

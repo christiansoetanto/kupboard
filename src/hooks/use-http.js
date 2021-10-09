@@ -10,12 +10,16 @@ const useHttp = () => {
 		setError(null);
 		try {
 			const isJson = requestConfig.isJson ?? true;
+			const useAPIBaseUrl = requestConfig.useAPIBaseUrl ?? true;
+			const url = useAPIBaseUrl ? process.env.REACT_APP_API_BASEURL + requestConfig.url : requestConfig.url;
 			const body = requestConfig.body ? (isJson ? JSON.stringify(requestConfig.body) : requestConfig.body) : null;
 			let headers = requestConfig.headers ?? {};
 			if (!headers["Content-Type"]) {
 				headers["Content-Type"] = "application/json";
 			}
-			const response = await fetch(process.env.REACT_APP_API_BASEURL + requestConfig.url, {
+			// headers["Access-Control-Allow-Origin"] = "*";
+			// headers["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Accept	";
+			const response = await fetch(url, {
 				method: requestConfig.method ? requestConfig.method : "GET",
 				headers: headers,
 				body: body,
@@ -38,6 +42,7 @@ const useHttp = () => {
 		isLoading,
 		error,
 		sendRequest,
+		setError,
 	};
 };
 

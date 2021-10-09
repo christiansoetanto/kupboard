@@ -5,7 +5,6 @@ import { useHistory } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { v4 as uuidv4 } from "uuid";
-import SelectTagList from "../Clothing/SelectTagList";
 import AuthContext from "../../contexts/auth-context";
 import CancelSvg from "../UI/CancelSvg";
 import AddSvg from "../UI/AddSvg";
@@ -40,9 +39,6 @@ const AddOutfit = (props) => {
 	const [secondaryClothings, setSecondaryClothings] = useState([]);
 	const [selectedSecondaryClothings, setSelectedSecondaryClothings] = useState([]);
 
-	const [tags, setTags] = useState([]);
-	const [defaultSelectedTags, setDefaultSelectedTags] = useState([]);
-
 	const [dateValue, setDateValue] = useState([]);
 	const [hasCalendar, setHasCalendar] = useState(false);
 
@@ -65,7 +61,8 @@ const AddOutfit = (props) => {
 			setSelectedState: setSelectedShirt,
 			listState: shirtList,
 			setListState: setShirtList,
-			defaultImage: "https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/000000/external-shirt-hygiene-kiranshastry-lineal-kiranshastry-2.png",
+			defaultImage:
+				"https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/000000/external-shirt-hygiene-kiranshastry-lineal-kiranshastry-2.png",
 		},
 		{
 			categoryId: 1,
@@ -93,7 +90,6 @@ const AddOutfit = (props) => {
 	const submitHandler = () => {
 		let submitData = {
 			clothings: [],
-			tags: [],
 			name: nameRef.current.value,
 			scheduleDate: dateValue,
 		};
@@ -107,12 +103,6 @@ const AddOutfit = (props) => {
 		selectedSecondaryClothings.forEach((e) => {
 			if (e) submitData.clothings.push({ clothingId: e.clothingId });
 		});
-
-		tags
-			.filter((e) => e.isSelected === true)
-			.map((e) => {
-				if (e) submitData.tags.push({ tagId: e.tagId });
-			});
 
 		let url = "";
 		let method = "";
@@ -303,10 +293,6 @@ const AddOutfit = (props) => {
 					});
 				};
 
-				const transformTags = (tags) => {
-					setDefaultSelectedTags(tags);
-				};
-
 				const transformScheduleDate = (date) => {
 					setDateValue(
 						date.map((e) => {
@@ -316,7 +302,6 @@ const AddOutfit = (props) => {
 				};
 
 				transformClothing(returnData.clothings);
-				transformTags(returnData.tags);
 				if (returnData.scheduleDate.length > 0) {
 					transformScheduleDate(returnData.scheduleDate);
 					setHasCalendar(true);
@@ -325,23 +310,6 @@ const AddOutfit = (props) => {
 			};
 
 			sendRequest({ url: `outfit/${ctx.user.userId}/${outfitId}` }, transformOutfit);
-		};
-
-		const loadTags = async () => {
-			await sendRequest({ url: `tag/${ctx.user.userId}` }, (returnData) => {
-				const allTags = [];
-				for (const e of returnData) {
-					allTags.push({
-						...e,
-						isSelected: false,
-						isEdit: false,
-					});
-				}
-				const uniqueTags = [];
-
-				allTags.map((x) => (uniqueTags.filter((a) => a.tagId === x.tagId).length > 0 ? null : uniqueTags.push(x)));
-				setTags(uniqueTags);
-			});
 		};
 
 		const loadSecondaryClothings = async () => {
@@ -363,22 +331,9 @@ const AddOutfit = (props) => {
 			);
 		};
 
-		await loadTags();
 		await loadSecondaryClothings();
 		if (isEdit) await loadDefaultOutfit();
 	}, []);
-
-	useEffect(() => {
-		if (tags && tags.length > 0) {
-			const selectedTags = tags.map((e) => {
-				return {
-					...e,
-					isSelected: defaultSelectedTags.map((x) => x.tagId).includes(e.tagId),
-				};
-			});
-			setTags(selectedTags);
-		}
-	}, [defaultSelectedTags]);
 
 	const handelDatePickerChange = (dates) => {
 		setDateValue(
@@ -465,15 +420,6 @@ const AddOutfit = (props) => {
 						<br />
 						<input type='text' name='' id='outfit-name' className='form-input rounded w-full' ref={nameRef} />
 					</span>
-
-					<div>
-						<SelectTagList
-							tags={tags}
-							onSetTags={(tags) => {
-								setTags(tags);
-							}}
-						/>
-					</div>
 
 					<div>
 						<label htmlFor='chbx-set-date' className='cursor-pointer flex items-center'>

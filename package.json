@@ -23,6 +23,7 @@
 		"web-vitals": "^1.1.2"
 	},
 	"scripts": {
+		"https-start": "set HTTPS=true&&set SSL_CRT_FILE=C:/Windows/System32/localhost.pem&&set SSL_KEY_FILE=C:/Windows/System32/localhost-key.pem&&craco start",
 		"start": "craco start",
 		"build": "craco build",
 		"test": "craco test",

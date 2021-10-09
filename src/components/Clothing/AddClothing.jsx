@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState, useContext } from "react";
 import useHttp from "../../hooks/use-http";
 import { useHistory } from "react-router-dom";
 import firebase from "firebase";
-import SelectTagList from "./SelectTagList";
+import Tags from "./Tags";
 import CategoryFilter from "../Filter/CategoryFilter";
 import Camera from "react-html5-camera-photo";
 import "react-html5-camera-photo/build/css/index.css";
@@ -276,7 +276,7 @@ const AddClothing = (props) => {
 
 				<hr />
 
-				<SelectTagList tags={tags} onSetTags={setTagsHandler} />
+				<Tags tags={tags} onSetTags={setTagsHandler} />
 
 				<hr />
 
@@ -288,7 +288,9 @@ const AddClothing = (props) => {
 							</span>
 						</div>
 					)}
-					<button onClick={submitHandler} className='py-2 px-1 w-2/3 hover:bg-purple-400  font-semibold hover:text-white rounded border-2 border-purple-400'>
+					<button
+						onClick={submitHandler}
+						className='py-2 px-1 w-2/3 hover:bg-purple-400  font-semibold hover:text-white rounded border-2 border-purple-400'>
 						{isEdit ? "Update Clothing" : "Add Clothing"}
 					</button>
 				</div>

@@ -56,7 +56,7 @@ const Weather = () => {
 		});
 	}, [coordinate]);
 	return (
-		<div>
+		<div className='rounded-lg bg-yellow-200 py-2 px-4'>
 			<div>
 				latitude = {coordinate.latitude} <br></br>
 				longitude = {coordinate.longitude}

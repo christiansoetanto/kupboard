@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
 import useHttp from "../../hooks/use-http";
 import AuthContext from "../../contexts/auth-context";
+import OutfitStatisticDetail from "./OutfitStatisticDetail";
 const OutfitStatistic = (props) => {
 	const { isLoading, error, sendRequest } = useHttp();
 	const ctx = useContext(AuthContext);
@@ -20,17 +21,7 @@ const OutfitStatistic = (props) => {
 				Statistics
 			</div>
 
-			{statistic && (
-				<div name='desc'>
-					<ul>
-						<li>lastUsedDate = {statistic.lastUsedDate}</li>
-						<li>nextUseDate = {statistic.nextUseDate}</li>
-						<li>usedCount = {statistic.usedCount}</li>
-						<li>plannedToUseCount = {statistic.plannedToUseCount}</li>
-						<li>insertDate = {statistic.insertDate}</li>
-					</ul>
-				</div>
-			)}
+			{statistic && <OutfitStatisticDetail statistic={statistic} />}
 		</div>
 	);
 };

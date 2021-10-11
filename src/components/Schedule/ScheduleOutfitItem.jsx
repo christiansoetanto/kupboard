@@ -7,7 +7,7 @@ import DeleteSvg from "../UI/DeleteSvg";
 import useHttp from "../../hooks/use-http";
 import AuthContext from "../../contexts/auth-context";
 
-const OutfitItem = (props) => {
+const ScheduleOutfitItem = (props) => {
 	const { scheduleId, outfitId, outfitName, clothings, scheduleDate, onDelete } = props;
 	const tooltip_id = `${outfitId}`;
 	const ctx = useContext(AuthContext);
@@ -66,4 +66,4 @@ const OutfitItem = (props) => {
 	);
 };
 
-export default OutfitItem;
+export default ScheduleOutfitItem;

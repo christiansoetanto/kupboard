@@ -51,7 +51,7 @@ const Weather = () => {
 				temperature: returnData.main.temp ?? "",
 				placeName: returnData.name ?? "",
 				countryName: returnData.sys?.country ?? "",
-				weather: returnData.weather?.main ?? "",
+				weather: returnData.weather[0]?.main ?? "",
 			});
 		});
 	}, [coordinate]);

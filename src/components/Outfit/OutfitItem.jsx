@@ -6,15 +6,16 @@ const OutfitItem = (props) => {
 	const history = useHistory();
 
 	const { clothings, tags, outfitId, name } = props.outfit;
+	const {innerClassName} = props;
 
 	const handleCardClick = () => {
 		history.push(`/outfits/${outfitId}`);
 	};
 
 	return (
-		<div className='rounded shadow-xl bg-white border p-1' onClick={handleCardClick}>
-			<div className='flex items-center justify-center'>
-				<div style={{ maxWidth: "13rem" }} className='flex flex-col space-y-1 items-center justify-center'>
+		<div className={'rounded shadow-xl bg-white border p-1 '} onClick={handleCardClick}>
+			<div className={'flex items-center justify-center '}>
+				<div style={{ maxWidth: "13rem" }} className={'flex flex-col space-y-1 items-center justify-center rounded-lg p-4' + innerClassName}>
 					<PrimaryClothingImages clothings={clothings} />
 				</div>
 			</div>

@@ -24,7 +24,7 @@ const OutfitCarousel = (props) => {
 					{outfits.map((e) => {
 						return (
 							<div className='mb-8' key={e.outfitId}>
-								<OutfitItem key={e.outfitId} outfit={e} innerClassName='cursor-pointer hover:bg-yellow-200' />
+								<OutfitItem key={e.outfitId} outfit={e} />
 								{/* <p className='legend'>{e.name}</p> */}
 							</div>
 						);

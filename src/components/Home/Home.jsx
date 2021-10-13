@@ -46,7 +46,7 @@ const Home = () => {
 		<div className='flex flex-col items-center space-y-4'>
 			<div className='font-semibold text-3xl text-gray-700'>OUTFIT OF THE DAY</div>
 
-			<div className='flex flex-col md:flex-row w-full justify-center items-center content-evenly md:space-x-4'>
+			<div className='flex flex-col md:flex-row w-full justify-center items-stretch content-evenly md:space-x-4'>
 				<div className='flex-1 text-center flex flex-col items-stretch md:w-1/3 md:border-r-2 border-warmGray-300 md:pr-8'>
 					<div className='w-full'>
 						<OutfitCarousel outfits={outfitsOfTheDay} onChange={onChangeHandler} />
@@ -54,7 +54,7 @@ const Home = () => {
 				</div>
 				<div className='flex flex-col w-full flex-1 space-y-4'>
 					<Weather />
-					<div className='text-center py-2 px-4'>
+					<div className='text-center'>
 						<HomeStatistic statistic={statistic} />
 					</div>
 				</div>

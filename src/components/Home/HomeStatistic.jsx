@@ -11,16 +11,20 @@ const HomeStatistic = (props) => {
 	const { outfitStatistic, clothingsStatistic } = props.statistic;
 
 	return (
-		<div className='flex flex-col items-center space-y-4'>
-			<div className='bg-red-500 m-3 p-3'>{outfitStatistic && <OutfitStatisticDetail statistic={outfitStatistic} />}</div>
-			<div className='bg-blue-500 m-3 p-3'>
+		<div className='flex flex-col space-y-2 justify-center items-stretch'>
+			<div className='bg-white shadow-xl border p-3 rounded-lg '>{outfitStatistic && <OutfitStatisticDetail statistic={outfitStatistic} />}</div>
+			<div className='bg-white shadow-xl border p-3 rounded-lg'>
+				<div className='text-xl mb-4'>
+					Clothing Statistics
+				<hr />
+				</div>
 				{clothingsStatistic && clothingsStatistic.length > 0 && (
-					<Carousel autoplay infiniteLoop={true} showThumbs={false}>
+					<Carousel autoplay={true} infiniteLoop={true} showThumbs={false} dynamicHeight={false}>
 						{clothingsStatistic.map((e, i) => {
 							return (
-								<div className='mb-8' key={i}>
-									<ClothingStatisticDetail statistic={e} />
-								</div>
+								// <div className='mb-8 flex items-center justify-center' key={i}>
+									<ClothingStatisticDetail statistic={e} key={i}/>
+								// </div>
 							);
 						})}
 					</Carousel>

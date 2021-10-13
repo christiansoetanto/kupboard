@@ -57,15 +57,15 @@ const Weather = () => {
 	}, [coordinate]);
 	return (
 		<div className='rounded-lg bg-yellow-200 py-2 px-4'>
-			<div>
+			{/* <div>
 				latitude = {coordinate.latitude} <br></br>
 				longitude = {coordinate.longitude}
-			</div>
+			</div> */}
 			<div>
-				temperature = {weatherData.temperature} <br></br>
-				placeName = {weatherData.placeName} <br></br>
-				countryName = {weatherData.countryName} <br></br>
-				weather = {weatherData.weather} <br></br>
+				temperature = {weatherData.temperature}
+				placeName = {weatherData.placeName}
+				countryName = {weatherData.countryName}
+				weather = {weatherData.weather}
 			</div>
 			<div>error = {error}</div>
 		</div>

@@ -11,6 +11,7 @@ import OutfitDetail from "./components/Outfit/OutfitDetail";
 import Schedule from "./components/Schedule/Schedule";
 import Profile from "./components/Profile/Profile";
 import Home from "./components/Home/Home";
+import ChatPage from "./components/Chat/ChatPage";
 function App() {
 	return (
 		<Layout>
@@ -31,6 +32,10 @@ function App() {
 
 				<Route path='/' exact>
 					<Home />
+				</Route>
+
+				<Route path='/chat' exact>
+					<ChatPage />
 				</Route>
 
 				<Route path='/clothings/:id'>

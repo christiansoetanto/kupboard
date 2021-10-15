@@ -26,9 +26,7 @@ const ChatRoom = (props) => {
 
 				<span ref={dummy}></span>
 			</div>
-			<div>
-				<FormMessage onSubmit={submitHandler} receiverUserId={receiverUserId} />
-			</div>
+			<div>{<FormMessage onSubmit={submitHandler} receiverUserId={receiverUserId} />}</div>
 		</Fragment>
 	);
 };

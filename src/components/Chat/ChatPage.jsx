@@ -21,9 +21,11 @@ const ChatPage = () => {
 				ini user list
 				<UserList firestore={firestore} onClick={clickHandler} currentReceiverUserId={receiverUserId} />
 			</div>
-			<div className='p-3 m-3 bg-red-400'>
-				<ChatRoom firestore={firestore} receiverUserId={receiverUserId} />
-			</div>
+			{receiverUserId && (
+				<div className='p-3 m-3 bg-red-400'>
+					<ChatRoom firestore={firestore} receiverUserId={receiverUserId} />
+				</div>
+			)}
 		</Fragment>
 	);
 };

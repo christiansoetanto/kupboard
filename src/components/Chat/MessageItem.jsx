@@ -4,12 +4,16 @@ import AuthContext from "../../contexts/auth-context";
 const MessageItem = (props) => {
 	const ctx = useContext(AuthContext);
 
-	const { text, uid, photoURL } = props.message;
-	const messageClass = uid === ctx.user.userId ? "sent" : "received";
+	const { text, senderUserId, photoURL, createdAt } = props.message;
+	const messageClass = senderUserId === ctx.user.userId ? "sent" : "received";
 	return (
 		<div className={`message ${messageClass}`}>
-			<img src={photoURL} />
-			<p>{text}</p>
+			<div>
+				<img src={photoURL} />
+				<span>
+					{text} || {createdAt.toDate().toString()}
+				</span>
+			</div>
 		</div>
 	);
 };

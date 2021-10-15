@@ -7,9 +7,10 @@ import UserItem from "./UserItem";
 const UserList = (props) => {
 	const ctx = useContext(AuthContext);
 	const { firestore, onClick } = props;
+	const { userId } = ctx.user;
 
 	const messagesRef = firestore.collection("messages");
-	const query = messagesRef.where("roomOwnersArray", "array-contains", ctx.user.userId);
+	const query = messagesRef.where("roomOwnersArray", "array-contains", userId);
 	const [messages] = useCollectionData(query, { idField: "id" });
 	const [uniqueMessageList, setUniqueMessageList] = useState([]);
 
@@ -18,17 +19,27 @@ const UserList = (props) => {
 			const unique = [];
 			messages
 				.sort((a, b) => b.createdAt - a.createdAt)
-				.map((x) => (unique.filter((a) => a.receiverUserId === x.receiverUserId).length > 0 ? null : unique.push(x)));
+				.map((x) => (unique.filter((a) => a.roomOwnersString === x.roomOwnersString).length > 0 ? null : unique.push(x)));
 			setUniqueMessageList(unique);
 		}
 	}, [messages]);
 
-	const clickHandler = (id) => {
-		onClick(id);
-	};
-
 	return (
-		<div>{uniqueMessageList && uniqueMessageList.map((e) => <UserItem key={e.id} userId={e.receiverUserId} text={e.text} onClick={clickHandler} />)}</div>
+		<div>
+			{uniqueMessageList &&
+				uniqueMessageList.map((e) => (
+					<UserItem
+						key={e.id}
+						userId={e.roomOwnersString.replace(userId, "")}
+						text={e.text}
+						createdAt={e.createdAt}
+						onClick={(id) => {
+							onClick(id);
+						}}
+						firestore={firestore}
+					/>
+				))}
+		</div>
 	);
 };
 

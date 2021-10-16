@@ -8,10 +8,10 @@ const MessageItem = (props) => {
 	const messageClass = senderUserId === ctx.user.userId ? "sent" : "received";
 	return (
 		<div className={`message ${messageClass}`}>
-			<div>
-				<img src={photoURL} />
+			<div className='flex flex-col'>
+				<img src={photoURL} className='w-4 h-4' />
 				<span>
-					{text} || {createdAt.toDate().toString()}
+					{text} || {createdAt?.toDate().toString()}
 				</span>
 			</div>
 		</div>

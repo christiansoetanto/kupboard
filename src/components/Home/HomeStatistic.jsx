@@ -11,7 +11,7 @@ const HomeStatistic = (props) => {
 	const { outfitStatistic, clothingsStatistic } = props.statistic;
 
 	return (
-		<div className='flex flex-col space-y-2 justify-center items-stretch'>
+		<div className='flex flex-col space-y-2 justify-center items-stretch text-sm'>
 			{outfitStatistic && (
 				<div className='bg-white shadow-xl border p-3 rounded-lg '>
 					<div className='text-xl mb-4'>

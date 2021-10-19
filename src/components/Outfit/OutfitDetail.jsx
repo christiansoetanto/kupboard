@@ -6,7 +6,7 @@ import OutfitStatistics from "./OutfitStatistic";
 const OutfitDetail = (props) => {
 	let { id } = useParams();
 	return (
-		<div className='flex flex-col space-y-10'>
+		<div className='flex flex-col space-y-10 mb-12'>
 			<AddOutfit outfitId={id} />
 			<OutfitStatistics id={id} />
 		</div>

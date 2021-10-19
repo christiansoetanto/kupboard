@@ -414,13 +414,14 @@ const AddOutfit = (props) => {
 													className='w-28'
 												/>
 											</div>
-											<div className='text-xs text-justify hover:underline hover:text-red-500 flex items-center font-semibold'>
-												<DeleteSvg
-													onClick={(event) => {
-														event.stopPropagation();
-														e.setSelectedState(null);
-													}}
-												/>
+											<div
+												className='text-xs text-justify hover:underline hover:text-red-500 flex items-center font-semibold'
+												onClick={(event) => {
+													event.stopPropagation();
+													e.setSelectedState(null);
+												}}
+											>
+												<DeleteSvg />
 												Remove
 											</div>
 										</div>
@@ -453,19 +454,20 @@ const AddOutfit = (props) => {
 										<div className='flex flex-col space-y-2'>
 											<div>
 												<img
-													src={
-														e.imageUrl
-													}
+													src={e.imageUrl}
 													className='w-28'
 												/>
 											</div>
-											<div className='text-xs text-justify hover:underline hover:text-red-500 flex items-center font-semibold'>
-												<DeleteSvg
-													onClick={(event) => {
-														event.stopPropagation();
-														removeSecondaryClothing(e.id);
-													}}
-												/>
+											<div
+												className='text-xs text-justify hover:underline hover:text-red-500 flex items-center font-semibold'
+												onClick={(event) => {
+													event.stopPropagation();
+													removeSecondaryClothing(
+														e.id
+													);
+												}}
+											>
+												<DeleteSvg />
 												Remove
 											</div>
 										</div>

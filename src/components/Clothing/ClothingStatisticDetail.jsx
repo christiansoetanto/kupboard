@@ -14,7 +14,7 @@ const ClothingStatisticDetail = (props) => {
 					/>
 				</div>
 			)}
-			<div className='flex flex-col text-left text-gray-700 space-y-1 w-ful md:w-1/2'>
+			<div className='flex flex-col text-left text-gray-700 space-y-1 w-full md:w-1/2'>
 				<div className='rounded-md py-2 px-4 shadow-lg bg-blue-100'>Last used on <span className='font-semibold'>{statistic.lastUsedDate}</span></div>
 				<div className='rounded-md py-2 px-4 shadow-lg bg-green-100'>You also scheduled this clothing on <span className='font-semibold'>{statistic.nextUseDate}</span></div>
 				<div className='rounded-md py-2 px-4 shadow-lg bg-yellow-100'>You have worn this clothing <span className='font-semibold'>{statistic.usedCount} time{statistic.usedCount > 1 && "s" }</span></div>

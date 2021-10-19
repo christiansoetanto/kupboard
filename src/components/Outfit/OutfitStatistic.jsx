@@ -16,7 +16,7 @@ const OutfitStatistic = (props) => {
 	}, []);
 
 	return (
-		<div className='w-full rounded bg-orange-100 flex flex-col items-center justify-start pt-2'>
+		<div className='w-full pb-4 rounded bg-orange-100 flex flex-col items-center justify-start pt-2'>
 			<div className='text-4xl font-semibold' name='title'>
 				Statistics
 			</div>

@@ -25,7 +25,7 @@ const GridCalendar = (props) => {
 					);
 				})}
 			</div>
-			<div className='grid grid-cols-7'>
+			<div className='grid grid-cols-7 rouded-xl'>
 				{dateCell.map((e, index) => {
 					if (e.showDate) {
 						return (
@@ -40,7 +40,7 @@ const GridCalendar = (props) => {
 							/>
 						);
 					} else {
-						return <div key={index} className='bg-gray-500 w-full h-full'></div>;
+						return <div key={index} className='bg-warmGray-100 w-full h-full'></div>;
 					}
 				})}
 			</div>

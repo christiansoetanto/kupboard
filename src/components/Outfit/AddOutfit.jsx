@@ -1,16 +1,18 @@
-import React, { useRef, useState, useEffect, useContext } from "react";
-import Card from "../UI/Card";
-import useHttp from "../../hooks/use-http";
-import { useHistory } from "react-router-dom";
-import { confirmAlert } from "react-confirm-alert"; // Import
-import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
-import { v4 as uuidv4 } from "uuid";
-import AuthContext from "../../contexts/auth-context";
-import CancelSvg from "../UI/CancelSvg";
-import AddSvg from "../UI/AddSvg";
-import DatePicker, { Calendar } from "react-multi-date-picker";
-import DatePanel from "react-multi-date-picker/plugins/date_panel";
-import weekends from "react-multi-date-picker/plugins/highlight_weekends";
+import React, { useRef, useState, useEffect, useContext } from 'react';
+import Card from '../UI/Card';
+import useHttp from '../../hooks/use-http';
+import { useHistory } from 'react-router-dom';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import { v4 as uuidv4 } from 'uuid';
+import AuthContext from '../../contexts/auth-context';
+import CancelSvg from '../UI/CancelSvg';
+import AddSvg from '../UI/AddSvg';
+import DatePicker, { Calendar } from 'react-multi-date-picker';
+import DatePanel from 'react-multi-date-picker/plugins/date_panel';
+import weekends from 'react-multi-date-picker/plugins/highlight_weekends';
+import DeleteSvg from '../UI/DeleteSvg';
+
 /*
 Hat = 3
 Shirt = 2
@@ -22,7 +24,7 @@ const AddOutfit = (props) => {
 	const history = useHistory();
 	const { outfitId } = props;
 
-	const isEdit = outfitId != null && outfitId != "";
+	const isEdit = outfitId != null && outfitId != '';
 
 	const { isLoading, error, sendRequest } = useHttp();
 
@@ -37,51 +39,52 @@ const AddOutfit = (props) => {
 	const [footwearList, setFootwearList] = useState(null);
 
 	const [secondaryClothings, setSecondaryClothings] = useState([]);
-	const [selectedSecondaryClothings, setSelectedSecondaryClothings] = useState([]);
+	const [selectedSecondaryClothings, setSelectedSecondaryClothings] =
+		useState([]);
 
 	const [dateValue, setDateValue] = useState([]);
 	const [hasCalendar, setHasCalendar] = useState(false);
 
-	const nameRef = useRef("");
+	const nameRef = useRef('');
 
 	const primaryCategories = [
 		{
 			categoryId: 3,
-			categoryName: "Hat",
+			categoryName: 'Hat',
 			selectedState: selectedHat,
 			setSelectedState: setSelectedHat,
 			listState: hatList,
 			setListState: setHatList,
-			defaultImage: "https://img.icons8.com/dotty/80/000000/trilby.png",
+			defaultImage: 'https://img.icons8.com/dotty/80/000000/trilby.png',
 		},
 		{
 			categoryId: 2,
-			categoryName: "Shirt",
+			categoryName: 'Shirt',
 			selectedState: selectedShirt,
 			setSelectedState: setSelectedShirt,
 			listState: shirtList,
 			setListState: setShirtList,
 			defaultImage:
-				"https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/000000/external-shirt-hygiene-kiranshastry-lineal-kiranshastry-2.png",
+				'https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/000000/external-shirt-hygiene-kiranshastry-lineal-kiranshastry-2.png',
 		},
 		{
 			categoryId: 1,
-			categoryName: "Pants",
+			categoryName: 'Pants',
 			selectedState: selectedPants,
 			setSelectedState: setSelectedPants,
 			listState: pantsList,
 			setListState: setPantsList,
 			defaultImage:
-				"https://img.icons8.com/external-vitaliy-gorbachev-lineal-vitaly-gorbachev/60/000000/external-pants-clothes-vitaliy-gorbachev-lineal-vitaly-gorbachev-1.png",
+				'https://img.icons8.com/external-vitaliy-gorbachev-lineal-vitaly-gorbachev/60/000000/external-pants-clothes-vitaliy-gorbachev-lineal-vitaly-gorbachev-1.png',
 		},
 		{
 			categoryId: 4,
-			categoryName: "Footwear",
+			categoryName: 'Footwear',
 			selectedState: selectedFootwear,
 			setSelectedState: setSelectedFootwear,
 			listState: footwearList,
 			setListState: setFootwearList,
-			defaultImage: "https://img.icons8.com/ios/50/000000/mens-shoe.png",
+			defaultImage: 'https://img.icons8.com/ios/50/000000/mens-shoe.png',
 		},
 	];
 
@@ -104,14 +107,14 @@ const AddOutfit = (props) => {
 			if (e) submitData.clothings.push({ clothingId: e.clothingId });
 		});
 
-		let url = "";
-		let method = "";
+		let url = '';
+		let method = '';
 		if (isEdit) {
 			url = `outfit/${ctx.user.userId}/${outfitId}`;
-			method = "PUT";
+			method = 'PUT';
 		} else {
 			url = `outfit/${ctx.user.userId}`;
-			method = "POST";
+			method = 'POST';
 		}
 		sendRequest(
 			{
@@ -120,7 +123,7 @@ const AddOutfit = (props) => {
 				body: submitData,
 			},
 			(result) => {
-				history.push("/outfits");
+				history.push('/outfits');
 			}
 		);
 	};
@@ -131,8 +134,13 @@ const AddOutfit = (props) => {
 				return (
 					<div className='flex flex-col relative bg-white rounded border border-gray-900 py-2 px-4'>
 						<div className='flex flex-row justify-between items-center mb-8 border-b-2 border-gray-200'>
-							<div className='text-2xl font-semibold '>Pick your clothing</div>
-							<div className='hover:text-gray-500' onClick={onClose}>
+							<div className='text-2xl font-semibold '>
+								Pick your clothing
+							</div>
+							<div
+								className='hover:text-gray-500'
+								onClick={onClose}
+							>
 								<CancelSvg />
 							</div>
 						</div>
@@ -143,9 +151,15 @@ const AddOutfit = (props) => {
 										key={e.clothingId}
 										className='w-28'
 										onClick={() => {
-											selectClothing(e.categoryId, e.clothingId, e.imageUrl, id);
+											selectClothing(
+												e.categoryId,
+												e.clothingId,
+												e.imageUrl,
+												id
+											);
 											onClose();
-										}}>
+										}}
+									>
 										<img src={e.imageUrl}></img>
 									</div>
 								);
@@ -160,14 +174,18 @@ const AddOutfit = (props) => {
 		confirmAlert({
 			customUI: ({ onClose }) => {
 				return (
-					<div className='custom-ui'>
-						no clothings
-						<button
-							onClick={() => {
-								onClose();
-							}}>
-							Close
-						</button>
+					<div className='flex flex-col relative bg-white rounded border border-gray-900 py-2 px-4'>
+						<div className='flex flex-row justify-between items-center mb-8 border-b-2 border-gray-200'>
+							<div className='text-2xl font-semibold text-center px-8'>
+								You don't have any clothing for this category
+							</div>
+							<div
+								className='hover:text-gray-500'
+								onClick={onClose}
+							>
+								<CancelSvg />
+							</div>
+						</div>
 					</div>
 				);
 			},
@@ -175,33 +193,43 @@ const AddOutfit = (props) => {
 	};
 
 	const getClothing = (categoryId) => {
-		const clothings = primaryCategories.filter((e) => e.categoryId === categoryId)[0].listState;
+		const clothings = primaryCategories.filter(
+			(e) => e.categoryId === categoryId
+		)[0].listState;
 		if (clothings) {
 			if (clothings.length > 0) {
 				openPopupSelectClothing(clothings, null);
 			} else openPopupNoClothing();
 		} else {
-			sendRequest({ url: `clothing/${ctx.user.userId}/category/${categoryId}` }, (returnData) => {
-				const clothings = [];
-				returnData.forEach((e) => {
-					clothings.push({
-						clothingId: e.clothingId,
-						imageUrl: e.imageUrl,
-						categoryId: categoryId,
+			sendRequest(
+				{ url: `clothing/${ctx.user.userId}/category/${categoryId}` },
+				(returnData) => {
+					const clothings = [];
+					returnData.forEach((e) => {
+						clothings.push({
+							clothingId: e.clothingId,
+							imageUrl: e.imageUrl,
+							categoryId: categoryId,
+						});
 					});
-				});
-				if (clothings.length > 0) {
-					primaryCategories.filter((e) => e.categoryId === categoryId)[0].setListState(clothings);
-					openPopupSelectClothing(clothings, null);
-				} else {
-					primaryCategories.filter((e) => e.categoryId === categoryId)[0].setListState([]);
-					openPopupNoClothing();
+					if (clothings.length > 0) {
+						primaryCategories
+							.filter((e) => e.categoryId === categoryId)[0]
+							.setListState(clothings);
+						openPopupSelectClothing(clothings, null);
+					} else {
+						primaryCategories
+							.filter((e) => e.categoryId === categoryId)[0]
+							.setListState([]);
+						openPopupNoClothing();
+					}
 				}
-			});
+			);
 		}
 	};
 	const getSecondaryClothings = (id) => {
-		if (secondaryClothings.length > 0) openPopupSelectClothing(secondaryClothings, id);
+		if (secondaryClothings.length > 0)
+			openPopupSelectClothing(secondaryClothings, id);
 		else openPopupNoClothing();
 	};
 
@@ -258,10 +286,10 @@ const AddOutfit = (props) => {
 		sendRequest(
 			{
 				url: `outfit/${ctx.user.userId}/${outfitId}`,
-				method: "DELETE",
+				method: 'DELETE',
 			},
 			(result) => {
-				history.push("/outfits");
+				history.push('/outfits');
 			}
 		);
 	};
@@ -271,9 +299,16 @@ const AddOutfit = (props) => {
 			const transformOutfit = (returnData) => {
 				const transformClothing = (clothings) => {
 					clothings.map((e) => {
-						if (primaryCategories.map((pc) => pc.categoryId).includes(e.category.categoryId)) {
+						if (
 							primaryCategories
-								.filter((pc) => pc.categoryId === e.category.categoryId)[0]
+								.map((pc) => pc.categoryId)
+								.includes(e.category.categoryId)
+						) {
+							primaryCategories
+								.filter(
+									(pc) =>
+										pc.categoryId === e.category.categoryId
+								)[0]
 								.setSelectedState({
 									clothingId: e.clothingId,
 									imageUrl: e.imageUrl,
@@ -309,7 +344,10 @@ const AddOutfit = (props) => {
 				nameRef.current.value = returnData.name;
 			};
 
-			sendRequest({ url: `outfit/${ctx.user.userId}/${outfitId}` }, transformOutfit);
+			sendRequest(
+				{ url: `outfit/${ctx.user.userId}/${outfitId}` },
+				transformOutfit
+			);
 		};
 
 		const loadSecondaryClothings = async () => {
@@ -353,63 +391,94 @@ const AddOutfit = (props) => {
 			<div className='flex flex-col md:flex-row md:justify-between'>
 				<div className='flex w-3/5'>
 					<div className='flex flex-col items-center justify-start  gap-x-1 gap-y-3 border-8 p-3 m-3 w-full rounded'>
-						<div className='text-lg md:text-2xl border-b-2 w-full text-center'>Main Outfit</div>
+						<div className='text-lg md:text-2xl border-b-2 w-full text-center'>
+							Main Outfit
+						</div>
 						{primaryCategories.map((e) => {
 							return (
 								<div
 									key={e.categoryId}
 									className='rounded shadow-xl bg-gray-300 border p-1 flex items-center justify-center w-28 cursor-pointer'
-									style={{ minHeight: "5rem" }}
+									style={{ minHeight: '5rem' }}
 									onClick={() => {
 										getClothing(e.categoryId);
-									}}>
+									}}
+								>
 									{e.selectedState ? (
-										<div>
-											<img src={e.selectedState.imageUrl} className='w-28'></img>
-											<button
-												onClick={(event) => {
-													event.stopPropagation();
-													e.setSelectedState(null);
-												}}>
-												DELETE THIS
-											</button>
+										<div className='flex flex-col space-y-2'>
+											<div>
+												<img
+													src={
+														e.selectedState.imageUrl
+													}
+													className='w-28'
+												/>
+											</div>
+											<div className='text-xs text-justify hover:underline hover:text-red-500 flex items-center font-semibold'>
+												<DeleteSvg
+													onClick={(event) => {
+														event.stopPropagation();
+														e.setSelectedState(null);
+													}}
+												/>
+												Remove
+											</div>
 										</div>
 									) : (
-										<img src={e.defaultImage} className='w-28' alt='' />
+										<img
+											src={e.defaultImage}
+											className='w-28'
+											alt=''
+										/>
 									)}
 								</div>
 							);
 						})}
 					</div>
 					<div className='flex flex-col items-center justify-start w-full gap-x-1 gap-y-3 border-8 p-3 m-3 rounded'>
-						<div className='text-lg md:text-2xl border-b-2 w-full text-center'>Optional</div>
+						<div className='text-lg md:text-2xl border-b-2 w-full text-center'>
+							Optional
+						</div>
 						{selectedSecondaryClothings.length > 0 &&
 							selectedSecondaryClothings.map((e) => {
 								return (
 									<div
 										key={e.id}
 										className='rounded shadow-xl bg-gray-300 border p-1 flex items-center justify-center w-28 cursor-pointer'
-										style={{ minHeight: "5rem" }}
+										style={{ minHeight: '5rem' }}
 										onClick={() => {
 											getSecondaryClothings(e.id);
-										}}>
-										<img src={e.imageUrl} className='w-28'></img>
-										<button
-											onClick={(event) => {
-												event.stopPropagation();
-												removeSecondaryClothing(e.id);
-											}}>
-											DELETE THIS
-										</button>
+										}}
+									>
+										<div className='flex flex-col space-y-2'>
+											<div>
+												<img
+													src={
+														e.imageUrl
+													}
+													className='w-28'
+												/>
+											</div>
+											<div className='text-xs text-justify hover:underline hover:text-red-500 flex items-center font-semibold'>
+												<DeleteSvg
+													onClick={(event) => {
+														event.stopPropagation();
+														removeSecondaryClothing(e.id);
+													}}
+												/>
+												Remove
+											</div>
+										</div>
 									</div>
 								);
 							})}
 						<div
 							className='rounded shadow-xl bg-gray-300 border p-1 flex items-center justify-center w-28 cursor-pointer text-gray-500 hover:text-gray-700'
-							style={{ minHeight: "5rem" }}
+							style={{ minHeight: '5rem' }}
 							onClick={() => {
 								getSecondaryClothings();
-							}}>
+							}}
+						>
 							<AddSvg className='w-12 h-12' />
 						</div>
 					</div>
@@ -418,48 +487,68 @@ const AddOutfit = (props) => {
 					<span className=''>
 						<label htmlFor='outfit-name'>Outfit Name</label>
 						<br />
-						<input type='text' name='' id='outfit-name' className='form-input rounded w-full' ref={nameRef} />
+						<input
+							type='text'
+							name=''
+							id='outfit-name'
+							className='form-input rounded w-full'
+							ref={nameRef}
+						/>
 					</span>
 
 					<div>
-						<label htmlFor='chbx-set-date' className='cursor-pointer flex items-center'>
+						<label
+							htmlFor='chbx-set-date'
+							className='cursor-pointer flex items-center'
+						>
 							<input
 								type='checkbox'
 								id='chbx-set-date'
 								className='cursor-pointer rounded outline-none h-4 w-4'
 								value={hasCalendar}
+								checked={hasCalendar}
 								onClick={handleChekboxClick}
 							/>
-							<span className='ml-2'>Set a date for this outfit?</span>
+							<span className='ml-2'>
+								Set a date for this outfit?
+							</span>
 						</label>
 					</div>
 
 					{hasCalendar && (
-						<div className='w-full flex items-center justify-start text-white'>
-							<Calendar
-								multiple
-								value={dateValue}
-								onChange={handelDatePickerChange}
-								showOtherDays={true}
-								plugins={[<DatePanel />, weekends()]}
-								format='DD MMM'
-								sort
-							/>
-						</div>
+						// <div className='w-full flex items-center justify-start text-white'>
+						<Calendar
+							multiple
+							value={dateValue}
+							onChange={handelDatePickerChange}
+							showOtherDays={true}
+							plugins={[<DatePanel />, weekends()]}
+							format='DD MMM'
+							sort
+							className='z-0'
+						/>
+						// </div>
 					)}
 
 					{/* <div className='w-full bg-indigo-500 flex items-center justify-center text-white border rounded border-blue-400'>
 						<DatePicker  value={dateValue} onChange={handelDatePickerChange} showOtherDays={true} title={`Pick the dates`} portalTarget={document.getElementById("chbx-set-date")}/>
 					</div> */}
-
-					{isEdit && (
-						<div onClick={deleteHandler} className='p-4 rounded border-2 border-blue-200 hover:bg-blue-500 hover:text-white'>
-							Delete
-						</div>
-					)}
-					<button className='p-4 rounded border-2 border-blue-200 hover:bg-blue-500 hover:text-white' onClick={submitHandler}>
-						{isEdit ? "Update Outfit" : "Add Outfit"}
-					</button>
+					<div className='flex items-center space-x-4'>
+						{isEdit && (
+							<div
+								onClick={deleteHandler}
+								className='px-4 py-2 hover:text-gray-200 hover:bg-red-400  rounded cursor-pointer w-1/3 text-center border-red-400 border'
+							>
+								Delete
+							</div>
+						)}
+						<button
+							className='px-4 py-2 rounded border-2 border-blue-400 hover:bg-blue-400 hover:text-gray-200 w-full'
+							onClick={submitHandler}
+						>
+							{isEdit ? 'Update Outfit' : 'Add Outfit'}
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>

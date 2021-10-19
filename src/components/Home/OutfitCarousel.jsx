@@ -20,7 +20,7 @@ const OutfitCarousel = (props) => {
 				</div>
 			)}
 			{outfits.length > 0 && (
-				<Carousel autoplay infiniteLoop={true} onChange={onChangeHandler} showThumbs={false}>
+				<Carousel autoPlay={true} infiniteLoop={true} onChange={onChangeHandler} showThumbs={false} interval={20000}>
 					{outfits.map((e) => {
 						return (
 							<div className='mb-8' key={e.outfitId}>

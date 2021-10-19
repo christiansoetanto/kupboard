@@ -17,7 +17,7 @@ function MainNavigation() {
 	};
 
 	return (
-		<header className='md:px-16 h-16 md:h-24 px-6 bg-white flex flex-wrap items-center py-4 sticky top-0 shadow-sm z-10'>
+		<header className='md:px-16 h-16 md:h-24 px-6 bg-white flex flex-wrap items-center py-4 sticky top-0 shadow-sm'>
 			<div className='flex flex-1 lg:flex-none items-center mr-6 pb-2'>
 				<NavLink to='/' className='font-bold text-2xl'>
 					Kupboard

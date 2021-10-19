@@ -352,7 +352,7 @@ const AddOutfit = (props) => {
 		<div>
 			<div className='flex flex-col md:flex-row md:justify-between'>
 				<div className='flex w-3/5'>
-					<div className='flex flex-col items-center justify-start  gap-x-1 gap-y-3 border-8 p-3 m-3 w-full'>
+					<div className='flex flex-col items-center justify-start  gap-x-1 gap-y-3 border-8 p-3 m-3 w-full rounded'>
 						<div className='text-lg md:text-2xl border-b-2 w-full text-center'>Main Outfit</div>
 						{primaryCategories.map((e) => {
 							return (
@@ -381,7 +381,7 @@ const AddOutfit = (props) => {
 							);
 						})}
 					</div>
-					<div className='flex flex-col items-center justify-start w-full gap-x-1 gap-y-3 border-8 p-3 m-3'>
+					<div className='flex flex-col items-center justify-start w-full gap-x-1 gap-y-3 border-8 p-3 m-3 rounded'>
 						<div className='text-lg md:text-2xl border-b-2 w-full text-center'>Optional</div>
 						{selectedSecondaryClothings.length > 0 &&
 							selectedSecondaryClothings.map((e) => {

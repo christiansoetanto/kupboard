@@ -13,7 +13,7 @@ const ChatPage = () => {
 	};
 
 	const openNewChatHandler = () => {
-		setIsOpenNewChatWindow(true);
+		setIsOpenNewChatWindow((prev) => !prev);
 	};
 
 	const selectNewChatHandler = (userId) => {
@@ -21,26 +21,36 @@ const ChatPage = () => {
 		setReceiverUserId(userId);
 	};
 
+	const closeChatRoomHandler = () => {
+		setReceiverUserId("");
+	};
+
 	return (
 		<Fragment>
-			<div className='p-3 m-3 bg-blue-400'>lagi buka chat userId = {receiverUserId}</div>
-			<div className='p-3 m-3 bg-teal-400'>
-				ini user list
-				<UserList firestore={firestore} onClick={clickHandler} currentReceiverUserId={receiverUserId} />
-			</div>
-			{receiverUserId && (
-				<div className='p-3 m-3 bg-red-400'>
-					<ChatRoom firestore={firestore} receiverUserId={receiverUserId} />
+			<div className='flex flex-row  items-center align-middle'>
+				{/* <div className='p-3 m-3 bg-blue-400'>lagi buka chat userId = {receiverUserId}</div> */}
+				<div className='p-3 m-3 bg-teal-400 flex-auto'>
+					ini list history chat
+					<UserList firestore={firestore} onClick={clickHandler} currentReceiverUserId={receiverUserId} />
 				</div>
-			)}
-			<div className='p-3 m-3 bg-blue-400'>
-				<div onClick={openNewChatHandler}>pencet ini untuk buka window new chat</div>
+				{receiverUserId && (
+					<div className='p-3 m-3 bg-red-400 flex-auto'>
+						<ChatRoom firestore={firestore} receiverUserId={receiverUserId} onClose={closeChatRoomHandler} />
+					</div>
+				)}
+				{!receiverUserId && (
+					<div className='flex-auto'>
+						<div className='p-3 m-3 bg-blue-400 ' onClick={openNewChatHandler}>
+							pencet ini untuk start new chat
+						</div>
+						{isOpenNewChatWindow && (
+							<div className='p-3 m-3 bg-red-400'>
+								<NewChat onSelect={selectNewChatHandler} />
+							</div>
+						)}
+					</div>
+				)}
 			</div>
-			{isOpenNewChatWindow && (
-				<div className='p-3 m-3 bg-red-400'>
-					<NewChat onSelect={selectNewChatHandler} />
-				</div>
-			)}
 		</Fragment>
 	);
 };

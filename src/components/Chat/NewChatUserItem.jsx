@@ -5,14 +5,15 @@ const NewChatUserItem = (props) => {
 	return (
 		<div
 			onClick={() => {
-				onClick(userId);
+				onClick(userId, photoURL, name);
 			}}
 			className='p-3 m-3 bg-green-600'>
-			<div>
-				<img src={photoURL} />
+			<div className='flex flex-row text-center items-center align-middle'>
+				<div className='mr-3'>
+					<img src={photoURL} className='w-6 h-6' />
+				</div>
+				<div>{name}</div>
 			</div>
-			<div>{userId}</div>
-			<div>{name}</div>
 		</div>
 	);
 };

@@ -28,8 +28,8 @@ const NewChat = (props) => {
 						userId={e.userId}
 						photoURL={e.photoURL}
 						name={e.name}
-						onClick={(id) => {
-							onSelect(id);
+						onClick={(userId) => {
+							onSelect(userId);
 						}}
 					/>
 				))}

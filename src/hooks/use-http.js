@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
 import { confirmAlert } from "react-confirm-alert";
+import CallbackAlert from "../components/UI/CallbackAlert";
 
 const useHttp = () => {
 	const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +34,14 @@ const useHttp = () => {
 
 			await applyData(data);
 		} catch (err) {
-			setError(err.message || "Something went wrong!");
+			confirmAlert({
+				customUI: ({ onClose }) => {
+					return <CallbackAlert onClose={onClose} status={"Failed"} customMessage={err.message || "Something went wrong!"} />;
+				},
+				afterClose: () => {
+					setError(err.message || "Something went wrong!");
+				},
+			});
 		}
 		setIsLoading(false);
 	}, []);

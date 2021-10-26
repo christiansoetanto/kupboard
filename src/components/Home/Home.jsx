@@ -38,7 +38,6 @@ const Home = () => {
 			outfitStatistic: outfitsOfTheDay[currentOutfitsIndex]?.outfitStatistic,
 			clothingsStatistic: outfitsOfTheDay[currentOutfitsIndex]?.clothingsStatistic,
 		};
-		console.log(statistic);
 		setStatistic(statistic);
 	}, [outfitsOfTheDay, currentOutfitsIndex]);
 

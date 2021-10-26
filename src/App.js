@@ -12,6 +12,7 @@ import Schedule from "./components/Schedule/Schedule";
 import Profile from "./components/Profile/Profile";
 import Home from "./components/Home/Home";
 import ChatPage from "./components/Chat/ChatPage";
+import RequestAdvisor from "./components/Advisor/RequestAdvisor";
 function App() {
 	return (
 		<Layout>
@@ -55,6 +56,9 @@ function App() {
 
 				<Route path='/profile' exact>
 					<Profile />
+				</Route>
+				<Route path='/request-advisor' exact>
+					<RequestAdvisor />
 				</Route>
 			</Switch>
 		</Layout>

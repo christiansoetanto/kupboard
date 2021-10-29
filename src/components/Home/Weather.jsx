@@ -63,8 +63,11 @@ const Weather = () => {
 			</div> */}
 			<div>
 				temperature = {weatherData.temperature}
+				<br />
 				placeName = {weatherData.placeName}
+				<br />
 				countryName = {weatherData.countryName}
+				<br />
 				weather = {weatherData.weather}
 			</div>
 			<div>error = {error}</div>

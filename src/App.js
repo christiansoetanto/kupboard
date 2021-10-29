@@ -13,6 +13,7 @@ import Profile from "./components/Profile/Profile";
 import Home from "./components/Home/Home";
 import ChatPage from "./components/Chat/ChatPage";
 import RequestAdvisor from "./components/Advisor/RequestAdvisor";
+import ApproveRequest from "./components/Advisor/ApproveRequest";
 function App() {
 	return (
 		<Layout>
@@ -59,6 +60,9 @@ function App() {
 				</Route>
 				<Route path='/request-advisor' exact>
 					<RequestAdvisor />
+				</Route>
+				<Route path='/approve-request' exact>
+					<ApproveRequest />
 				</Route>
 			</Switch>
 		</Layout>

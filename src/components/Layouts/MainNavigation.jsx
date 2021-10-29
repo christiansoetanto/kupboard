@@ -64,6 +64,14 @@ function MainNavigation() {
 							onClick={handleNavLinkOnClick}>
 							Chat
 						</NavLink>
+						{ctx.user != null && ctx.user.isAdmin == 1 && (
+							<NavLink
+								className='md:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-green-400'
+								to='/approve-request'
+								onClick={handleNavLinkOnClick}>
+								Approve Advisor Request
+							</NavLink>
+						)}
 					</div>
 				</nav>
 				<nav className='flex'>

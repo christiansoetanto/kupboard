@@ -9,7 +9,7 @@ function Layout(props) {
 	return (
 		<div>
 			{ctx.isLoggedIn && ctx.user && (
-				<div>
+				<div className='asd'>
 					<MainNavigation />
 					<main className='p-2 md:mx-36'>{props.children}</main>
 				</div>

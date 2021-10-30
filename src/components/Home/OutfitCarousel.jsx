@@ -12,7 +12,7 @@ const OutfitCarousel = (props) => {
 	};
 
 	return (
-		<div>
+		<div className='text-center '>
 			{outfits.length == 0 && (
 				<div className='flex flex-col items-center justify-center'>
 					<div className='text-lg'>Today's outfit has not been set yet</div>

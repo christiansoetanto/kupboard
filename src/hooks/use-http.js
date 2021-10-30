@@ -34,14 +34,17 @@ const useHttp = () => {
 
 			await applyData(data);
 		} catch (err) {
-			confirmAlert({
-				customUI: ({ onClose }) => {
-					return <CallbackAlert onClose={onClose} status={"Failed"} customMessage={err.message || "Something went wrong!"} />;
-				},
-				afterClose: () => {
-					setError(err.message || "Something went wrong!");
-				},
-			});
+			setError(err.message || "Something went wrong!");
+			if(!requestConfig.dontShowError)
+				confirmAlert({
+					customUI: ({ onClose }) => {
+						return <CallbackAlert onClose={onClose} status={"Failed"} customMessage={err.message || "Something went wrong!"} />;
+					},
+					afterClose: () => {
+						// setError(err.message || "Something went wrong!");
+					},
+				});
+			
 		}
 		setIsLoading(false);
 	}, []);

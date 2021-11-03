@@ -24,7 +24,7 @@ const FormMessage = (props) => {
 	};
 	return (
 		<div>
-			<form onSubmit={sendMessage} className='flex space-x-2 rounded-3xl  bg-white pt-4 pb-2 pl-6 pr-2 border-gray-300 border items-center'>
+			<form onSubmit={sendMessage} className='flex space-x-2 rounded-3xl  bg-white pt-4 pb-2 pl-6 pr-2 items-center'>
 				<input value={message} onChange={(e) => setMessage(e.target.value)} placeholder='say something nice' className='w-full border-0 outline-none border-b' />
 
 				<button type='submit' disabled={!message} className='w-10 pr-2'>

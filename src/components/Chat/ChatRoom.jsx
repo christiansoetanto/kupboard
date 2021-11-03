@@ -47,18 +47,13 @@ const ChatRoom = (props) => {
 			(result) => {
 				setPhotoURL(result.photoURL ?? '');
 				setName(result.name ?? '');
+				dummy.current.scrollIntoView();
 			}
 		);
+		
 	}, []);
 	return (
 		<Fragment>
-			{/* <div className=''>
-				<CancelSvg
-					onClick={() => {
-						onClose();
-					}}
-				/>
-			</div> */}
 
 			<div className='flex flex-col justify-end pb-12 relative'>
 				<div className='flex items-center space-x-4  mb-2'>
@@ -98,20 +93,6 @@ const ChatRoom = (props) => {
 					}
 				</div>
 			</div>
-
-			{/* <div>
-				percakapan dengan
-				<div className='flex mb-10'>
-					<br />
-					<div>
-						<img src={photoURL} className='w-10 h-10' />
-					</div>
-					<div>{name}</div>
-				</div>
-				{messages && messages.sort((a, b) => a.createdAt - b.createdAt).map((msg) => <MessageItem key={msg.id} message={msg} />)}
-				<span ref={dummy}></span>
-				<div className='pt-3 mt-3'>{<FormMessage onSubmit={submitHandler} receiverUserId={receiverUserId} />}</div>
-			</div> */}
 		</Fragment>
 	);
 };

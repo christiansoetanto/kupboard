@@ -1,23 +1,46 @@
-import React, { useContext } from "react";
-import AuthContext from "../../contexts/auth-context";
-import helpers from "../Helper/helpers";
-import "./ChatBubble.css";
+import React, { useContext } from 'react';
+import AuthContext from '../../contexts/auth-context';
+import helpers from '../Helper/helpers';
+import './ChatBubble.css';
 const MessageItem = (props) => {
 	const ctx = useContext(AuthContext);
 
-	const { text, senderUserId, photoURL, createdAt, isAttachment, attachmentUrl } = props.message;
+	const {
+		text,
+		senderUserId,
+		photoURL,
+		createdAt,
+		isAttachment,
+		attachmentUrl,
+	} = props.message;
 	const { nextMessage } = props;
-	const messageClass = senderUserId === ctx.user.userId ? "from-me" : "from-them";
+	const messageClass =
+		senderUserId === ctx.user.userId ? 'from-me' : 'from-them';
 	return (
-		<div className={`message  flex ${messageClass == "from-me" ? "justify-end" : "justify-start"}`}>
+		<div
+			className={`message  flex ${
+				messageClass == 'from-me' ? 'justify-end' : 'justify-start'
+			}`}
+		>
 			<div className='flex flex-row align-middle text-center items-center '>
 				{/* <div className='mr-3'>
 					<img src={photoURL} className='w-5 h-5' />
 				</div> */}
 				<div className='imessage'>
-					{isAttachment && <img src={attachmentUrl}></img>}
+					{isAttachment && (
+						<div className='w-1/2'>
+							<img src={attachmentUrl}></img>
+						</div>
+					)}
 					{!isAttachment && (
-						<p className={`${messageClass}   ${nextMessage && nextMessage.senderUserId == senderUserId ? "no-tail" : "mb-4"}`}>
+						<p
+							className={`${messageClass}   ${
+								nextMessage &&
+								nextMessage.senderUserId == senderUserId
+									? 'no-tail'
+									: 'mb-4'
+							}`}
+						>
 							{text}
 							{/* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{helpers.formatDate(createdAt)} */}
 						</p>

@@ -8,15 +8,12 @@ const CallbackAlert = (props) => {
 	return (
 		<div className='relative bg-white rounded border border-gray-900 py-2 px-4'>
 			<div className='justify-between items-center mb-8 border-b-2 border-gray-200'>
-				<div className='hover:text-gray-500' onClick={props.onClose}>
+				<div className='hover:text-gray-500 cursor-pointer text-right' onClick={props.onClose}>
 					<CancelSvg />
 				</div>
-				<div className='text-center'>insert svg checklist atau X here</div>
+				<div className='text-center'>Something went wrong</div>
 				<br />
 				<div className='text-2xl font-semibold '>{msg}</div>
-				<div className='hover:text-gray-500' onClick={props.onClose}>
-					insert button ok here
-				</div>
 			</div>
 		</div>
 	);

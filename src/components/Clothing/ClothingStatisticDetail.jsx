@@ -4,13 +4,13 @@ import AuthContext from "../../contexts/auth-context";
 const ClothingStatisticDetail = (props) => {
 	const { statistic, isShowPicture } = props;
 	return (
-		<div name='desc' className='flex items-center justify-around space-y-2 md:space-y-0 md:space-x-2 px-5 flex-col md:flex-row '>
+		<div name='desc' className={`flex items-center justify-around space-y-2 ${isShowPicture && 'md:space-x-2'} md:space-y-0  px-5 flex-col md:flex-row`}>
 			{isShowPicture && statistic.clothingImageUrl && (
-				<div className='flex-1'>
+				<div className='w-1/2'>
 					<img src={statistic.clothingImageUrl} className='max-h-72 w-1/2 md:w-auto' alt='' />
 				</div>
 			)}
-			<div className='flex flex-col text-left text-gray-700 space-y-1 w-full md:w-1/2'>
+			<div className={`flex flex-col text-left text-gray-700 space-y-1 w-full `}>
 				{statistic.lastUsedDate && (
 					<div className='rounded-md py-2 px-4 shadow-lg bg-blue-100'>
 						Last used on <span className='font-semibold'>{statistic.lastUsedDate}</span>

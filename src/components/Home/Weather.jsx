@@ -85,7 +85,6 @@ const Weather = () => {
 		sendRequest(
 			{ url: corsUrl, useAPIBaseUrl: false, dontShowError: true },
 			(returnData) => {
-				console.log(returnData);
 				setWeatherData({
 					temperature: returnData.main.temp ?? '',
 					placeName: returnData.name ?? '',

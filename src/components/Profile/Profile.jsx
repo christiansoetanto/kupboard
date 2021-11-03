@@ -33,7 +33,6 @@ const Profile = () => {
 	const [isCompletedProfile, setIsCompletedProfile] = useState(false);
 	const transformProfile = (returnData) => {
 		const p = returnData.data;
-		console.log(p);
 		setEmail(p.email);
 		setIsAdvisor(p.isAdvisor);
 		nameRef.current.value = p.name;

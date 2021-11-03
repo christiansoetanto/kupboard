@@ -33,6 +33,7 @@ const NewChat = (props) => {
 						}}
 					/>
 				))}
+			{userList.length <= 0 && <div className='p-5 text-center'>No advisor available</div>}
 		</div>
 	);
 };

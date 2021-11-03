@@ -19,7 +19,6 @@ const ApproveRequest = () => {
 	}, []);
 	const fetchRequestList = () => {
 		sendRequest({ url: "user/advisor/get-request/" }, (returnData) => {
-			console.log(returnData);
 			setRequestList(returnData);
 		});
 	};
@@ -30,18 +29,15 @@ const ApproveRequest = () => {
 
 	const approveOrRejectHandler = (e) => {
 		e.preventDefault();
-		console.log(e.target.dataset);
 		const userId = e.target.dataset.userid;
 		const requestId = e.target.dataset.requestid;
 		const status = e.target.dataset.status;
-		console.log(userId, requestId, status);
 		const data = {
 			advisorRequestId: parseInt(requestId),
 			userId: userId,
 			status: status,
 		};
 		sendRequest({ url: "user/advisor/approve-reject/", method: "POST", body: data }, (returnData) => {
-			console.log(returnData);
 			fetchRequestList();
 		});
 	};
@@ -50,7 +46,6 @@ const ApproveRequest = () => {
 		e.preventDefault();
 		const userId = e.target.dataset.userid;
 		const user = requestList.filter((e) => e.userId == userId).map((e) => e.user)[0];
-		console.log(user);
 		confirmAlert({
 			customUI: ({ onClose }) => {
 				return (

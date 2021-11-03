@@ -31,7 +31,6 @@ const Home = () => {
 	}, [currDate]);
 
 	const onChangeHandler = (index) => {
-		// console.log(params);
 		setCurrentOutfitsIndex(index);
 	};
 

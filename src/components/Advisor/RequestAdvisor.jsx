@@ -16,7 +16,6 @@ const RequestAdvisor = (props) => {
 	const [descriptionErrorMessage, setDescriptionErrorMessage] = useState("");
 
 	const submitHandler = (e) => {
-		console.log(e.target.disabled);
 		if (e.target.disabled) {
 			return;
 		}

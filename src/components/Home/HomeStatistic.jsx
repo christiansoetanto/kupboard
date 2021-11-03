@@ -32,7 +32,7 @@ const HomeStatistic = (props) => {
 						{clothingsStatistic.map((e, i) => {
 							return (
 								// <div className='mb-8 flex items-center justify-center' key={i}>
-								<ClothingStatisticDetail statistic={e} key={i} />
+								<ClothingStatisticDetail statistic={e} key={i} isShowPicture={true} />
 								// </div>
 							);
 						})}

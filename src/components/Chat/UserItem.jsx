@@ -21,6 +21,7 @@ const UserItem = (props) => {
 		);
 	}, []);
 
+
 	return (
 		<div
 			onClick={() => {
@@ -34,7 +35,7 @@ const UserItem = (props) => {
 				</div>
 
 				<div className='flex-col'>
-					<div className>
+					<div>
 						{name}
 					</div>
 					<div className='flex text-gray-400 '>

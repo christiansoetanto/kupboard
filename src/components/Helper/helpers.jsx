@@ -16,7 +16,7 @@ const helpers = {
 		if (d) {
 			var date = d?.toDate();
 			const day = String(date.getDate()).padStart(2, '0');
-			const month = date.toLocaleString('default', { month: 'short' });
+			const month = date.getMonth();
 			const year = date.getFullYear().toString().substr(2, 2);
 
 			const hour = date.getHours();
@@ -25,9 +25,7 @@ const helpers = {
 
 			const currDate = new Date();
 			const currDay = String(currDate.getDate()).padStart(2, '0');
-			const currMonth = currDate.toLocaleString('default', {
-				month: 'short',
-			});
+			const currMonth = currDate.getMonth();
 			const currYear = currDate.getFullYear().toString().substr(2, 2);
 
 			const currHour = currDate.getHours();

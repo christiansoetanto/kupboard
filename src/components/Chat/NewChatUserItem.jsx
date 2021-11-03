@@ -7,10 +7,10 @@ const NewChatUserItem = (props) => {
 			onClick={() => {
 				onClick(userId, photoURL, name);
 			}}
-			className='p-3 m-3 bg-green-600'>
+			className='p-3 mx-2 my-4 cursor-pointer hover:bg-gray-200'>
 			<div className='flex flex-row text-center items-center align-middle'>
-				<div className='mr-3'>
-					<img src={photoURL} className='w-6 h-6' />
+				<div className='mr-3 w-8 h-8 rounded-full overflow-hidden'>
+					<img src={photoURL} />
 				</div>
 				<div>{name}</div>
 			</div>

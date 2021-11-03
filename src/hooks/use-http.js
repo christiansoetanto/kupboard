@@ -1,8 +1,10 @@
-import { useState, useCallback } from "react";
+import React, { useContext, useState, useCallback } from "react";
 import { confirmAlert } from "react-confirm-alert";
 import CallbackAlert from "../components/UI/CallbackAlert";
 
+import AuthContext from "../contexts/auth-context";
 const useHttp = () => {
+	const ctx = useContext(AuthContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
 
@@ -18,6 +20,7 @@ const useHttp = () => {
 			if (!headers["Content-Type"]) {
 				headers["Content-Type"] = "application/json";
 			}
+			headers["Authorization"] = "Bearer " + ctx.token;
 			// headers["Access-Control-Allow-Origin"] = "*";
 			// headers["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Accept	";
 			const response = await fetch(url, {
@@ -35,7 +38,7 @@ const useHttp = () => {
 			await applyData(data);
 		} catch (err) {
 			setError(err.message || "Something went wrong!");
-			if(!requestConfig.dontShowError)
+			if (!requestConfig.dontShowError)
 				confirmAlert({
 					customUI: ({ onClose }) => {
 						return <CallbackAlert onClose={onClose} status={"Failed"} customMessage={err.message || "Something went wrong!"} />;
@@ -44,7 +47,6 @@ const useHttp = () => {
 						// setError(err.message || "Something went wrong!");
 					},
 				});
-			
 		}
 		setIsLoading(false);
 	}, []);

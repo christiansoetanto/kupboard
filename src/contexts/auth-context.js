@@ -22,11 +22,13 @@ const AuthContext = React.createContext({
 	onLogout: () => {},
 	onLogin: () => {},
 	user: null,
+	token: null,
 });
 
 export const AuthContextProvider = (props) => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [user, setUser] = useState(null);
+	const [token, setToken] = useState(null);
 	// const [storedUserInfo, setStoredUserInfo] = useState(null);
 
 	const { sendRequest } = useHttp();
@@ -42,7 +44,17 @@ export const AuthContextProvider = (props) => {
 	const logoutHandler = () => {
 		Cookies.remove("user");
 		setUser(null);
+		setToken(null);
 		setIsLoggedIn(false);
+	};
+
+	const handleLoginSuccess = (result) => {
+		const user = result.data;
+		const token = result.token;
+		Cookies.set("user", JSON.stringify(user), { expires: 365 });
+		setUser(user);
+		setToken(token);
+		setIsLoggedIn(true);
 	};
 
 	const registerUser = async (data) => {
@@ -55,21 +67,14 @@ export const AuthContextProvider = (props) => {
 			ProviderId: data.providerData[0].providerId,
 		};
 
-		await sendRequest({ url: "user/", method: "POST", body: dataToBeSent }, (result) => {
-			// localStorage.setItem("user", JSON.stringify(result));
-			Cookies.set("user", JSON.stringify(result.data), { expires: 365 });
-			setUser(result);
-			setIsLoggedIn(true);
-		});
+		await sendRequest({ url: "user/", method: "POST", body: dataToBeSent }, handleLoginSuccess);
 	};
 
 	const loginHandler = async (provider) => {
 		const tempUser = await socialMediaAuth(provider);
 		await sendRequest({ url: "user/" + tempUser.uid }, async (result) => {
 			if (result.isExists) {
-				setUser(result.data);
-				Cookies.set("user", JSON.stringify(result.data), { expires: 365 });
-				setIsLoggedIn(true);
+				handleLoginSuccess(result);
 			} else {
 				await registerUser(tempUser);
 			}
@@ -83,6 +88,7 @@ export const AuthContextProvider = (props) => {
 				onLogout: logoutHandler,
 				onLogin: loginHandler,
 				user: user,
+				token: token,
 			}}>
 			{props.children}
 		</AuthContext.Provider>

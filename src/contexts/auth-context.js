@@ -35,14 +35,17 @@ export const AuthContextProvider = (props) => {
 
 	useEffect(() => {
 		const storedUserInformation = Cookies.get("user");
-		if (storedUserInformation) {
+		const storedToken = Cookies.get("token");
+		if (storedUserInformation && storedToken) {
 			setIsLoggedIn(true);
 			setUser(JSON.parse(storedUserInformation));
+			setToken(storedToken);
 		}
 	}, []);
 
 	const logoutHandler = () => {
 		Cookies.remove("user");
+		Cookies.remove("token");
 		setUser(null);
 		setToken(null);
 		setIsLoggedIn(false);
@@ -52,6 +55,7 @@ export const AuthContextProvider = (props) => {
 		const user = result.data;
 		const token = result.token;
 		Cookies.set("user", JSON.stringify(user), { expires: 365 });
+		Cookies.set("token", token, { expires: 365 });
 		setUser(user);
 		setToken(token);
 		setIsLoggedIn(true);

@@ -15,7 +15,11 @@ const DateCell = (props) => {
 	};
 
 	return (
-		<div className='justify-center border border-gray-300 h-auto pb-8' data-date={date} style={{ minHeight: "6rem" }} onClick={dateClickHandler}>
+		<div
+			className={`justify-center border border-gray-300 h-auto pb-8 ${+new Date().setHours(0, 0, 0, 0) === +new Date(date) && "bg-amber-100"}`}
+			data-date={date}
+			style={{ minHeight: "6rem" }}
+			onClick={dateClickHandler}>
 			<div className='items-center text-center'>{date.getDate()}</div>
 			{schedule.map((e, i) => (
 				<ScheduleOutfitItem

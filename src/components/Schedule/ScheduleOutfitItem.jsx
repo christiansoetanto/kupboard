@@ -52,7 +52,7 @@ const ScheduleOutfitItem = (props) => {
 					openModal();
 				}}>
 				<a data-tip data-for={tooltip_id}>
-					<div className='bg-yellow-300 m-2 whitespace-nowrap overflow-hidden overflow-ellipsis rounded-md px-2 text-gray-800 cursor-pointer font-semibold'>
+					<div className='bg-yellow-200 m-2 whitespace-nowrap overflow-hidden overflow-ellipsis rounded-md px-2 text-gray-800 cursor-pointer font-semibold'>
 						{outfitName}
 					</div>
 				</a>

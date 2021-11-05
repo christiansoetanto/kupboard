@@ -5,10 +5,13 @@ import AuthContext from "../../contexts/auth-context";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import ClothingListPopup from "./ClothingListPopup";
+import useHttp from "../../hooks/use-http";
 const FormMessage = (props) => {
 	const ctx = useContext(AuthContext);
 	const { onSubmit, receiverUserId } = props;
 	const [message, setMessage] = useState("");
+	const { isLoading, error, sendRequest } = useHttp();
+
 	const sendMessage = async (e) => {
 		e.preventDefault();
 		const { userId, photoURL } = ctx.user;
@@ -49,26 +52,29 @@ const FormMessage = (props) => {
 	const clickSendAttachmentHandler = (e) => {
 		e.preventDefault();
 		const userId = ctx.user.userId;
-		confirmAlert({
-			customUI: ({ onClose }) => {
-				return (
-					<div className='alert flex flex-col items-center px-8 py-2 space-y-4 border-2  rounded-lg border-red-500 bg-white'>
-						<h1 className='alert__title'>Choose the clothing you want to send</h1>
-						{/* <p className='alert__body'>You want to delete this clothing?</p> */}
-						<div className='flex flex-col justify-between space-x-4'>
-							<ClothingListPopup
-								userId={userId}
-								onSelect={async (imageUrl) => {
-									await attachImage(imageUrl);
-									onClose();
-								}}></ClothingListPopup>
-							<button onClick={onClose} className='bg-red-500 text-white py-2 px-4 rounded hover:bg-red-300'>
-								Cancel
-							</button>
+		sendRequest({ url: `clothing/${userId}` }, (returnData) => {
+			confirmAlert({
+				customUI: ({ onClose }) => {
+					return (
+						<div className='alert flex flex-col items-center px-8 py-2 space-y-4 border-2  rounded-lg border-red-500 bg-white'>
+							<h1 className='alert__title'>Choose the clothing you want to send</h1>
+							{/* <p className='alert__body'>You want to delete this clothing?</p> */}
+							<div className='flex flex-col justify-between space-x-4'>
+								<ClothingListPopup
+									userId={userId}
+									clothingList={returnData}
+									onSelect={async (imageUrl) => {
+										await attachImage(imageUrl);
+										onClose();
+									}}></ClothingListPopup>
+								<button onClick={onClose} className='bg-red-500 text-white py-2 px-4 rounded hover:bg-red-300'>
+									Cancel
+								</button>
+							</div>
 						</div>
-					</div>
-				);
-			},
+					);
+				},
+			});
 		});
 	};
 

@@ -21,6 +21,7 @@ const useHttp = () => {
 				headers["Content-Type"] = "application/json";
 			}
 			headers["Authorization"] = "Bearer " + ctx.token;
+			console.log(ctx);
 			// headers["Access-Control-Allow-Origin"] = "*";
 			// headers["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Accept	";
 			const response = await fetch(url, {

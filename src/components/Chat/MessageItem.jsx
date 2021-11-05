@@ -26,13 +26,27 @@ const MessageItem = (props) => {
 				{/* <div className='mr-3'>
 					<img src={photoURL} className='w-5 h-5' />
 				</div> */}
-				<div className='imessage'>
-					{isAttachment && (
-						<div className='w-1/2'>
+				{isAttachment && (
+					<div
+						className={`flex w-full mb-4 ${
+							messageClass == 'from-me'
+								? 'justify-end mr-6'
+								: 'justify-start ml-6'
+						}`}
+					>
+						<div className={`w-1/2`}>
 							<img src={attachmentUrl}></img>
 						</div>
-					)}
-					{!isAttachment && (
+					</div>
+				)}
+				{!isAttachment && (
+					<div
+						className={`imessage text-right flex ${
+							messageClass == 'from-me'
+								? 'justify-end'
+								: 'justify-start'
+						}`}
+					>
 						<p
 							className={`${messageClass}   ${
 								nextMessage &&
@@ -44,8 +58,8 @@ const MessageItem = (props) => {
 							{text}
 							{/* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{helpers.formatDate(createdAt)} */}
 						</p>
-					)}
-				</div>
+					</div>
+				)}
 			</div>
 		</div>
 	);

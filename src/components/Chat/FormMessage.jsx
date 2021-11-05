@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import AuthContext from "../../contexts/auth-context";
@@ -6,6 +6,7 @@ import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import ClothingListPopup from "./ClothingListPopup";
 import useHttp from "../../hooks/use-http";
+import InputEmoji from "react-input-emoji";
 const FormMessage = (props) => {
 	const ctx = useContext(AuthContext);
 	const { onSubmit, receiverUserId } = props;
@@ -78,14 +79,26 @@ const FormMessage = (props) => {
 		});
 	};
 
+	const submitForm = (e) => {
+		document.getElementById("btnSubmit").click();
+	};
+
 	return (
 		<div>
-			<form onSubmit={sendMessage} className='flex space-x-2 rounded-3xl  bg-white pt-4 pb-2 pl-6 pr-2 items-center'>
-				<input
+			<form onSubmit={sendMessage} className='flex space-x-2 rounded-3xl  bg-white pt-4 pb-2 pl-6 pr-2 items-center' id='formMessage'>
+				{/* <input
 					value={message}
 					onChange={(e) => setMessage(e.target.value)}
 					placeholder="What's on your mind"
 					className='w-full border-0 outline-none border-b'
+				/> */}
+				<InputEmoji
+					value={message}
+					onChange={setMessage}
+					className='w-full border-0 outline-none border-b'
+					cleanOnEnter
+					onEnter={submitForm}
+					placeholder='Type a message'
 				/>
 
 				<button type='button' className='w-10' onClick={clickSendAttachmentHandler}>
@@ -98,7 +111,7 @@ const FormMessage = (props) => {
 						/>
 					</svg>
 				</button>
-				<button type='submit' disabled={!message} className='w-10 pr-2'>
+				<button type='submit' disabled={!message} className='w-10 pr-2' id='btnSubmit'>
 					<svg xmlns='http://www.w3.org/2000/svg' className='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
 						<path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6' />
 					</svg>

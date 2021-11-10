@@ -14,7 +14,7 @@ const ApproveRequest = () => {
 	const ctx = useContext(AuthContext);
 	useEffect(() => {
 		if (ctx.user.isAdmin != 1) {
-			alert("pergi sana");
+			alert("pergi sanaaa");
 		}
 	}, []);
 	const fetchRequestList = () => {

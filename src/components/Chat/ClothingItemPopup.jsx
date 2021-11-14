@@ -8,7 +8,7 @@ const ClothingItemPopup = (props) => {
 	};
 
 	return (
-		<div className='flex flex-col text-center items-center px-3 border border-blue-300 mx-1' onClick={selectImageHandler}>
+		<div className='flex flex-col text-center items-center px-3 border border-blue-300 mx-1 cursor-pointer hover:bg-yellow-100' onClick={selectImageHandler}>
 			<div>{name}</div>
 			<div>
 				<img src={imageUrl} style={{ maxHeight: "5rem" }}></img>

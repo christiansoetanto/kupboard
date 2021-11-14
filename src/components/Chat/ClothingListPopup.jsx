@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Fragment } from "react";
 import useHttp from "../../hooks/use-http";
 import ClothingItemPopup from "./ClothingItemPopup";
 const ClothingListPopup = (props) => {
@@ -16,17 +17,17 @@ const ClothingListPopup = (props) => {
 	};
 
 	return (
-		<div className='flex flex-row mb-5'>
+		// <div className='flex flex-row mb-5'>
+		<Fragment>
 			{clothingList &&
 				clothingList.length > 0 &&
 				clothingList.map((e) => {
 					return (
-						<div key={e.clothingId}>
-							<ClothingItemPopup imageUrl={e.imageUrl} name={e.name} onClick={selectImageHandler}></ClothingItemPopup>
-						</div>
+							<ClothingItemPopup key={e.clothingId} imageUrl={e.imageUrl} name={e.name} onClick={selectImageHandler} />
 					);
 				})}
-		</div>
+		</Fragment>
+		// </div>
 	);
 };
 

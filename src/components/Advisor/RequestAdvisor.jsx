@@ -52,7 +52,7 @@ const RequestAdvisor = (props) => {
 			sendRequest({ url: "user/advisor/" + ctx.user.userId + "/", method: "POST", body: data }, (returnData) => {
 				confirmAlert({
 					customUI: ({ onClose }) => {
-						return <CallbackAlert onClose={onClose} status={"Success"} />;
+						return <CallbackAlert onClose={onClose} status={"Success"} customMessage={"Request submitted successfully"} />;
 					},
 					afterClose: () => {
 						history.push("/profile");

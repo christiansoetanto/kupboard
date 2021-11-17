@@ -11,7 +11,6 @@ const CallbackAlert = (props) => {
 				<div className='hover:text-gray-500 cursor-pointer text-right' onClick={props.onClose}>
 					<CancelSvg />
 				</div>
-				<div className='text-center'>Something went wrong</div>
 				<br />
 				<div className='text-2xl font-semibold '>{msg}</div>
 			</div>

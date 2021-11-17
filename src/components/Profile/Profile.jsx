@@ -122,7 +122,7 @@ const Profile = () => {
 			sendRequest({ url: "user/" + ctx.user.userId + "/", method: "PATCH", body: data }, (returnData) => {
 				confirmAlert({
 					customUI: ({ onClose }) => {
-						return <CallbackAlert onClose={onClose} status={"Success"} />;
+						return <CallbackAlert onClose={onClose} status={"Success"} customMessage={"Profile updated successfully"} />;
 					},
 					afterClose: () => {
 						transformProfile(returnData);

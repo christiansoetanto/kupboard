@@ -1,16 +1,16 @@
-import React, { useState, useContext, useEffect } from 'react';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-import AuthContext from '../../contexts/auth-context';
-import { confirmAlert } from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-import ClothingListPopup from './ClothingListPopup';
-import useHttp from '../../hooks/use-http';
-import InputEmoji from 'react-input-emoji';
+import React, { useState, useContext, useEffect } from "react";
+import firebase from "firebase/app";
+import "firebase/firestore";
+import AuthContext from "../../contexts/auth-context";
+import { confirmAlert } from "react-confirm-alert"; // Import
+import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
+import ClothingListPopup from "./ClothingListPopup";
+import useHttp from "../../hooks/use-http";
+import InputEmoji from "react-input-emoji";
 const FormMessage = (props) => {
 	const ctx = useContext(AuthContext);
 	const { onSubmit, receiverUserId } = props;
-	const [message, setMessage] = useState('');
+	const [message, setMessage] = useState("");
 	const { isLoading, error, sendRequest } = useHttp();
 
 	const sendMessage = async (e) => {
@@ -23,37 +23,29 @@ const FormMessage = (props) => {
 			receiverUserId: receiverUserId,
 			photoURL,
 			roomOwnersArray: [receiverUserId, userId],
-			roomOwnersString:
-				receiverUserId < userId
-					? receiverUserId + userId
-					: userId + receiverUserId,
+			roomOwnersString: receiverUserId < userId ? receiverUserId + userId : userId + receiverUserId,
 			isAttachment: false,
-			attachmentUrl: '',
+			attachmentUrl: "",
 		};
 		onSubmit(msg);
-		setMessage('');
+		setMessage("");
 	};
 
 	const attachImage = async (imageUrl) => {
-		console.log('attach image jalan');
-		console.log(imageUrl);
 		const { userId, photoURL } = ctx.user;
 		const msg = {
-			text: '',
+			text: "",
 			createdAt: firebase.firestore.FieldValue.serverTimestamp(),
 			senderUserId: userId,
 			receiverUserId: receiverUserId,
 			photoURL,
 			roomOwnersArray: [receiverUserId, userId],
-			roomOwnersString:
-				receiverUserId < userId
-					? receiverUserId + userId
-					: userId + receiverUserId,
+			roomOwnersString: receiverUserId < userId ? receiverUserId + userId : userId + receiverUserId,
 			isAttachment: true,
 			attachmentUrl: imageUrl,
 		};
 		onSubmit(msg);
-		setMessage('');
+		setMessage("");
 	};
 
 	const clickSendAttachmentHandler = (e) => {
@@ -64,26 +56,25 @@ const FormMessage = (props) => {
 				customUI: ({ onClose }) => {
 					return (
 						<div className='alert flex flex-col items-center px-8 py-2 space-y-4 border-2  rounded-lg border-red-500 bg-white'>
-							<h1 className='alert__title'>
-								Choose the clothing you want to send
-							</h1>
-							{/* <p className='alert__body'>You want to delete this clothing?</p> */}
-							<div className='grid grid-cols-2 md:grid-cols-4 gap-x-1 gap-y-3 overflow-y-scroll'>
-								<ClothingListPopup
-									userId={userId}
-									clothingList={returnData}
-									onSelect={async (imageUrl) => {
-										await attachImage(imageUrl);
-										onClose();
-									}}
-								></ClothingListPopup>
+							<div className='flex flex-row justify-between items-center mb-8 border-b-2 border-gray-200'>
+								<div className='text-2xl font-semibold '>
+									<h1 className='alert__title'>Choose the clothing you want to send</h1>
+								</div>
+								<div className='hover:text-gray-500' onClick={onClose}>
+									<CancelSvg />
+								</div>
 							</div>
-							<button
-								onClick={onClose}
-								className='bg-red-500 text-white py-2 px-4 rounded hover:bg-red-300'
-							>
-								Cancel
-							</button>
+							<div className='alert__body'>
+								<div className='grid grid-cols-2 md:grid-cols-4 gap-x-1 gap-y-3 overflow-y-scroll'>
+									<ClothingListPopup
+										userId={userId}
+										clothingList={returnData}
+										onSelect={async (imageUrl) => {
+											await attachImage(imageUrl);
+											onClose();
+										}}></ClothingListPopup>
+								</div>
+							</div>
 						</div>
 					);
 				},
@@ -92,16 +83,12 @@ const FormMessage = (props) => {
 	};
 
 	const submitForm = (e) => {
-		document.getElementById('btnSubmit').click();
+		document.getElementById("btnSubmit").click();
 	};
 
 	return (
 		<div>
-			<form
-				onSubmit={sendMessage}
-				className='flex space-x-2 rounded-3xl  bg-white pt-4 pb-2 pl-6 pr-2 items-center'
-				id='formMessage'
-			>
+			<form onSubmit={sendMessage} className='flex space-x-2 rounded-3xl  bg-white pt-4 pb-2 pl-6 pr-2 items-center' id='formMessage'>
 				{/* <input
 					value={message}
 					onChange={(e) => setMessage(e.target.value)}
@@ -117,18 +104,8 @@ const FormMessage = (props) => {
 					placeholder='Type a message'
 				/>
 
-				<button
-					type='button'
-					className='w-10'
-					onClick={clickSendAttachmentHandler}
-				>
-					<svg
-						xmlns='http://www.w3.org/2000/svg'
-						className='h-6 w-6'
-						fill='none'
-						viewBox='0 0 24 24'
-						stroke='currentColor'
-					>
+				<button type='button' className='w-10' onClick={clickSendAttachmentHandler}>
+					<svg xmlns='http://www.w3.org/2000/svg' className='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
 						<path
 							strokeLinecap='round'
 							strokeLinejoin='round'
@@ -137,25 +114,9 @@ const FormMessage = (props) => {
 						/>
 					</svg>
 				</button>
-				<button
-					type='submit'
-					disabled={!message}
-					className='w-10 pr-2'
-					id='btnSubmit'
-				>
-					<svg
-						xmlns='http://www.w3.org/2000/svg'
-						className='h-6 w-6'
-						fill='none'
-						viewBox='0 0 24 24'
-						stroke='currentColor'
-					>
-						<path
-							strokeLinecap='round'
-							strokeLinejoin='round'
-							strokeWidth={2}
-							d='M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6'
-						/>
+				<button type='submit' disabled={!message} className='w-10 pr-2' id='btnSubmit'>
+					<svg xmlns='http://www.w3.org/2000/svg' className='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+						<path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6' />
 					</svg>
 				</button>
 			</form>

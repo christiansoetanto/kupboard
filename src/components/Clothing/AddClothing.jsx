@@ -29,6 +29,9 @@ const AddClothing = (props) => {
 	const [useCamera, setUseCamera] = useState(false);
 	const [defaultSelectedTags, setDefaultSelectedTags] = useState([]);
 
+	const [clothingPictureErrorMessage, setClothingPictureErrorMessage] = useState("");
+	const [inputNameErrorMessage, setInputNameErrorMessage] = useState("");
+	const [selectCategoryErrorMessage, setSelectCategoryErrorMessage] = useState("");
 	const isEdit = clothingId != null && clothingId != "";
 
 	const ctx = useContext(AuthContext);
@@ -109,6 +112,26 @@ const AddClothing = (props) => {
 		event.preventDefault();
 		const enteredName = inputNameRef.current.value;
 
+		let isAnyError = false;
+		if (!imageUrl) {
+			setClothingPictureErrorMessage("Please input clothing picture");
+			isAnyError = true;
+		} else {
+			setClothingPictureErrorMessage("");
+		}
+		if (!enteredName) {
+			setInputNameErrorMessage("Please input clothing name");
+			isAnyError = true;
+		} else {
+			setInputNameErrorMessage("");
+		}
+		if (!selectedCategory) {
+			setSelectCategoryErrorMessage("Please select clothing category");
+			isAnyError = true;
+		} else {
+			setSelectCategoryErrorMessage("");
+		}
+		if (isAnyError) return false;
 		const newClothingData = {
 			name: enteredName,
 			imageUrl: imageUrl,
@@ -215,6 +238,8 @@ const AddClothing = (props) => {
 		// <Card>
 		<div className='flex flex-col md:flex-row md:items-stretch space-y-8 md:space-y-0 md:space-x-2 justify-center items-center'>
 			<div className='pt-5 pb-2 px-2 flex flex-col items-center justify-start border-dashed border-2 rounded-lg border-orange-300 space-y-4 md:w-1/3'>
+				<div className='text-red-600'>{clothingPictureErrorMessage}</div>
+
 				<div className='text-center flex justify-between items-center w-full space-x-2'>
 					<label className='cursor-pointer flex-1 bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-semibold rounded-md py-4 px-2'>
 						Upload pic
@@ -259,9 +284,10 @@ const AddClothing = (props) => {
 						<span className='text-gray-500 text-sm '>Clothing Name</span>
 						<input
 							className=' mt-1 block w-full py-2 focus:outline-none border-0 bg-transparent border-b-2 border-gray-600 text-lg'
-							placeholder='Clothing Number 1'
+							placeholder='Clothing Name'
 							ref={inputNameRef}
 						/>
+						<span className='text-red-600'>{inputNameErrorMessage}</span>
 					</label>
 					<label className='w-1/2'>
 						<span className='text-gray-500 text-sm'>Category</span>
@@ -271,6 +297,7 @@ const AddClothing = (props) => {
 							className='w-full mt-1 text-lg'
 							selectedCategoryId={selectedCategory}
 						/>
+						<span className='text-red-600'>{selectCategoryErrorMessage}</span>
 					</label>
 				</div>
 

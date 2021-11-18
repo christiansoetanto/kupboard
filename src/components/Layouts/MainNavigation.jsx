@@ -72,14 +72,14 @@ function MainNavigation() {
               Outfits
             </NavLink>
             <NavLink
-              className="md:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-green-400"
+              className="md:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-pink-400"
               to="/schedule"
               onClick={handleNavLinkOnClick}
             >
               Schedule
             </NavLink>
             <NavLink
-              className="md:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-green-400"
+              className="md:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-gray-400"
               to="/chat"
               onClick={handleNavLinkOnClick}
             >

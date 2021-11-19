@@ -64,6 +64,7 @@ function App() {
 				<Route path='/approve-request' exact>
 					<ApproveRequest />
 				</Route>
+				
 			</Switch>
 		</Layout>
 	);

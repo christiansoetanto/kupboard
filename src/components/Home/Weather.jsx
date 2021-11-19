@@ -97,9 +97,9 @@ const Weather = () => {
 				<img src={weatherData.iconUrl} alt="" />
 			</div> */}
 			{!error && !isLoading && (
-				<div className='rounded-lg bg-amber-100 py-2 px-4'>
+				<div className='rounded-lg bg-amber-100 py-2 px-4 mb-4'>
 					<div className='flex flex-col'>
-						<div className='font-bold ml-4 text-3xl'>
+						<div className='font-semibold ml-4 text-xl'>
 							{weatherData.placeName}, {weatherData.countryName}
 						</div>
 						<div className='flex flex-row items-center'>

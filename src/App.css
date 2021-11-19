@@ -1,10 +1,10 @@
 .App {
   text-align: center;
-  
 }
 
 .asd {
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: "Roboto", "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 
 .App-logo {
@@ -42,8 +42,7 @@
   }
 }
 
-
-#menu-toggle:checked+#menu {
+#menu-toggle:checked + #menu {
   display: block;
 }
 
@@ -54,6 +53,6 @@
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }

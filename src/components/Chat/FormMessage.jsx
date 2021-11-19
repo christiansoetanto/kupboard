@@ -7,6 +7,7 @@ import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import ClothingListPopup from "./ClothingListPopup";
 import useHttp from "../../hooks/use-http";
 import InputEmoji from "react-input-emoji";
+import CancelSvg from "../UI/CancelSvg";
 const FormMessage = (props) => {
 	const ctx = useContext(AuthContext);
 	const { onSubmit, receiverUserId } = props;

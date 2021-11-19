@@ -23,7 +23,7 @@ function MainNavigation() {
           <div className='flex items-center justify-center flex-1'>
             <img
               src={
-                require("../../assets/illustrations/logokupboard.png").default
+                require("../../assets/illustrations/logotext_v2.png").default
               }
               alt='logo kupboard'
               className='lg:h-10 h-8'

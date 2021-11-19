@@ -15,7 +15,6 @@ const useHttp = () => {
 			const isJson = requestConfig.isJson ?? true;
 			const useAPIBaseUrl = requestConfig.useAPIBaseUrl ?? true;
 			const url = useAPIBaseUrl ? process.env.REACT_APP_API_BASEURL + requestConfig.url : requestConfig.url;
-			console.log(url);
 			const body = requestConfig.body ? (isJson ? JSON.stringify(requestConfig.body) : requestConfig.body) : null;
 			let headers = requestConfig.headers ?? {};
 			if (!headers["Content-Type"]) {
@@ -30,7 +29,6 @@ const useHttp = () => {
 				body: body,
 			});
 
-			console.log(response);
 			if (!response.ok) {
 				throw new Error("Request failed!");
 			}
@@ -39,7 +37,6 @@ const useHttp = () => {
 
 			await applyData(data);
 		} catch (err) {
-			console.log(err);
 			setError(err.message || "Something went wrong!");
 			if (!requestConfig.dontShowError)
 				confirmAlert({

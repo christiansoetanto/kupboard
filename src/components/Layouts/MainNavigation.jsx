@@ -66,12 +66,6 @@ function MainNavigation() {
 							onClick={handleNavLinkOnClick}>
 							Chat
 						</NavLink>
-						<NavLink
-							className='md:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-gray-400'
-							to='/chat'
-							onClick={handleNavLinkOnClick}>
-							{process.env.REACT_APP_ENVIRONMENT_NAME}
-						</NavLink>
 						{ctx.user != null && ctx.user.isAdmin == 1 && (
 							<NavLink
 								className='md:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-green-400'

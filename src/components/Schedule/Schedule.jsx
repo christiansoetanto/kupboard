@@ -20,6 +20,13 @@ const Schedule = (props) => {
 	const { sendRequest: getOutfits } = useHttp();
 	const { sendRequest: insertNewSchedule } = useHttp;
 
+	function WithoutTime(dateTime) {
+		var date = new Date(dateTime.getTime());
+		date.setHours(0, 0, 0, 0);
+		return date;
+	}
+
+
 	const buildCalendar = async () => {
 		const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
 		const lastDateOfMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
@@ -46,13 +53,20 @@ const Schedule = (props) => {
 				url: `schedule/${ctx.user.userId}/${currentMonth + 1}/${currentYear}`,
 			},
 			(returnData) => {
+				// console.log(WithoutTime(new Date(returnData[0].scheduleDate)))
+				// console.log(WithoutTime(new Date()))
+				// console.log(returnData)
 				setOutfitScheduleList(returnData);
-
+				
 
 				returnData.map((rd) => {
 					let idx = calendar.findIndex((c) => {
-						return +new Date(c.date) === +new Date(rd.scheduleDate);
+						// if (new Date(c.date) == 1637625600000) {
+						// console.log(WithoutTime(new Date(c.date)))
+						// }
+						return new Date(c.date).getDate() == new Date(rd.scheduleDate).getDate();
 					});
+					console.log(idx)
 					if (idx !== -1) {
 						calendar[idx].schedule.map((scheduleItem) => scheduleItem.outfitId).includes(rd.outfitId) || calendar[idx].schedule.push(rd);
 					}

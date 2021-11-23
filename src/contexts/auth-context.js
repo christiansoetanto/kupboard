@@ -5,17 +5,15 @@ import { Redirect, Route } from "react-router-dom";
 import firebase from "../configs/firebase-config";
 import useHttp from "../hooks/use-http";
 
-const socialMediaAuth = (provider) => {
-	return firebase
-		.auth()
-		.signInWithPopup(provider)
-		.then((res) => {
-			return res.user;
-		})
-		.catch((err) => {
-			alert(err)
-			return err;
-		});
+const socialMediaAuth = async (provider) => {
+	try {
+		const res = await firebase
+			.auth()
+			.signInWithPopup(provider);
+		return res.user;
+	} catch (err) {
+		throw err;
+	}
 };
 
 const AuthContext = React.createContext({
@@ -76,14 +74,20 @@ export const AuthContextProvider = (props) => {
 	};
 
 	const loginHandler = async (provider) => {
-		const tempUser = await socialMediaAuth(provider);
-		await sendRequest({ url: "user/" + tempUser.uid }, async (result) => {
-			if (result.isExists) {
-				handleLoginSuccess(result);
-			} else {
-				await registerUser(tempUser);
-			}
-		});
+		try{
+			const tempUser = await socialMediaAuth(provider);
+			await sendRequest({ url: "user/" + tempUser.uid }, async (result) => {
+				if (result.isExists) {
+					handleLoginSuccess(result);
+				} else {
+					await registerUser(tempUser);
+				}
+			});
+		}
+		catch(err){
+			console.log(err.message)
+			alert("Failed to sign you in")
+		}
 	};
 
 	return (

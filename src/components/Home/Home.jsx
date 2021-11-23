@@ -48,21 +48,19 @@ const Home = () => {
       <div className="font-semibold text-3xl text-gray-700 mt-4">
         OUTFIT OF THE DAY
       </div>
-
+      <div className='w-full'>
+            <Weather />
+          </div>
       <div className="flex flex-col md:flex-row w-full justify-center items-stretch content-evenly md:space-x-4">
         <div className="flex flex-col space-y-4 items-stretch md:w-1/3 md:pr-2">
           <div>
             <OutfitCarousel
               outfits={outfitsOfTheDay}
               onChange={onChangeHandler}
+              isLoading={isLoading}
             />
           </div>
-          {/* <div>
-						<hr className='border-yellow-200'/>
-					</div> */}
-          <div>
-            <Weather />
-          </div>
+          
         </div>
 
         {outfitsOfTheDay.length > 0 && (

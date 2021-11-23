@@ -5,7 +5,7 @@ import useHttp from "../../hooks/use-http";
 import OutfitItem from "../Outfit/OutfitItem";
 
 const OutfitCarousel = (props) => {
-	const { outfits, onChange } = props;
+	const { outfits, onChange, isLoading } = props;
 
 	const onChangeHandler = (index) => {
 		onChange(index);
@@ -13,13 +13,18 @@ const OutfitCarousel = (props) => {
 
 	return (
 		<div className='text-center '>
-			{outfits.length == 0 && (
+			{isLoading && (
+				<div className='flex flex-col items-center justify-center'>
+					<div className='text-lg'>Loading your outfits...</div>
+				</div>
+			)}
+			{!isLoading && outfits.length == 0 && (
 				<div className='flex flex-col items-center justify-center'>
 					<div className='text-lg'>Today's outfit has not been set yet</div>
 					<div className='text-md'>pick one from your wardrobe</div>
 				</div>
 			)}
-			{outfits.length > 0 && (
+			{!isLoading && outfits.length > 0 && (
 				<Carousel autoPlay={true} infiniteLoop={true} onChange={onChangeHandler} showThumbs={false} interval={20000}>
 					{outfits.map((e) => {
 						return (

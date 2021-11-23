@@ -13,6 +13,7 @@ const socialMediaAuth = (provider) => {
 			return res.user;
 		})
 		.catch((err) => {
+			alert(err)
 			return err;
 		});
 };

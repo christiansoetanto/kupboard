@@ -8,6 +8,7 @@ import ClothingListPopup from "./ClothingListPopup";
 import useHttp from "../../hooks/use-http";
 import InputEmoji from "react-input-emoji";
 import CancelSvg from "../UI/CancelSvg";
+import { Fragment } from "react";
 const FormMessage = (props) => {
 	const ctx = useContext(AuthContext);
 	const { onSubmit, receiverUserId } = props;
@@ -88,8 +89,8 @@ const FormMessage = (props) => {
 	};
 
 	return (
-		<div>
-			<form onSubmit={sendMessage} className='flex space-x-2 rounded-3xl  bg-white pt-4 pb-2 pl-6 pr-2 items-center' id='formMessage'>
+		<Fragment>
+			<form onSubmit={sendMessage} className='flex space-x-2 rounded-3xl  bg-white pt-4 pb-2 pl-6 pr-2 items-center h-full' id='formMessage'>
 				{/* <input
 					value={message}
 					onChange={(e) => setMessage(e.target.value)}
@@ -121,7 +122,7 @@ const FormMessage = (props) => {
 					</svg>
 				</button>
 			</form>
-		</div>
+		</Fragment>
 	);
 };
 

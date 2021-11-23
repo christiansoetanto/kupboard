@@ -42,7 +42,7 @@ const ChatRoom = (props) => {
 	}, [receiverUserId]);
 	return (
 		<Fragment>
-			<div className='flex flex-col justify-end pb-12 relative'>
+			<div className='flex flex-col pb-12 relative h-full'>
 				<div className='flex items-center mb-2 justify-end px-5'>
 					<div className='justify-start mr-auto flex items-center space-x-4'>
 						<div className='w-10 h-10 rounded-full overflow-hidden'>
@@ -60,7 +60,7 @@ const ChatRoom = (props) => {
 					<hr className='border-gray-200' />
 				</div>
 
-				<div className='mt-4 overflow-y-scroll mb-6' style={{ height: "450px" }} id='chat-list-container'>
+				<div className='mt-4 overflow-y-scroll mb-6' id='chat-list-container'>
 					{messages &&
 						messages
 							.sort((a, b) => a.createdAt - b.createdAt)

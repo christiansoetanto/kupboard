@@ -90,7 +90,7 @@ const FormMessage = (props) => {
 
 	return (
 		<Fragment>
-			<form onSubmit={sendMessage} className='flex space-x-2 rounded-3xl  bg-white pt-4 pb-2 pl-6 pr-2 items-center h-full' id='formMessage'>
+			<form onSubmit={sendMessage} className='flex md:space-x-2 rounded-3xl  bg-white pt-4 pb-2 pr-2 items-center h-full' id='formMessage'>
 				{/* <input
 					value={message}
 					onChange={(e) => setMessage(e.target.value)}
@@ -100,27 +100,28 @@ const FormMessage = (props) => {
 				<InputEmoji
 					value={message}
 					onChange={setMessage}
-					className='w-full border-0 outline-none border-b'
+					className='border-0 outline-none border-b'
 					cleanOnEnter
 					onEnter={submitForm}
 					placeholder='Type a message'
 				/>
-
-				<button type='button' className='w-10' onClick={clickSendAttachmentHandler}>
-					<svg xmlns='http://www.w3.org/2000/svg' className='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
-						<path
-							strokeLinecap='round'
-							strokeLinejoin='round'
-							strokeWidth={2}
-							d='M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z'
-						/>
-					</svg>
-				</button>
-				<button type='submit' disabled={!message} className='w-10 pr-2' id='btnSubmit'>
-					<svg xmlns='http://www.w3.org/2000/svg' className='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
-						<path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6' />
-					</svg>
-				</button>
+				<div className='flex'>
+					<button type='button' className='w-10' onClick={clickSendAttachmentHandler}>
+						<svg xmlns='http://www.w3.org/2000/svg' className='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+							<path
+								strokeLinecap='round'
+								strokeLinejoin='round'
+								strokeWidth={2}
+								d='M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z'
+							/>
+						</svg>
+					</button>
+					<button type='submit' disabled={!message} className='w-10 pr-2' id='btnSubmit'>
+						<svg xmlns='http://www.w3.org/2000/svg' className='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+							<path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6' />
+						</svg>
+					</button>
+				</div>
 			</form>
 		</Fragment>
 	);

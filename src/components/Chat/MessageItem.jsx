@@ -28,7 +28,7 @@ const MessageItem = (props) => {
 				</div> */}
 				{isAttachment && (
 					<div
-						className={`flex w-full mb-4 ${
+						className={`flex w-full mb-1 md:mb-4 ${
 							messageClass == 'from-me'
 								? 'justify-end mr-6'
 								: 'justify-start ml-6'

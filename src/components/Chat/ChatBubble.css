@@ -44,7 +44,7 @@
     background-color: #fff;
   }
   
-  p[class^="from-"] {
+  p[class^="from-me"] {
     /* margin: 0.5rem 0; */
     width: fit-content;
   }
@@ -128,19 +128,7 @@
       url("https://cdn.rawgit.com/AllThingsSmitty/fonts/25983b71/SanFrancisco/sanfranciscodisplay-regular-webfont.woff") format("woff");
   }
   
-  body {  
-    font-family: -apple-system, 
-      BlinkMacSystemFont, 
-      "Segoe UI", 
-      Roboto, 
-      Oxygen-Sans, 
-      Ubuntu, 
-      Cantarell, 
-      "Helvetica Neue", 
-      sans-serif;
-    font-weight: normal;
-    margin: 0;
-  }
+  
   
   .container {
     margin: 0 auto;
@@ -169,6 +157,10 @@
     max-width: 100%;
     padding: 0;
   }
+
+  .react-emoji {
+    width: 90%;
+  }
   
   @media screen and (max-width: 800px) {
     body {
@@ -181,12 +173,17 @@
   
     .imessage {
       font-size: 1.05rem;
-      margin: 0 auto 1rem;
       max-width: 600px;
-      padding: 0.25rem 0.875rem;
+      padding: 0 0.875rem;
+    }
+
+    .react-emoji {
+      width: 80%;
     }
   
-    .imessage p {
+    /* .imessage p {
       margin: 0.5rem 0;
-    }
+    } */
   }
+
+

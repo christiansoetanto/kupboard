@@ -1,0 +1,29 @@
+.result-title {
+	background-color: #fafafa;
+	padding: 5px 5px 5px 5px;
+	margin-bottom: 5px;
+	font-size: 24px;
+	font-weight: 800;
+}
+.result-box {
+	background-color: #e6e6e6;
+	padding: 10px;
+	display: inline-block;
+}
+#campus-img-item {
+	width: auto;
+	height: 250px;
+}
+.campus-name {
+	margin-top: 10px;
+	font-size: 16px;
+	text-align: center;
+	text-transform: uppercase;
+	color: #85be57;
+	font-weight: bold;
+}
+.program-name {
+	font-size: 16px;
+	font-weight: bold;
+	color: #88388f;
+}

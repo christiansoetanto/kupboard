@@ -14,8 +14,10 @@ import Home from './components/Home/Home';
 import ChatPage from './components/Chat/ChatPage';
 import RequestAdvisor from './components/Advisor/RequestAdvisor';
 import ApproveRequest from './components/Advisor/ApproveRequest';
+import PunyaCS from "./components/PunyaCS";
 function App() {
 	return (
+		// <PunyaCS />
 		<Layout>
 			<Switch>
 				<Route path='/clothings' exact>

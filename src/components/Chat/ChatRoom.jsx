@@ -71,7 +71,7 @@ const ChatRoom = (props) => {
 					<hr className='border-gray-200' />
 				</div>
 
-				<div className='mt-4 overflow-y-scroll mb-6' id='chat-list-container'>
+				<div className='overflow-y-scroll mb-2' id='chat-list-container'>
 					{messages &&
 						messages
 							.sort((a, b) => a.createdAt - b.createdAt)

@@ -1,19 +1,19 @@
-import "./App.css";
-import Clothings from "./components/Clothing/Clothings";
-import AddClothing from "./components/Clothing/AddClothing";
-import AddOutfit from "./components/Outfit/AddOutfit";
-import Outfits from "./components/Outfit/Outfits";
-import { Route, Switch } from "react-router-dom";
-import Layout from "./components/Layouts/Layout";
-import Login from "./components/Login/Login";
-import ClothingDetail from "./components/Clothing/ClothingDetail";
-import OutfitDetail from "./components/Outfit/OutfitDetail";
-import Schedule from "./components/Schedule/Schedule";
-import Profile from "./components/Profile/Profile";
-import Home from "./components/Home/Home";
-import ChatPage from "./components/Chat/ChatPage";
-import RequestAdvisor from "./components/Advisor/RequestAdvisor";
-import ApproveRequest from "./components/Advisor/ApproveRequest";
+import './App.css';
+import Clothings from './components/Clothing/Clothings';
+import AddClothing from './components/Clothing/AddClothing';
+import AddOutfit from './components/Outfit/AddOutfit';
+import Outfits from './components/Outfit/Outfits';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import Layout from './components/Layouts/Layout';
+import Login from './components/Login/Login';
+import ClothingDetail from './components/Clothing/ClothingDetail';
+import OutfitDetail from './components/Outfit/OutfitDetail';
+import Schedule from './components/Schedule/Schedule';
+import Profile from './components/Profile/Profile';
+import Home from './components/Home/Home';
+import ChatPage from './components/Chat/ChatPage';
+import RequestAdvisor from './components/Advisor/RequestAdvisor';
+import ApproveRequest from './components/Advisor/ApproveRequest';
 function App() {
 	return (
 		<Layout>
@@ -32,7 +32,9 @@ function App() {
 					<AddOutfit />
 				</Route>
 
-				<Route path='/' exact>
+				<Route path='/' exact render={() => (<Redirect to='/home' />)} />
+
+				<Route path='/home' exact>
 					<Home />
 				</Route>
 
@@ -64,7 +66,6 @@ function App() {
 				<Route path='/approve-request' exact>
 					<ApproveRequest />
 				</Route>
-				
 			</Switch>
 		</Layout>
 	);

@@ -52,7 +52,7 @@ const MessageItem = (props) => {
 								nextMessage &&
 								nextMessage.senderUserId == senderUserId
 									? 'no-tail'
-									: 'mb-4'
+									: ( nextMessage && 'mb-4')
 							}`}
 						>
 							{text}

@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link, Route, a, NavLink, useHistory } from "react-router-dom";
 import AuthContext from "../../contexts/auth-context";
+import './Layouts.css'
 
 function MainNavigation() {
   const ctx = useContext(AuthContext);
@@ -51,46 +52,52 @@ function MainNavigation() {
         id='menu'
       >
         <nav className='flex'>
-          <div className='lg:flex items-center justify-between text-base text-gray-700 pt-4 lg:pt-0'>
+          <div className='lg:flex items-center justify-between text-base text-gray-700 pt-4 lg:pt-0 w-full md:w-auto'>
             <NavLink
-              className='md:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-blue-400'
-              to='/'
+              className='md:pr-4 pl-4 py-3 px-0 block border-b-2 border-transparent w-full md:w-auto hover:border-amber-300 text-sm md:text-base'
+              to='/home'
+              activeClassName='border-amber-300'
               onClick={handleNavLinkOnClick}
             >
               Home
             </NavLink>
             <NavLink
-              className='md:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-purple-400'
+              className='md:pr-4 pl-4 py-3 px-0 block border-b-2 border-transparent hover:border-amber-300 text-sm md:text-base'
               to='/clothings'
+              activeClassName='border-amber-300'
               onClick={handleNavLinkOnClick}
             >
               Clothing
             </NavLink>
             <NavLink
-              className='md:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-teal-400'
+              className='md:pr-4 pl-4 py-3 px-0 block border-b-2 border-transparent hover:border-amber-300 text-sm md:text-base'
               to='/outfits'
+              activeClassName='border-amber-300'
               onClick={handleNavLinkOnClick}
             >
               Outfit
             </NavLink>
             <NavLink
-              className='md:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-pink-400'
+              className='md:pr-4 pl-4 py-3 px-0 block border-b-2 border-transparent hover:border-amber-300 text-sm md:text-base'
               to='/schedule'
+              activeClassName='border-amber-300'
               onClick={handleNavLinkOnClick}
             >
               Schedule
             </NavLink>
             <NavLink
-              className='md:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-gray-400'
+              className='md:pr-4 pl-4 py-3 px-0 block border-b-2 border-transparent hover:border-amber-300 text-sm md:text-base'
               to='/chat'
+              activeClassName='border-amber-300'
               onClick={handleNavLinkOnClick}
             >
               Chat
             </NavLink>
             {ctx.user != null && ctx.user.isAdmin == 1 && (
               <NavLink
-                className='md:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-green-400'
+                className='md:pr-4 pl-4 py-3 px-0 block border-b-2 border-transparent hover:border-amber-300 text-sm md:text-base'
                 to='/approve-request'
+                activeClassName='border-amber-300'
                 onClick={handleNavLinkOnClick}
               >
                 Approve Advisor Request
@@ -102,8 +109,8 @@ function MainNavigation() {
           <div className='md:flex md:space-x-3 items-center justify-between text-base text-gray-700 pt-4 lg:pt-0'>
             {ctx.user != null && (
               <NavLink
-                className='md:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-orange-400'
-                activeClassName='border-orange-400'
+                className='md:pr-4 pl-4 py-3 px-0 block border-b-2 border-transparent hover:border-amber-300'
+                activeClassName='border-amber-300'
                 to='/profile'
                 onClick={handleNavLinkOnClick}
               >
@@ -115,7 +122,7 @@ function MainNavigation() {
               </NavLink>
             )}
             <NavLink
-              className='md:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-orange-400'
+              className='md:pr-4 pl-4 py-3 px-0 block border-b-2 border-transparent hover:border-red-400 text-sm md:text-base'
               to='/'
               onClick={logoutHandler}
             >

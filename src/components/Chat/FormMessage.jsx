@@ -90,7 +90,7 @@ const FormMessage = (props) => {
 
 	return (
 		<Fragment>
-			<form onSubmit={sendMessage} className='flex md:space-x-2 rounded-3xl  bg-white pt-4 pb-2 pr-2 items-center h-full' id='formMessage'>
+			<form onSubmit={sendMessage} className='flex md:space-x-2 rounded-3xl  bg-white pb-2 pr-2 items-center h-full' id='formMessage'>
 				{/* <input
 					value={message}
 					onChange={(e) => setMessage(e.target.value)}

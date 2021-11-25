@@ -54,51 +54,57 @@ function MainNavigation() {
         <nav className='flex'>
           <div className='lg:flex items-center justify-between text-base text-gray-700 pt-4 lg:pt-0 w-full md:w-auto'>
             <NavLink
-              className='md:pr-4 pl-4 py-3 px-0 block border-b-2 border-transparent w-full md:w-auto hover:border-amber-300 text-sm md:text-base'
+              className='md:pr-4 pl-4 py-3 px-0 block border-b-2 w-full md:w-auto hover:border-amber-300 text-sm md:text-base'
               to='/home'
               activeClassName='border-amber-300'
               onClick={handleNavLinkOnClick}
+              style={{borderColor: 'transparent'}}
             >
               Home
             </NavLink>
             <NavLink
-              className='md:pr-4 pl-4 py-3 px-0 block border-b-2 border-transparent hover:border-amber-300 text-sm md:text-base'
+              className='md:pr-4 pl-4 py-3 px-0 block border-b-2 hover:border-amber-300 text-sm md:text-base'
               to='/clothings'
               activeClassName='border-amber-300'
               onClick={handleNavLinkOnClick}
+              style={{borderColor: 'transparent'}}
             >
               Clothing
             </NavLink>
             <NavLink
-              className='md:pr-4 pl-4 py-3 px-0 block border-b-2 border-transparent hover:border-amber-300 text-sm md:text-base'
+              className='md:pr-4 pl-4 py-3 px-0 block border-b-2 hover:border-amber-300 text-sm md:text-base'
               to='/outfits'
               activeClassName='border-amber-300'
               onClick={handleNavLinkOnClick}
+              style={{borderColor: 'transparent'}}
             >
               Outfit
             </NavLink>
             <NavLink
-              className='md:pr-4 pl-4 py-3 px-0 block border-b-2 border-transparent hover:border-amber-300 text-sm md:text-base'
+              className='md:pr-4 pl-4 py-3 px-0 block border-b-2 hover:border-amber-300 text-sm md:text-base'
               to='/schedule'
               activeClassName='border-amber-300'
               onClick={handleNavLinkOnClick}
+              style={{borderColor: 'transparent'}}
             >
               Schedule
             </NavLink>
             <NavLink
-              className='md:pr-4 pl-4 py-3 px-0 block border-b-2 border-transparent hover:border-amber-300 text-sm md:text-base'
+              className='md:pr-4 pl-4 py-3 px-0 block border-b-2 hover:border-amber-300 text-sm md:text-base'
               to='/chat'
               activeClassName='border-amber-300'
               onClick={handleNavLinkOnClick}
+              style={{borderColor: 'transparent'}}
             >
               Chat
             </NavLink>
             {ctx.user != null && ctx.user.isAdmin == 1 && (
               <NavLink
-                className='md:pr-4 pl-4 py-3 px-0 block border-b-2 border-transparent hover:border-amber-300 text-sm md:text-base'
+                className='md:pr-4 pl-4 py-3 px-0 block border-b-2 hover:border-amber-300 text-sm md:text-base'
                 to='/approve-request'
                 activeClassName='border-amber-300'
                 onClick={handleNavLinkOnClick}
+                style={{borderColor: 'transparent'}}
               >
                 Approve Advisor Request
               </NavLink>
@@ -109,10 +115,11 @@ function MainNavigation() {
           <div className='md:flex md:space-x-3 items-center justify-between text-base text-gray-700 pt-4 lg:pt-0'>
             {ctx.user != null && (
               <NavLink
-                className='md:pr-4 pl-4 py-3 px-0 block border-b-2 border-transparent hover:border-amber-300'
+                className='md:pr-4 pl-4 py-3 px-0 block border-b-2 hover:border-amber-300'
                 activeClassName='border-amber-300'
                 to='/profile'
                 onClick={handleNavLinkOnClick}
+                style={{borderColor: 'transparent'}}
               >
                 <img
                   src={ctx.user.photoURL}
@@ -122,9 +129,10 @@ function MainNavigation() {
               </NavLink>
             )}
             <NavLink
-              className='md:pr-4 pl-4 py-3 px-0 block border-b-2 border-transparent hover:border-red-400 text-sm md:text-base'
+              className='md:pr-4 pl-4 py-3 px-0 block border-b-2 hover:border-red-400 text-sm md:text-base'
               to='/'
               onClick={logoutHandler}
+              style={{borderColor: 'transparent'}}
             >
               Log Out
             </NavLink>

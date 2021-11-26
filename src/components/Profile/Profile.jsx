@@ -163,10 +163,10 @@ const Profile = () => {
         </div>
         <div className='bg-white shadow-xl border p-3 rounded-lg flex flex-col lg:flex-row justify-center'>
           <div className='w-full lg:w-1/3 px-4 pt-4'>
-            <div className='mb-4'>
+            <div className='flex mb-4 justify-center'>
               <img
                 src={ctx.user.photoURL}
-                className='w-full rounded-md'
+                className='w-1/2 rounded-md'
                 alt=''
               />
             </div>
@@ -189,7 +189,7 @@ const Profile = () => {
             <div className='font-semibold'>Biodata</div>
             <div>
               <label className='block w-full mb-3'>
-                <span className='text-gray-500 text-xs '>NAME</span>
+                <span className='text-gray-500 text-sm '>NAME</span>
                 <input
                   className='block w-full focus:outline-none bg-transparent border-2 rounded border-gray-300 text-sm md:text-base p-1'
                   ref={nameRef}
@@ -197,7 +197,7 @@ const Profile = () => {
                 <span className='text-red-700 text-sm'>{nameErrorMessage}</span>
               </label>
               <label className='block w-full mb-3'>
-                <span className='text-gray-500 text-xs '>EMAIL</span>
+                <span className='text-gray-500 text-sm '>EMAIL</span>
                 <input
                   className='block w-full focus:outline-none bg-transparent border-2 rounded border-gray-300 text-sm md:text-base p-1'
                   placeholder=''
@@ -206,7 +206,7 @@ const Profile = () => {
                 />
               </label>
               <label className='block w-full md:w-1/2 mb-3'>
-                <span className='text-gray-500 text-xs '>PHONE NUMBER</span>
+                <span className='text-gray-500 text-sm '>PHONE NUMBER</span>
                 <input
                   className='block w-full focus:outline-none bg-transparent border-2 rounded border-gray-300 text-sm md:text-base p-1'
                   ref={phoneNumberRef}
@@ -220,7 +220,7 @@ const Profile = () => {
               </label>
               <div className='flex flex-row flex-wrap justify-start space-x-2'>
                 <label className='block mb-3 w-1/2'>
-                  <span className='text-gray-500 text-xs '>BIRTH DATE</span>
+                  <span className='text-gray-500 text-sm '>BIRTH DATE</span>
                   <div className='text-sm md:text-base py-1'>
                     <DatePicker
                       value={birthDate}
@@ -238,7 +238,7 @@ const Profile = () => {
                   </span>
                 </label>
                 <label className='block mb-3 mt-1'>
-                  <span className='text-gray-500 text-xs'>GENDER</span>
+                  <span className='text-gray-500 text-sm'>GENDER</span>
                   <div className='text-sm md:text-base py-1'>
                     <input
                       type='radio'
@@ -267,7 +267,7 @@ const Profile = () => {
               <div className='flex flex-col'>
                 <div className='flex flex-row space-x-4'>
                   <label className='block w-1/2 mb-3'>
-                    <span className='text-gray-500 text-xs'>INSTAGRAM</span>
+                    <span className='text-gray-500 text-sm'>INSTAGRAM</span>
                     <input
                       className=' mt-1 block w-full focus:outline-none bg-transparent border-2 rounded border-gray-300 text-sm md:text-base p-1'
                       placeholder='Instagram'
@@ -275,7 +275,7 @@ const Profile = () => {
                     />
                   </label>
                   <label className='block w-1/2 mb-3'>
-                    <span className='text-gray-500 text-xs'>FACEBOOK</span>
+                    <span className='text-gray-500 text-sm'>FACEBOOK</span>
                     <input
                       className=' mt-1 block w-full focus:outline-none bg-transparent border-2 rounded border-gray-300 text-sm md:text-base p-1'
                       placeholder='Facebook'
@@ -285,7 +285,7 @@ const Profile = () => {
                 </div>
                 <div className='flex flex-row space-x-4'>
                   <label className='block w-1/2 mb-3'>
-                    <span className='text-gray-500 text-xs '>TWITTER</span>
+                    <span className='text-gray-500 text-sm '>TWITTER</span>
                     <input
                       className=' mt-1 block w-full focus:outline-none bg-transparent border-2 rounded border-gray-300 text-sm md:text-base p-1'
                       placeholder='Twitter'
@@ -293,7 +293,7 @@ const Profile = () => {
                     />
                   </label>
                   <label className='block w-1/2 mb-3'>
-                    <span className='text-gray-500 text-xs '>LINKEDIN</span>
+                    <span className='text-gray-500 text-sm '>LINKEDIN</span>
                     <input
                       className=' mt-1 block w-full focus:outline-none bg-transparent border-2 rounded border-gray-300 text-sm md:text-base p-1'
                       placeholder='LinkedIn'
@@ -303,7 +303,7 @@ const Profile = () => {
                 </div>
                 <div className='flex flex-row'>
                   <label className='block w-1/2 mb-3'>
-                    <span className='text-gray-500 text-xs '>
+                    <span className='text-gray-500 text-sm '>
                       OTHER SOCIAL MEDIA
                     </span>
                     <input
@@ -320,7 +320,11 @@ const Profile = () => {
               >
                 Update Profile
               </button>
-              {isAdvisor && <div>You are a Fashion Advisor already.</div>}
+              {isAdvisor && (
+                <div className='text-base'>
+                  You are a Fashion Advisor already.
+                </div>
+              )}
               {!isAdvisor && !isCompletedProfile && (
                 <div className='text-base'>
                   Complete your profile information to request to be a Fashion

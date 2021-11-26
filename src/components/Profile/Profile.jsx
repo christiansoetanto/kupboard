@@ -335,7 +335,12 @@ const Profile = () => {
                 isCompletedProfile &&
                 advisorRequestStatus &&
                 advisorRequestStatus !== "Accepted" && (
-                  <div>your advisor request is {advisorRequestStatus}</div>
+                  <div className='text-base'>
+                    Your fashion advisor request status is:{" "}
+                    <span className='font-semibold'>
+                      {advisorRequestStatus}
+                    </span>
+                  </div>
                 )}
               {!isAdvisor && isCompletedProfile && !advisorRequestStatus && (
                 <button

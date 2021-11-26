@@ -161,151 +161,190 @@ const Profile = () => {
         <div className='font-semibold text-3xl text-gray-700 mt-4 mb-4 text-center'>
           Profile Information
         </div>
-        <div className='bg-white shadow-xl border p-3 rounded-lg'>
-          <div className='text-xl mb-4'>Profile Picture</div>
-          <div className='text-xl mb-4'>Biodata</div>
-
-          <label className='block w-1/2 mb-3'>
-            <span className='text-gray-500 text-xs '>NAME</span>
-            <input
-              className='block w-full focus:outline-none border-0 bg-transparent border-b-2 border-gray-300'
-              ref={nameRef}
-            />
-            <span className='text-red-700 text-sm'>{nameErrorMessage}</span>
-          </label>
-          <label className='block w-1/2 mb-3'>
-            <span className='text-gray-500 text-xs '>EMAIL</span>
-            <input
-              className='block w-full focus:outline-none border-0 bg-transparent border-b-2 border-gray-300'
-              placeholder=''
-              value={email}
-              disabled={true}
-            />
-          </label>
-          <label className='block w-1/2 mb-3'>
-            <span className='text-gray-500 text-xs '>PHONE NUMBER</span>
-            <input
-              className='block w-full focus:outline-none border-0 bg-transparent border-b-2 border-gray-300'
-              ref={phoneNumberRef}
-              placeholder='Phone Number'
-              type='number'
-              min='0'
-            />
-            <span className='text-red-700 text-sm'>
-              {phoneNumberErrorMessage}
-            </span>
-          </label>
-          <label className='block w-1/2 mb-3'>
-            <span className='text-gray-500 text-xs '>GENDER</span>
-            <div>
-              <input
-                type='radio'
-                value='F'
-                name='gender'
-                checked={gender === "F"}
-                onChange={(e) => setGender(e.target.value)}
-                className=''
-              />{" "}
-              Female
-              <input
-                type='radio'
-                value='M'
-                name='gender'
-                checked={gender === "M"}
-                onChange={(e) => setGender(e.target.value)}
-                className='ml-4'
-              />{" "}
-              Male
-            </div>
-            <span className='text-red-700 text-sm'>{genderErrorMessage}</span>
-          </label>
-          <label className='block w-1/2 mb-3'>
-            <span className='text-gray-500 text-xs '>BIRTH DATE</span>
-            <div className=''>
-              <DatePicker
-                value={birthDate}
-                onChange={(e) => {
-                  setBirthDate(e?.toDate());
-                }}
-                format='DD MMM YYYY'
-                className='z-0'
-                render={<InputIcon />}
-                maxDate={new Date()}
+        <div className='bg-white shadow-xl border p-3 rounded-lg flex flex-col lg:flex-row justify-center'>
+          <div className='w-full lg:w-1/3 px-4 pt-4'>
+            <div className='mb-4'>
+              <img
+                src={ctx.user.photoURL}
+                className='w-full rounded-md'
+                alt=''
               />
             </div>
-            <span className='text-red-700 text-sm'>
-              {birthDateErrorMessage}
-            </span>
-          </label>
-          <label className='block w-1/2 mb-3'>
-            <span className='text-gray-500 text-xs '>INSTAGRAM</span>
-            <input
-              className=' mt-1 block w-full focus:outline-none border-0 bg-transparent border-b-2 border-gray-300'
-              placeholder='Instagram'
-              ref={instagramRef}
-            />
-          </label>
-          <label className='block w-1/2 mb-3'>
-            <span className='text-gray-500 text-xs '>FACEBOOK</span>
-            <input
-              className=' mt-1 block w-full focus:outline-none border-0 bg-transparent border-b-2 border-gray-300'
-              placeholder='Facebook'
-              ref={facebookRef}
-            />
-          </label>
-          <label className='block w-1/2 mb-3'>
-            <span className='text-gray-500 text-xs '>TWITTER</span>
-            <input
-              className=' mt-1 block w-full focus:outline-none border-0 bg-transparent border-b-2 border-gray-300'
-              placeholder='Twitter'
-              ref={twitterRef}
-            />
-          </label>
-          <label className='block w-1/2 mb-3'>
-            <span className='text-gray-500 text-xs '>LINKEDIN</span>
-            <input
-              className=' mt-1 block w-full focus:outline-none border-0 bg-transparent border-b-2 border-gray-300'
-              placeholder='LinkedIn'
-              ref={linkedInRef}
-            />
-          </label>
-          <label className='block w-1/2 mb-3'>
-            <span className='text-gray-500 text-xs '>OTHER SOCIAL MEDIA</span>
-            <input
-              className=' mt-1 block w-full focus:outline-none border-0 bg-transparent border-b-2 border-gray-300'
-              placeholder='Other Social Media'
-              ref={otherSocialMediaRef}
-            />
-          </label>
-          <button
-            className='block w-1/2 my-6 py-2 px-1 hover:bg-purple-400  font-semibold hover:text-white rounded border-2 border-purple-400'
-            onClick={submitProfile}
-          >
-            Update Profile
-          </button>
-          {isAdvisor && <div>You are a Fashion Advisor already.</div>}
-          {!isAdvisor && !isCompletedProfile && (
-            <div>
-              Complete your profile information to request to be a Fashion
-              Advisor!
+            <div className='text-center flex justify-between items-center w-full space-x-2'>
+              <label className='cursor-pointer flex-1 bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-semibold rounded-md py-4 px-2'>
+                Upload pic
+              </label>
+
+              <span>or</span>
+              <button
+                type='button'
+                className='flex-1 bg-red-200 rounded-md py-4 px-2 bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-semibold'
+              >
+                use your camera
+              </button>
             </div>
-          )}
-          {!isAdvisor &&
-            isCompletedProfile &&
-            advisorRequestStatus &&
-            advisorRequestStatus !== "Accepted" && (
-              <div>your advisor request is {advisorRequestStatus}</div>
-            )}
-          {!isAdvisor && isCompletedProfile && !advisorRequestStatus && (
-            <button
-              className='bg-blue-300'
-              onClick={() => {
-                history.push(`/request-advisor/`);
-              }}
-            >
-              Request advisor position
-            </button>
-          )}
+          </div>
+
+          <div className='text-gray-700 pt-4 px-4 text-xl'>
+            <div className='font-semibold'>Biodata</div>
+            <div>
+              <label className='block w-full mb-3'>
+                <span className='text-gray-500 text-xs '>NAME</span>
+                <input
+                  className='block w-full focus:outline-none bg-transparent border-2 rounded border-gray-300 text-sm md:text-base p-1'
+                  ref={nameRef}
+                />
+                <span className='text-red-700 text-sm'>{nameErrorMessage}</span>
+              </label>
+              <label className='block w-full mb-3'>
+                <span className='text-gray-500 text-xs '>EMAIL</span>
+                <input
+                  className='block w-full focus:outline-none bg-transparent border-2 rounded border-gray-300 text-sm md:text-base p-1'
+                  placeholder=''
+                  value={email}
+                  disabled={true}
+                />
+              </label>
+              <label className='block w-full md:w-1/2 mb-3'>
+                <span className='text-gray-500 text-xs '>PHONE NUMBER</span>
+                <input
+                  className='block w-full focus:outline-none bg-transparent border-2 rounded border-gray-300 text-sm md:text-base p-1'
+                  ref={phoneNumberRef}
+                  placeholder='Phone Number'
+                  type='number'
+                  min='0'
+                />
+                <span className='text-red-700 text-sm'>
+                  {phoneNumberErrorMessage}
+                </span>
+              </label>
+              <div className='flex flex-row flex-wrap justify-start space-x-2'>
+                <label className='block mb-3 w-1/2'>
+                  <span className='text-gray-500 text-xs '>BIRTH DATE</span>
+                  <div className='text-sm md:text-base py-1'>
+                    <DatePicker
+                      value={birthDate}
+                      onChange={(e) => {
+                        setBirthDate(e?.toDate());
+                      }}
+                      format='DD MMM YYYY'
+                      className='z-0'
+                      render={<InputIcon />}
+                      maxDate={new Date()}
+                    />
+                  </div>
+                  <span className='text-red-700 text-sm'>
+                    {birthDateErrorMessage}
+                  </span>
+                </label>
+                <label className='block mb-3 mt-1'>
+                  <span className='text-gray-500 text-xs'>GENDER</span>
+                  <div className='text-sm md:text-base py-1'>
+                    <input
+                      type='radio'
+                      value='F'
+                      name='gender'
+                      checked={gender === "F"}
+                      onChange={(e) => setGender(e.target.value)}
+                      className=''
+                    />{" "}
+                    Female
+                    <input
+                      type='radio'
+                      value='M'
+                      name='gender'
+                      checked={gender === "M"}
+                      onChange={(e) => setGender(e.target.value)}
+                      className='ml-2'
+                    />{" "}
+                    Male
+                  </div>
+                  <span className='text-red-700 text-sm'>
+                    {genderErrorMessage}
+                  </span>
+                </label>
+              </div>
+              <div className='flex flex-col'>
+                <div className='flex flex-row space-x-4'>
+                  <label className='block w-1/2 mb-3'>
+                    <span className='text-gray-500 text-xs'>INSTAGRAM</span>
+                    <input
+                      className=' mt-1 block w-full focus:outline-none bg-transparent border-2 rounded border-gray-300 text-sm md:text-base p-1'
+                      placeholder='Instagram'
+                      ref={instagramRef}
+                    />
+                  </label>
+                  <label className='block w-1/2 mb-3'>
+                    <span className='text-gray-500 text-xs'>FACEBOOK</span>
+                    <input
+                      className=' mt-1 block w-full focus:outline-none bg-transparent border-2 rounded border-gray-300 text-sm md:text-base p-1'
+                      placeholder='Facebook'
+                      ref={facebookRef}
+                    />
+                  </label>
+                </div>
+                <div className='flex flex-row space-x-4'>
+                  <label className='block w-1/2 mb-3'>
+                    <span className='text-gray-500 text-xs '>TWITTER</span>
+                    <input
+                      className=' mt-1 block w-full focus:outline-none bg-transparent border-2 rounded border-gray-300 text-sm md:text-base p-1'
+                      placeholder='Twitter'
+                      ref={twitterRef}
+                    />
+                  </label>
+                  <label className='block w-1/2 mb-3'>
+                    <span className='text-gray-500 text-xs '>LINKEDIN</span>
+                    <input
+                      className=' mt-1 block w-full focus:outline-none bg-transparent border-2 rounded border-gray-300 text-sm md:text-base p-1'
+                      placeholder='LinkedIn'
+                      ref={linkedInRef}
+                    />
+                  </label>
+                </div>
+                <div className='flex flex-row'>
+                  <label className='block w-1/2 mb-3'>
+                    <span className='text-gray-500 text-xs '>
+                      OTHER SOCIAL MEDIA
+                    </span>
+                    <input
+                      className=' mt-1 block w-full focus:outline-none bg-transparent border-2 rounded border-gray-300 text-sm md:text-base p-1'
+                      placeholder='Other Social Media'
+                      ref={otherSocialMediaRef}
+                    />
+                  </label>
+                </div>
+              </div>
+              <button
+                className='block w-full my-6 py-2 px-1 hover:bg-purple-400 text-base font-semibold hover:text-white rounded border-2 border-purple-400'
+                onClick={submitProfile}
+              >
+                Update Profile
+              </button>
+              {isAdvisor && <div>You are a Fashion Advisor already.</div>}
+              {!isAdvisor && !isCompletedProfile && (
+                <div className='text-base'>
+                  Complete your profile information to request to be a Fashion
+                  Advisor!
+                </div>
+              )}
+              {!isAdvisor &&
+                isCompletedProfile &&
+                advisorRequestStatus &&
+                advisorRequestStatus !== "Accepted" && (
+                  <div>your advisor request is {advisorRequestStatus}</div>
+                )}
+              {!isAdvisor && isCompletedProfile && !advisorRequestStatus && (
+                <button
+                  className='block w-full my-6 py-2 px-1 hover:bg-blue-400 text-base font-semibold hover:text-white rounded border-2 border-blue-300'
+                  onClick={() => {
+                    history.push(`/request-advisor/`);
+                  }}
+                >
+                  Request Fashion Advisor Position
+                </button>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </Fragment>

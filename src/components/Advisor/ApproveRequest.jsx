@@ -7,6 +7,7 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import './ApproveRequest.css';
 import CancelSvg from '../UI/CancelSvg';
+import PopUp from '../UI/PopUp';
 const ApproveRequest = () => {
 	const { isLoading, error, sendRequest } = useHttp();
 
@@ -27,8 +28,63 @@ const ApproveRequest = () => {
 		fetchRequestList();
 	}, []);
 
+	const rejectRequest = (requestId, userId, status, onClose) => {
+		// console.log(requestId)
+		const reason = document.getElementById("textArea-rejection-reason").value
+
+		const data = {
+			advisorRequestId: parseInt(requestId),
+			userId: userId,
+			status: status,
+			reason: reason
+		};
+
+		sendRequest(
+			{
+				url: 'user/advisor/approve-reject/',
+				method: 'POST',
+				body: data,
+			},
+			(returnData) => {
+				alert('Request has been rejected')
+				fetchRequestList();
+				onClose();
+			}
+		);
+	}
+
+	const rejectConfirmationPopup = (requestId, userId, status) => {
+		confirmAlert({
+			customUI: ({ onClose }) => {
+				return (
+					<PopUp title='Reject Request' onClose={onClose} className='w-96 mx-12 md:mx-36'>
+						<div className='editor w-full flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg'>
+							<textarea
+								className='description bg-gray-100 sec p-3 h-60 border border-gray-300 outline-none'
+								spellCheck='false'
+								placeholder='Please specify your reason of rejection'
+								id='textArea-rejection-reason'
+							></textarea>
+
+							<div className='buttons flex mt-2'>
+								<div onClick={onClose} className='btn border border-gray-300 p-1 px-4 font-semibold cursor-pointer text-gray-500 ml-auto'>
+									Cancel
+								</div>
+								<div onClick={() => {rejectRequest(requestId, userId, status, onClose)}} className='btn border border-amber-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-amber-500'>
+									Confirm
+								</div>
+							</div>
+						</div>
+					</PopUp>
+				);
+			},
+			overlayClassName: 'w-full'
+		});
+	};
+
 	const approveOrRejectHandler = (e) => {
 		e.preventDefault();
+
 		const userId = e.target.dataset.userid;
 		const requestId = e.target.dataset.requestid;
 		const status = e.target.dataset.status;
@@ -37,12 +93,21 @@ const ApproveRequest = () => {
 			userId: userId,
 			status: status,
 		};
-		sendRequest(
-			{ url: 'user/advisor/approve-reject/', method: 'POST', body: data },
-			(returnData) => {
-				fetchRequestList();
-			}
-		);
+
+		if (status === 'reject') {
+			rejectConfirmationPopup(requestId, userId, status)
+		} else {
+			sendRequest(
+				{
+					url: 'user/advisor/approve-reject/',
+					method: 'POST',
+					body: data,
+				},
+				(returnData) => {
+					fetchRequestList();
+				}
+			);
+		}
 	};
 
 	const openProfileHandler = (e) => {
@@ -79,16 +144,15 @@ const ApproveRequest = () => {
 
 	return (
 		<Fragment>
-			
 			{requestList.length == 0 && <div>No request</div>}
 			{requestList.length > 0 && (
-				<section class='container mx-auto p-6 font-mono'>
+				<section className='container mx-auto p-6 font-mono'>
 					<h4 className='text-2xl mb-2'>Request List</h4>
-					<div class='w-full mb-8 overflow-hidden rounded-lg shadow-lg'>
-						<div class='w-full overflow-x-auto'>
-							<table class='w-full'>
+					<div className='w-full mb-8 overflow-hidden rounded-lg shadow-lg'>
+						<div className='w-full overflow-x-auto'>
+							<table className='w-full'>
 								<thead>
-									<tr class='text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600'>
+									<tr className='text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600'>
 										<th className='px-4 py-3'>User</th>
 										<th className='px-4 py-3'>
 											Description
@@ -98,15 +162,18 @@ const ApproveRequest = () => {
 										</th>
 									</tr>
 								</thead>
-								<tbody class='bg-white'>
+								<tbody className='bg-white'>
 									{requestList.map((e) => {
 										return (
-											<tr class='text-gray-700'>
-												<td class='px-4 py-3 border'>
-													<div class='flex items-center text-sm'>
-														<div class='relative w-8 h-8 mr-3 rounded-full md:block'>
+											<tr
+												key={e.advisorRequestId}
+												className='text-gray-700'
+											>
+												<td className='px-4 py-3 border'>
+													<div className='flex items-center text-sm'>
+														<div className='relative w-8 h-8 mr-3 rounded-full md:block'>
 															<img
-																class='object-cover w-full h-full rounded-full'
+																className='object-cover w-full h-full rounded-full'
 																src={
 																	e.user
 																		.photoURL
@@ -115,30 +182,30 @@ const ApproveRequest = () => {
 																loading='lazy'
 															/>
 															<div
-																class='absolute inset-0 rounded-full shadow-inner'
+																className='absolute inset-0 rounded-full shadow-inner'
 																aria-hidden='true'
 															></div>
 														</div>
 														<div>
-															<p class='font-semibold text-black'>
+															<p className='font-semibold text-black'>
 																{e.user.name}
 															</p>
-															{/* <p class='text-xs text-gray-600'>
+															{/* <p className='text-xs text-gray-600'>
 																Developer
 															</p> */}
 														</div>
 													</div>
 												</td>
-												<td class='px-4 py-3 text-ms font-semibold border'>
+												<td className='px-4 py-3 text-ms font-semibold border'>
 													{e.description}
 												</td>
 												{/* <td className='px-4 py-3 text-xs border'>
-													<span class='px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm'>
+													<span className='px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm'>
 														{' '}
 														Acceptable{' '}
 													</span>
 												</td>
-												<td class='px-4 py-3 text-sm border'>
+												<td className='px-4 py-3 text-sm border'>
 													6/4/2000
 												</td> */}
 												<td className='px-4 py-3 text-xs border'>

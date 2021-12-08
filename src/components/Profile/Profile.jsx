@@ -243,7 +243,7 @@ const Profile = () => {
 					Profile Information
 				</div>
 				<div className='bg-white shadow-xl border p-3 rounded-lg flex flex-col lg:flex-row justify-center'>
-					<div className='w-full lg:w-1/3 px-4 pt-4'>
+					<div className='w-full lg:w-1/3 px-4 pt-4 flex justify-center'>
 						<div
 							className='relative w-20 h-20 md:w-56 md:h-56 rounded-full overflow-hidden cursor-pointer'
 							id='profilepic-div'

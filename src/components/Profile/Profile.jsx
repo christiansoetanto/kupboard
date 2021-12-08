@@ -79,8 +79,6 @@ const Profile = () => {
 	}, []);
 
 	const handleUploadStart = (param) => {
-		console.log(param);
-
 		setIsUploading(true);
 		setProgress(0);
 	};
@@ -132,16 +130,11 @@ const Profile = () => {
 		if (!file) return;
 		var fileType = file.type.substr(0, file.type.indexOf("/"));
 		if (!file.type || fileType != "image") {
-			console.log("here");
 			setPhotoProfileErrorMessage("Please select a valid image");
 		} else if (file.size > 2097152) {
-			console.log("heres");
-
 			//2MB
 			setPhotoProfileErrorMessage("Image's size must be less than 2 Megabytes");
 		} else {
-			console.log("heresss");
-
 			setPhotoProfileErrorMessage("");
 			uploaderRef.current.startUpload(file);
 		}

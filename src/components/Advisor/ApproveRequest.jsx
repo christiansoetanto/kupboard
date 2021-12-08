@@ -30,13 +30,15 @@ const ApproveRequest = () => {
 
 	const rejectRequest = (requestId, userId, status, onClose) => {
 		// console.log(requestId)
-		const reason = document.getElementById("textArea-rejection-reason").value
+		const reason = document.getElementById(
+			'textArea-rejection-reason'
+		).value;
 
 		const data = {
 			advisorRequestId: parseInt(requestId),
 			userId: userId,
 			status: status,
-			reason: reason
+			reason: reason,
 		};
 
 		sendRequest(
@@ -46,18 +48,22 @@ const ApproveRequest = () => {
 				body: data,
 			},
 			(returnData) => {
-				alert('Request has been rejected')
+				alert('Request has been rejected');
 				fetchRequestList();
 				onClose();
 			}
 		);
-	}
+	};
 
 	const rejectConfirmationPopup = (requestId, userId, status) => {
 		confirmAlert({
 			customUI: ({ onClose }) => {
 				return (
-					<PopUp title='Reject Request' onClose={onClose} className='w-96 mx-12 md:mx-36'>
+					<PopUp
+						title='Reject Request'
+						onClose={onClose}
+						className='w-96 mx-12 md:mx-36'
+					>
 						<div className='editor w-full flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg'>
 							<textarea
 								className='description bg-gray-100 sec p-3 h-60 border border-gray-300 outline-none'
@@ -67,10 +73,23 @@ const ApproveRequest = () => {
 							></textarea>
 
 							<div className='buttons flex mt-2'>
-								<div onClick={onClose} className='btn border border-gray-300 p-1 px-4 font-semibold cursor-pointer text-gray-500 ml-auto'>
+								<div
+									onClick={onClose}
+									className='btn border border-gray-300 p-1 px-4 font-semibold cursor-pointer text-gray-500 ml-auto'
+								>
 									Cancel
 								</div>
-								<div onClick={() => {rejectRequest(requestId, userId, status, onClose)}} className='btn border border-amber-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-amber-500'>
+								<div
+									onClick={() => {
+										rejectRequest(
+											requestId,
+											userId,
+											status,
+											onClose
+										);
+									}}
+									className='btn border border-amber-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-amber-500'
+								>
 									Confirm
 								</div>
 							</div>
@@ -78,7 +97,7 @@ const ApproveRequest = () => {
 					</PopUp>
 				);
 			},
-			overlayClassName: 'w-full'
+			overlayClassName: 'w-full',
 		});
 	};
 
@@ -95,7 +114,7 @@ const ApproveRequest = () => {
 		};
 
 		if (status === 'reject') {
-			rejectConfirmationPopup(requestId, userId, status)
+			rejectConfirmationPopup(requestId, userId, status);
 		} else {
 			sendRequest(
 				{
@@ -120,7 +139,7 @@ const ApproveRequest = () => {
 			customUI: ({ onClose }) => {
 				return (
 					<div className='flex flex-col relative bg-white rounded border border-gray-900 py-2 px-4'>
-						<div className='flex flex-row justify-between items-center mb-8 border-b-2 border-gray-200'>
+						<div className='flex flex-row justify-between items-center mb-2 border-b-2 border-gray-200'>
 							<div className='text-2xl font-semibold '>
 								Profile
 							</div>
@@ -131,10 +150,30 @@ const ApproveRequest = () => {
 								<CancelSvg />
 							</div>
 						</div>
-						<div className='grid grid-cols-3'>
+						{/* <div className='grid grid-cols-3'>
 							Name: {user.name}
 							<br />
 							{JSON.stringify(user, null, 2)}
+						</div> */}
+						<div className=''>
+							<div className='relative w-16 h-16 mr-3 rounded-full md:block mb-2'>
+								<img
+									className='object-cover w-full h-full rounded-full'
+									src={user.photoURL}
+									alt=''
+									loading='lazy'
+								/>
+								<div
+									className='absolute inset-0 rounded-full shadow-inner'
+									aria-hidden='true'
+								></div>
+							</div>
+							<div className='font-semibold mb-6'>
+								{user.name}
+							</div>
+							<div>
+								{user.description}
+							</div>
 						</div>
 					</div>
 				);
@@ -217,7 +256,7 @@ const ApproveRequest = () => {
 														Portofolio Link
 													</a>
 												</td>
-												<td className='px-4 py-3 text-xs border'>
+												{/* <td className='px-4 py-3 text-xs border'>
 													<button
 														data-userid={
 															e.user.userId
@@ -228,7 +267,7 @@ const ApproveRequest = () => {
 													>
 														Profile
 													</button>
-												</td>
+												</td> */}
 												<td className='px-4 py-3 text-xs border'>
 													<button
 														data-userid={

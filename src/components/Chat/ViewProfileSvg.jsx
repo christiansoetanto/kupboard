@@ -15,13 +15,43 @@ const ViewProfileSvg = (props) => {
 			},
 			(returnData) => {
 				const { description, link } = returnData;
-				const { name, birthDate, email, facebook, gender, instagram, linkedIn, otherSocialMedia, phoneNumber, twitter } = returnData.user;
+				const { name, birthDate, email, facebook, gender, instagram, linkedIn, otherSocialMedia, phoneNumber, twitter, photoURL } = returnData.user;
 				confirmAlert({
 					customUI: ({ onClose }) => {
 						return (
 							<PopUp title={"Profile"} onClose={onClose}>
-								<div>
-									<div>Name: {name}</div>
+								<div className='flex flex-col justify-start'>
+									<div className='relative w-16 h-16 mr-3 rounded-full md:block mb-2'>
+										<img
+											className='object-cover w-full h-full rounded-full'
+											src={photoURL}
+											alt=''
+											loading='lazy'
+										/>
+										<div
+											className='absolute inset-0 rounded-full shadow-inner'
+											aria-hidden='true'
+										></div>
+									</div>
+									<div className='font-semibold text-2xl mb-6'>
+										{name}
+									</div>
+									<div className='mb-4'>
+										{description}
+									</div>
+									<div className='flex justify-around'>
+										{!instagram && (<a className='w-8 h-8 cursor-pointer' href={instagram} target='_blank'>
+											<img src={require("../../assets/illustrations/instagram.png").default} alt="" />
+										</a>)}
+										{!facebook && (<a className='w-8 h-8 cursor-pointer' href={facebook} target='_blank'>
+										<img src={require("../../assets/illustrations/facebook.png").default} alt="" />
+									</a>)}
+									{!twitter && (<a className='w-8 h-8 cursor-pointer' href={twitter} target='_blank'>
+										<img src={require("../../assets/illustrations/twitter.png").default} alt="" />
+									</a>)}
+									</div>
+
+									{/* <div>Name: {name}</div>
 									<div>birthDate: {birthDate}</div>
 									<div>email: {email}</div>
 									<div>facebook: {facebook}</div>
@@ -32,7 +62,7 @@ const ViewProfileSvg = (props) => {
 									<div>phoneNumber: {phoneNumber}</div>
 									<div>twitter: {twitter}</div>
 									<div>description: {description}</div>
-									<div>link: {link}</div>
+									<div>link: {link}</div> */}
 								</div>
 							</PopUp>
 						);
@@ -43,7 +73,7 @@ const ViewProfileSvg = (props) => {
 	};
 
 	return (
-		<div onClick={viewProfileHandler}>
+		<div onClick={viewProfileHandler} className='cursor-pointer'>
 			<svg xmlns='http://www.w3.org/2000/svg' className='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
 				<path
 					strokeLinecap='round'

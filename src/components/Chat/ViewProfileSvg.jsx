@@ -3,6 +3,8 @@ import { confirmAlert } from "react-confirm-alert";
 import CancelSvg from "../UI/CancelSvg";
 import useHttp from "../../hooks/use-http";
 import PopUp from "../UI/PopUp";
+import "./ViewProfileStyle.css";
+
 const ViewProfileSvg = (props) => {
 	const { receiverUserId } = props;
 	const { isLoading, error, sendRequest } = useHttp();
@@ -19,8 +21,8 @@ const ViewProfileSvg = (props) => {
 				confirmAlert({
 					customUI: ({ onClose }) => {
 						return (
-							<PopUp title={"Profile"} onClose={onClose}>
-								<div className='flex flex-col justify-start'>
+							<PopUp title={"Profile"} onClose={onClose} className='w-1/2'>
+								<div className='flex flex-col justify-center'>
 									<div className='relative w-16 h-16 mr-3 rounded-full md:block mb-2'>
 										<img
 											className='object-cover w-full h-full rounded-full'
@@ -37,7 +39,8 @@ const ViewProfileSvg = (props) => {
 										{name}
 									</div>
 									<div className='mb-4'>
-										{description}
+										{/* {description} */}
+										asdasdsa odnasiodhjoasidnasnkdiqwonqw kdoqihs kqndcsq uhoqiedh noqwdncoquhduasdhasou dasoasikdn askldniqw odnsklj dnasklhiouwe hfjkelwnajksdfhajkfhahjkasdfkjh laksdfh as djfh sfuiwqopqpqpaks 0ppjfweb fdhsajklfhohnl
 									</div>
 									<div className='flex justify-around'>
 										{instagram && (<a className='w-8 h-8 cursor-pointer' href={instagram} target='_blank'>
@@ -51,18 +54,6 @@ const ViewProfileSvg = (props) => {
 										</a>)}
 									</div>
 
-									{/* <div>Name: {name}</div>
-									<div>birthDate: {birthDate}</div>
-									<div>email: {email}</div>
-									<div>facebook: {facebook}</div>
-									<div>gender: {gender}</div>
-									<div>instagram: {instagram}</div>
-									<div>linkedIn: {linkedIn}</div>
-									<div>otherSocialMedia: {otherSocialMedia}</div>
-									<div>phoneNumber: {phoneNumber}</div>
-									<div>twitter: {twitter}</div>
-									<div>description: {description}</div>
-									<div>link: {link}</div> */}
 								</div>
 							</PopUp>
 						);

@@ -40,15 +40,15 @@ const ViewProfileSvg = (props) => {
 										{description}
 									</div>
 									<div className='flex justify-around'>
-										{!instagram && (<a className='w-8 h-8 cursor-pointer' href={instagram} target='_blank'>
+										{instagram && (<a className='w-8 h-8 cursor-pointer' href={instagram} target='_blank'>
 											<img src={require("../../assets/illustrations/instagram.png").default} alt="" />
 										</a>)}
-										{!facebook && (<a className='w-8 h-8 cursor-pointer' href={facebook} target='_blank'>
-										<img src={require("../../assets/illustrations/facebook.png").default} alt="" />
-									</a>)}
-									{!twitter && (<a className='w-8 h-8 cursor-pointer' href={twitter} target='_blank'>
-										<img src={require("../../assets/illustrations/twitter.png").default} alt="" />
-									</a>)}
+										{facebook && (<a className='w-8 h-8 cursor-pointer' href={facebook} target='_blank'>
+											<img src={require("../../assets/illustrations/facebook.png").default} alt="" />
+										</a>)}
+										{twitter && (<a className='w-8 h-8 cursor-pointer' href={twitter} target='_blank'>
+											<img src={require("../../assets/illustrations/twitter.png").default} alt="" />
+										</a>)}
 									</div>
 
 									{/* <div>Name: {name}</div>

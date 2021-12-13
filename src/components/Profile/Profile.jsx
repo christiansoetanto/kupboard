@@ -237,7 +237,7 @@ const Profile = () => {
 							<div
 								className='absolute inset-0 bg-gray-500 flex flex-col justify-center items-center text-white opacity-0 transition-opacity ease-in-out'
 								id='profilepic-content'>
-								<span className='text-md md:text-2xl font-semibold w-4/5 text-center'>Change Profile Picture</span>
+								<span className='text-sm md:text-xl font-semibold w-4/5 text-center'>Change Profile Picture</span>
 							</div>
 
 							{/* <input
@@ -394,7 +394,15 @@ const Profile = () => {
 							</button>
 							{isAdvisor && <div className='text-base'>You are a Fashion Advisor already.</div>}
 							{!isAdvisor && !isCompletedProfile && (
-								<div className='text-base'>Complete your profile information to request to be a Fashion Advisor!</div>
+								<div className='text-lg'>
+                                  Complete your profile information to request to be a{" "}
+                                  <span className='font-bold'>Fashion Advisor!</span>{" "}
+                                  <span className='block font-light italic text-base my-2'>
+                                    {" "}
+                                    As a fashion advisor, you will be able to help the community
+                                    by giving fashion tips and insights.{" "}
+                                  </span>
+                                </div>
 							)}
 							{!isAdvisor && isCompletedProfile && advisorRequestStatus && advisorRequestStatus !== "Accepted" && (
 								<div className='text-base'>

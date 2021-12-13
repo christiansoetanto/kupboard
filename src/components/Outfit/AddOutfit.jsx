@@ -282,7 +282,7 @@ const AddOutfit = (props) => {
 						<h1 className='alert__title'>Are you sure?</h1>
 						<p className='alert__body'>You want to delete this outfit?</p>
 						<div className='flex justify-between space-x-4'>
-							<button onClick={onClose} className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-300'>
+							<button onClick={onClose} className='bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-400'>
 								No
 							</button>
 							<button

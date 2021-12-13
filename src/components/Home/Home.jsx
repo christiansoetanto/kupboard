@@ -51,7 +51,7 @@ const Home = () => {
       <div className='w-full'>
             <Weather />
           </div>
-      <div className="flex flex-col md:flex-row w-full justify-center items-stretch content-evenly md:space-x-4">
+      <div className="flex flex-col md:flex-row w-full justify-center items-stretch content-evenly md:space-x-4 pb-4">
         <div className="flex flex-col space-y-4 items-stretch md:w-1/3 md:pr-2">
           <div>
             <OutfitCarousel

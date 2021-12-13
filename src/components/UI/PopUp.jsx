@@ -9,7 +9,7 @@ const PopUp = (props) => {
                     {props.title}
                 </div>
                 <div
-                    className='hover:text-gray-500'
+                    className='hover:text-gray-500 ml-2'
                     onClick={props.onClose}
                 >
                     <CancelSvg />

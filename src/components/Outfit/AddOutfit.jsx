@@ -274,15 +274,39 @@ const AddOutfit = (props) => {
 	};
 
 	const deleteHandler = () => {
-		sendRequest(
-			{
-				url: `outfit/${ctx.user.userId}/${outfitId}`,
-				method: "DELETE",
+		
+		confirmAlert({
+			customUI: ({ onClose }) => {
+				return (
+					<div className='alert flex flex-col items-center px-8 py-2 space-y-4 border-2  rounded-lg border-red-500 bg-white'>
+						<h1 className='alert__title'>Are you sure?</h1>
+						<p className='alert__body'>You want to delete this outfit?</p>
+						<div className='flex justify-between space-x-4'>
+							<button onClick={onClose} className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-300'>
+								No
+							</button>
+							<button
+								onClick={() => {
+									sendRequest(
+										{
+											url: `outfit/${ctx.user.userId}/${outfitId}`,
+											method: "DELETE",
+										},
+										(result) => {
+											onClose();
+											history.push("/outfits");
+										}
+									);
+								}}
+								className='bg-red-700 text-white py-2 px-4 rounded hover:bg-red-500'>
+								Yes, Delete it!
+							</button>
+						</div>
+					</div>
+				);
 			},
-			(result) => {
-				history.push("/outfits");
-			}
-		);
+		});
+		
 	};
 
 	useEffect(async () => {

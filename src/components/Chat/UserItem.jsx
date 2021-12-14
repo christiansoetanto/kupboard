@@ -45,7 +45,7 @@ const UserItem = (props) => {
 						<div className='mx-2'>
 							·
 						</div>
-						<div>
+						<div className='text-xs md:text-sm self-center'>
 							{helpers.getTimePassed(createdAt)}
 						</div>
 					</div>

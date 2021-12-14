@@ -46,6 +46,10 @@ const ChatPage = () => {
 							<div className='p-3 bg-blue-400 flex items-center justify-center cursor-pointer text-white' onClick={openNewChatHandler}>
 								Start new chat
 							</div>
+							<div className='p-3 text-sm font-normal italic text-center text-gray-500'>
+								You can ask about your clothing, recommendation, or anything about fashion! Our fashion advisor will be glad to help you.
+							</div>
+            
 							<UserList firestore={firestore} onClick={clickHandler} currentReceiverUserId={receiverUserId} />
 						</div>
 					)}
@@ -88,12 +92,17 @@ const ChatPage = () => {
 						// </div>
 					)}
 					{!receiverUserId && (
-						<div className='flex items-center justify-center h-full'>
+						<div className='flex flex-col items-center justify-center h-full'>
 							<div className='p-3 bg-blue-400 flex items-center justify-center cursor-pointer text-white' onClick={openNewChatHandler}>
 								Start new chat
 							</div>
+							<div className='p-3 text-base font-normal italic text-center text-gray-500'>
+								You can ask about your clothing, recommendation, or anything about fashion! Our fashion advisor will be glad to help you.
+							</div>
 						</div>
+						
 					)}
+					
 				</div>
 				{/* {!receiverUserId && (
 					<div className='w-2/3'>

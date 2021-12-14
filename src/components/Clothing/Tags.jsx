@@ -95,7 +95,7 @@ const Tags = (props) => {
 	return (
     <div>
       <span className='block text-gray-500 text-sm'>
-        Customize your own clothing tag/label
+        Customize your own clothing tag/label. After saving, you may select one or more tags.
       </span>
       <div className='flex flex-start flex-wrap overflow-scroll no-scrollbar'>
         <Card className={`flex content-start justify-between whitespace-nowrap rounded-full py-1 px-4 cursor-pointer`}>

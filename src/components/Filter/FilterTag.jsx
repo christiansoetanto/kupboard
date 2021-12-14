@@ -23,7 +23,7 @@ const FilterTag = (props) => {
 				<div className='rounded-full w-32 bg-gray-200'>&nbsp;</div>
 			</div>
 		);
-	if (tags.length === 0) return <div className='flex flex-start overflow-scroll no-scrollbar space-x-2 my-3'>Tag not found</div>;
+	if (tags.length === 0) return <div className='flex flex-start overflow-scroll no-scrollbar space-x-2 my-3'>No tag found</div>;
 	else
 		return (
 			<div className='flex flex-start overflow-scroll no-scrollbar space-x-2'>

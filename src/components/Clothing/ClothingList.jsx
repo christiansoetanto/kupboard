@@ -17,7 +17,7 @@ const ClothingList = (props) => {
 	if (clothingList && clothingList.length > 0) {
 		return clothingList.map((c) => <ClothingItem key={c.clothingId} clothing={c} />);
 	} else {
-		return <div className='rounded shadow-xl bg-gray-300 border p-1 flex items-center justify-center w-full h-72'>CLOTHING NOT FOUND</div>;
+		return <div className='rounded shadow-xl bg-gray-300 border p-1 flex items-center justify-center w-full h-72'>No clothing found</div>;
 	}
 };
 

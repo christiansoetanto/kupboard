@@ -35,10 +35,10 @@ const ViewProfileSvg = (props) => {
 											aria-hidden='true'
 										></div>
 									</div>
-									<div className='font-semibold text-2xl mb-6'>
+									<div className='font-semibold text-lg md:text-2xl mb-4'>
 										{name}
 									</div>
-									<div className='mb-4'>
+									<div className='mb-4 text-sm md:text-base'>
 										{/* {description} */}
 										asdasdsa odnasiodhjoasidnasnkdiqwonqw kdoqihs kqndcsq uhoqiedh noqwdncoquhduasdhasou dasoasikdn askldniqw odnsklj dnasklhiouwe hfjkelwnajksdfhajkfhahjkasdfkjh laksdfh as djfh sfuiwqopqpqpaks 0ppjfweb fdhsajklfhohnl
 									</div>

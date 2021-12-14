@@ -20,7 +20,7 @@ const OutfitList = (props) => {
 			</Fragment>
 		);
 	} else {
-		return <div className='rounded shadow-xl bg-gray-300 border p-1 flex items-center justify-center w-full h-72'>OUTFIT NOT FOUND</div>;
+		return <div className='rounded shadow-xl bg-gray-300 border p-1 flex items-center justify-center w-full h-72'>No outfit found</div>;
 	}
 };
 

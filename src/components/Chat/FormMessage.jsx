@@ -59,7 +59,7 @@ const FormMessage = (props) => {
 					return (
 						<div className='alert flex flex-col items-center px-8 py-2 space-y-2 border rounded-lg border-gray-500 bg-white'>
 							<div className='flex flex-row justify-between items-center mb-8 border-b-2 border-gray-200'>
-								<div className='text-2xl font-semibold '>
+								<div className='text-lg md:text-2xl font-semibold '>
 									<h1 className='alert__title'>Choose the clothing you want to send</h1>
 								</div>
 								<div className='hover:text-gray-500 ml-2' onClick={onClose}>

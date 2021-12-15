@@ -185,13 +185,13 @@ const ApproveRequest = () => {
 		<Fragment>
 			{requestList.length == 0 && <div>No request</div>}
 			{requestList.length > 0 && (
-				<section className='container mx-auto p-6 font-mono'>
-					<h4 className='text-2xl mb-2'>Request List</h4>
+				<section className='container mx-auto p-6'>
+					<h4 className='text-lg md:text-2xl mb-2 text-gray-700 font-semibold'>Request List</h4>
 					<div className='w-full mb-8 overflow-hidden rounded-lg shadow-lg'>
 						<div className='w-full overflow-x-auto'>
 							<table className='w-full'>
 								<thead>
-									<tr className='text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600'>
+									<tr className='text-sm md:text-lg font-semibold tracking-wide text-left text-gray-700 bg-gray-100 uppercase border-b border-gray-600'>
 										<th className='px-4 py-3'>User</th>
 										<th className='px-4 py-3'>
 											Description
@@ -226,7 +226,7 @@ const ApproveRequest = () => {
 															></div>
 														</div>
 														<div>
-															<p className='font-semibold text-black'>
+															<p className='font-semibold text-sm md:text-lg'>
 																{e.user.name}
 															</p>
 															{/* <p className='text-xs text-gray-600'>
@@ -235,7 +235,7 @@ const ApproveRequest = () => {
 														</div>
 													</div>
 												</td>
-												<td className='px-4 py-3 text-ms font-semibold border'>
+												<td className='px-4 py-3 text-xs md:text-base border'>
 													{e.description}
 												</td>
 												{/* <td className='px-4 py-3 text-xs border'>
@@ -247,13 +247,14 @@ const ApproveRequest = () => {
 												<td className='px-4 py-3 text-sm border'>
 													6/4/2000
 												</td> */}
-												<td className='px-4 py-3 text-xs border'>
+												<td className='px-4 py-3 text-xs md:text-base border'>
 													<a
 														href={e.link}
 														target='_blank'
 														rel='noreferrer noopener'
+                            className='hover:underline transition duration-500 ease-in-out'
 													>
-														Portofolio Link
+														Portfolio Link
 													</a>
 												</td>
 												{/* <td className='px-4 py-3 text-xs border'>
@@ -268,7 +269,7 @@ const ApproveRequest = () => {
 														Profile
 													</button>
 												</td> */}
-												<td className='px-4 py-3 text-xs border'>
+												<td className='px-2 py-3 text-xs md:text-base border'>
 													<button
 														data-userid={
 															e.user.userId
@@ -280,11 +281,12 @@ const ApproveRequest = () => {
 														onClick={
 															approveOrRejectHandler
 														}
+                            className='p-2 hover:bg-green-200 transition duration-500 ease-in-out'
 													>
 														Approve
 													</button>
 												</td>
-												<td className='px-4 py-3 text-xs border'>
+												<td className='px-2 py-3 text-xs md:text-base border'>
 													<button
 														data-userid={
 															e.user.userId
@@ -296,6 +298,7 @@ const ApproveRequest = () => {
 														onClick={
 															approveOrRejectHandler
 														}
+                            className='p-2 hover:bg-red-200 transition duration-500 ease-in-out'
 													>
 														Reject
 													</button>

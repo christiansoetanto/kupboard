@@ -5,7 +5,9 @@ import ChatRoom from "./ChatRoom";
 import NewChat from "./NewChat";
 import UserList from "./UserList";
 import { confirmAlert } from "react-confirm-alert";
-import { useMediaQuery } from "react-responsive";
+import { useMediaQuery } from "react-responsive"
+import AuthContext from "../../contexts/auth-context";
+
 const ChatPage = () => {
 	const firestore = firebase.firestore();
 	const [receiverUserId, setReceiverUserId] = useState("");
@@ -13,6 +15,8 @@ const ChatPage = () => {
 	const [showMenu, setShowMenu] = useState(false);
 
 	const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
+
+  const ctx = useContext(AuthContext);
 
 	const clickHandler = (receiverUserId) => {
 		setReceiverUserId(receiverUserId);
@@ -47,7 +51,7 @@ const ChatPage = () => {
 								Start new chat
 							</div>
 							<div className='p-3 text-sm font-normal italic text-center text-gray-500'>
-								You can ask about your clothing, recommendation, or anything about fashion! Our fashion advisor will be glad to help you.
+								{ctx.user.isAdvisor ? "You can answer questions or give fashion insights to others!" : "You can ask about your clothing, recommendation, or anything about fashion! Our fashion advisor will be glad to help you."}
 							</div>
             
 							<UserList firestore={firestore} onClick={clickHandler} currentReceiverUserId={receiverUserId} />
@@ -97,7 +101,7 @@ const ChatPage = () => {
 								Start new chat
 							</div>
 							<div className='p-3 text-base font-normal italic text-center text-gray-500'>
-								You can ask about your clothing, recommendation, or anything about fashion! Our fashion advisor will be glad to help you.
+                {ctx.user.isAdvisor ? "You can answer questions or give fashion insights to others!" : "You can ask about your clothing, recommendation, or anything about fashion! Our fashion advisor will be glad to help you."}
 							</div>
 						</div>
 						

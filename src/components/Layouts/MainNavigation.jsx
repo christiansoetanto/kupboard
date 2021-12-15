@@ -96,7 +96,7 @@ function MainNavigation() {
               onClick={handleNavLinkOnClick}
               style={{borderColor: 'transparent'}}
             >
-              Ask Fashion Advisor
+              {ctx.user.isAdvisor ? "Chat" : "Ask Fashion Advisor"}
             </NavLink>
             {ctx.user != null && ctx.user.isAdmin == 1 && (
               <NavLink

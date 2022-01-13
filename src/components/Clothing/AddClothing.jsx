@@ -292,6 +292,7 @@ const AddClothing = (props) => {
 							onTakePhoto={(dataUri) => {
 								handleTakePhoto(dataUri);
 							}}
+							idealFacingMode={'environment'}
 						/>
 					)}
 				</div>

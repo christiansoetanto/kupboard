@@ -11,8 +11,11 @@ import AuthContext from "../../contexts/auth-context";
 import useHttp from "../../hooks/use-http";
 import CategoryFilter from "../Filter/CategoryFilter";
 import Tags from "./Tags";
+import { useMediaQuery } from "react-responsive";
 const AddClothing = (props) => {
 	const history = useHistory();
+
+	const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
 
 	const { clothingId } = props;
 	const { isLoading, error, sendRequest } = useHttp();
@@ -293,6 +296,7 @@ const AddClothing = (props) => {
 								handleTakePhoto(dataUri);
 							}}
 							idealFacingMode={'environment'}
+							isImageMirror={!isTabletOrMobile}
 						/>
 					)}
 				</div>

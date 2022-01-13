@@ -17,8 +17,8 @@ const ClothingStatistic = (props) => {
 
 	return (
 		<div className='w-full rounded bg-orange-100 flex flex-col items-center justify-start pt-2 pb-4'>
-			<div className='text-4xl font-semibold' name='title'>
-				Statistics
+			<div className='text-2xl my-2 font-semibold' name='title'>
+				About this clothing
 			</div>
 
 			{statistic && <ClothingStatisticDetail statistic={statistic} />}

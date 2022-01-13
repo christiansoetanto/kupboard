@@ -93,36 +93,41 @@ const Tags = (props) => {
 	};
 
 	return (
-		<div className='flex flex-start flex-wrap overflow-scroll no-scrollbar'>
-			<Card className={`flex content-start justify-between whitespace-nowrap rounded-full py-1 px-4 cursor-pointer`}>
-				<div className={`h-full self-center flex-shrink rounded-full border-3 border-gray-900`}>
-					<div className='flex flex-nowrap space-x-1'>
-						<button type='button' className='whitespace-nowrap' onClick={triggerAddTagHandler}>
-							{isAddTag ? "Cancel" : "Add Tag"}
-						</button>
-					</div>
-				</div>
-			</Card>
+    <div>
+      <span className='block text-gray-500 text-sm'>
+        Customize your own clothing tag/label. After saving, you may select one or more tags.
+      </span>
+      <div className='flex flex-start flex-wrap overflow-scroll no-scrollbar'>
+        <Card className={`flex content-start justify-between whitespace-nowrap rounded-full py-1 px-4 cursor-pointer`}>
+          <div className={`h-full self-center flex-shrink rounded-full border-3 border-gray-900`}>
+            <div className='flex flex-nowrap space-x-1'>
+              <button type='button' className='whitespace-nowrap' onClick={triggerAddTagHandler}>
+                {isAddTag ? "Cancel" : "Add Tag"}
+              </button>
+            </div>
+          </div>
+        </Card>
 
-			{isAddTag && <NewTag onAdd={addNewTagHandler} onCancelAdd={cancelAddNewTagHandler} />}
-			{tags.map((item) => (
-				<Fragment key={item.tagId}>
-					<Tag
-						key={item.tagId}
-						tagId={item.tagId}
-						name={item.name}
-						color={item.color}
-						isSelected={item.isSelected}
-						isEdit={item.isEdit}
-						onClickTag={clickTagHandler}
-						onClickEdit={clickEditHandler}
-						onSave={saveHandler}
-						onClickDelete={clickDeleteHandler}
-						onCancelEdit={cancelEditHandler}
-					/>
-				</Fragment>
-			))}
-		</div>
+        {isAddTag && <NewTag onAdd={addNewTagHandler} onCancelAdd={cancelAddNewTagHandler} />}
+        {tags.map((item) => (
+          <Fragment key={item.tagId}>
+            <Tag
+              key={item.tagId}
+              tagId={item.tagId}
+              name={item.name}
+              color={item.color}
+              isSelected={item.isSelected}
+              isEdit={item.isEdit}
+              onClickTag={clickTagHandler}
+              onClickEdit={clickEditHandler}
+              onSave={saveHandler}
+              onClickDelete={clickDeleteHandler}
+              onCancelEdit={cancelEditHandler}
+            />
+          </Fragment>
+        ))}
+      </div>
+    </div>
 	);
 };
 

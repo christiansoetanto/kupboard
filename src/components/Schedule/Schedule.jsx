@@ -146,7 +146,7 @@ const Schedule = (props) => {
 		} else if (outfitList.length == 0) {
 			confirmAlert({
 				customUI: ({ onClose }) => {
-					return <PopUp title={`You don't have any outfit yet, try creating one`} onClose={onClose}></PopUp>;
+					return <PopUp title={`You don't have any outfit yet`} onClose={onClose}><div className='text-sm md:text-lg'>Try creating one!</div></PopUp>;
 				},
 			});
 		} else if (outfitList.length > 0) {

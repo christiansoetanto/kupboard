@@ -220,7 +220,7 @@ const Profile = () => {
 		<Fragment>
 			{/* <div>Ini menu profile</div> */}
 
-			<div className=''>
+			<div className='mb-4'>
 				<div className='font-semibold text-3xl text-gray-700 mt-4 mb-4 text-center'>Profile Information</div>
 				<div className='bg-white shadow-xl border p-3 rounded-lg flex flex-col lg:flex-row justify-center'>
 					<div className='w-full lg:w-1/3 px-4 pt-4 flex justify-center'>
@@ -237,7 +237,7 @@ const Profile = () => {
 							<div
 								className='absolute inset-0 bg-gray-500 flex flex-col justify-center items-center text-white opacity-0 transition-opacity ease-in-out'
 								id='profilepic-content'>
-								<span className='text-md md:text-2xl font-semibold w-4/5 text-center'>Change Profile Picture</span>
+								<span className='text-sm md:text-xl font-semibold w-4/5 text-center'>Change Profile Picture</span>
 							</div>
 
 							{/* <input
@@ -388,13 +388,22 @@ const Profile = () => {
 								</div>
 							</div>
 							<button
-								className='block w-full my-6 py-2 px-1 hover:bg-purple-400 text-base font-semibold hover:text-white rounded border-2 border-purple-400'
+								className='block w-full mt-4 mb-6 py-2 px-1 hover:bg-purple-400 text-base font-semibold hover:text-white rounded border-2 border-purple-400'
 								onClick={submitProfile}>
 								Update Profile
 							</button>
 							{isAdvisor && <div className='text-base'>You are a Fashion Advisor already.</div>}
 							{!isAdvisor && !isCompletedProfile && (
-								<div className='text-base'>Complete your profile information to request to be a Fashion Advisor!</div>
+								<div className='text-lg mb-4'>
+                  <p className='text-base md:text-lg font-semibold text-left'>
+                    Complete your profile information to request to be a Fashion
+                    Advisor!
+                  </p>
+                  <p className='text-sm md:text-base font-normal text-left italic'>
+                    As a fashion advisor, you can help the community
+                    by giving fashion tips and insights.
+                  </p>
+                </div>
 							)}
 							{!isAdvisor && isCompletedProfile && advisorRequestStatus && advisorRequestStatus !== "Accepted" && (
 								<div className='text-base'>

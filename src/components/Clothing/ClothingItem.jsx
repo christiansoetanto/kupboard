@@ -11,7 +11,7 @@ const ClothingItem = (props) => {
 
   return (
     <div
-      className="rounded shadow-xl bg-white border p-1 flex flex-col items-center justify-center cursor-pointer"
+      className="rounded shadow-xl bg-white border p-1 flex flex-col items-center justify-center cursor-pointer hover:bg-orange-200 transition duration-500 ease-in-out"
       onClick={handleCardClick}
     >
       <div className="" id="picture">

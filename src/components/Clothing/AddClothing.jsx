@@ -199,7 +199,7 @@ const AddClothing = (props) => {
 						<h1 className='alert__title'>Are you sure?</h1>
 						<p className='alert__body'>You want to delete this clothing?</p>
 						<div className='flex justify-between space-x-4'>
-							<button onClick={onClose} className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-300'>
+							<button onClick={onClose} className='bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-400'>
 								No
 							</button>
 							<button
@@ -284,7 +284,7 @@ const AddClothing = (props) => {
 					</button>
 				</div>
 				<div className=' flex flex-col items-center justify-center' style={{ maxHeight: "24rem" }}>
-					{isUploading && <p>Progress: {progress}</p>}
+					{isUploading && <p>Progress: {progress}%</p>}
 					{imageUrl && <img src={imageUrl} className='h-full' />}
 					{/* {imageUrl && <ImageCropper src={imageUrl} setImageUrl={setImageUrl} imageUrl={imageUrl} className='bg-red-200' style={{maxHeight:'50px'}}/>} */}
 					{useCamera && (
@@ -300,7 +300,7 @@ const AddClothing = (props) => {
 
 			<div className='flex flex-col space-y-5 w-2/3'>
 				<div className='flex flex-col md:flex-row items-center justify-center md: space-x-2'>
-					<label className='block w-1/2'>
+					<label className='block md:w-1/2 mb-2 md:mb-0'>
 						<span className='text-gray-500 text-sm '>Clothing Name</span>
 						<input
 							className=' mt-1 block w-full py-2 focus:outline-none border-0 bg-transparent border-b-2 border-gray-600 text-lg'
@@ -309,7 +309,7 @@ const AddClothing = (props) => {
 						/>
 						<span className='text-red-600'>{inputNameErrorMessage}</span>
 					</label>
-					<label className='w-1/2'>
+					<label className='md:w-1/2'>
 						<span className='text-gray-500 text-sm'>Category</span>
 						<CategoryFilter
 							categories={categories}

@@ -78,7 +78,7 @@ function MainNavigation() {
               onClick={handleNavLinkOnClick}
               style={{borderColor: 'transparent'}}
             >
-              Outfit
+              Outfits
             </NavLink>
             <NavLink
               className='md:pr-4 pl-4 py-3 px-0 block border-b-2 hover:border-amber-300 text-sm md:text-base'
@@ -96,7 +96,7 @@ function MainNavigation() {
               onClick={handleNavLinkOnClick}
               style={{borderColor: 'transparent'}}
             >
-              Chat
+              {ctx.user.isAdvisor ? "Chat" : "Ask Fashion Advisor"}
             </NavLink>
             {ctx.user != null && ctx.user.isAdmin == 1 && (
               <NavLink

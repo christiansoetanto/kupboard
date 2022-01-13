@@ -151,7 +151,7 @@ const AddOutfit = (props) => {
 				return (
 					<div className='flex flex-col relative bg-white rounded border border-gray-900 py-2 px-4'>
 						<div className='flex flex-row justify-between items-center mb-8 border-b-2 border-gray-200'>
-							<div className='text-2xl font-semibold '>Pick your clothing</div>
+							<div className='text-lg md:text-2xl font-semibold '>Pick your clothing</div>
 							<div className='hover:text-gray-500' onClick={onClose}>
 								<CancelSvg />
 							</div>
@@ -182,7 +182,7 @@ const AddOutfit = (props) => {
 				return (
 					<div className='flex flex-col relative bg-white rounded border border-gray-900 py-2 px-4'>
 						<div className='flex flex-row justify-between items-center mb-8 border-b-2 border-gray-200'>
-							<div className='text-2xl font-semibold text-center px-8'>You don't have any clothing for this category</div>
+							<div className='text-lg md:text-2xl font-semibold text-center px-8'>You don't have any clothing for this category</div>
 							<div className='hover:text-gray-500' onClick={onClose}>
 								<CancelSvg />
 							</div>
@@ -282,7 +282,7 @@ const AddOutfit = (props) => {
 						<h1 className='alert__title'>Are you sure?</h1>
 						<p className='alert__body'>You want to delete this outfit?</p>
 						<div className='flex justify-between space-x-4'>
-							<button onClick={onClose} className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-300'>
+							<button onClick={onClose} className='bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-400'>
 								No
 							</button>
 							<button

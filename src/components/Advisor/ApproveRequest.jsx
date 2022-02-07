@@ -123,6 +123,7 @@ const ApproveRequest = () => {
 					body: data,
 				},
 				(returnData) => {
+					alert("Request has been approved")
 					fetchRequestList();
 				}
 			);
